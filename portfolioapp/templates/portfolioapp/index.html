@@ -6,6 +6,26 @@
     <title>Document</title>
 </head>
 <body>
-    {{msft.info}}
+    Search ticker
+    <form action="{% url 'starting-page' %}" method="post">
+        {% csrf_token %}
+        <ul>
+            {{tickerform.as_ul}}
+        </ul>
+        <button>Search</button>
+    </form>
+    <!-- if post request then ticker else news -->
+
+    <div>
+        {% if ticker_exist %}
+        <!-- show ticker data + news -->
+        <!-- button to send ticker to database with cookie id/user session info -->
+        <!-- stored in session -->
+        
+            {{ticker}}
+        {% else %}
+            {{ news }}
+        {% endif %}
+    </div>
 </body>
 </html>
