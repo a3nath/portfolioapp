@@ -9,40 +9,36 @@ from .forms import tickerForm
 import yfinance as yf
 # Create your views here.
 
-class Starting_page(View):
+class StartingPageView(View):
     
     def get(self, request):
-
+        asset = yf.Ticker('MSFT')
+        print(asset)
         context = {
-
-            "ticker_form":tickerForm()
-            "news": "news"
+            # "ticker_exists" : False
+            "tickerform":tickerForm(),
+            "asset": asset,
+            "news":asset.news
         }
-    return render(request, 'portfolio/app.index.html', context)
+
+        return render(request, 'portfolioapp/index.html', context)
 
     def post(self, request):
-        ticker_form = tickerForm(request.POST)
-        # asset = yf.Ticker(ticker_form.ticker)
+        # tickerform = tickerForm(request.POST)
+        # asset = yf.Ticker(tickerform.ticker)
         
         # if asset exists then:
-
-        #     context = {
-        #         'ticker_form': tickerForm()
-        #         'ticker':"Retrieve Ticker"
-        #     }
+        context = {
+            # "ticker_exists" : True,        
+            'tickerform': tickerForm(),
+            'ticker':"Retrieve Ticker",
+            'response': tickerForm(request.POST)
+        }
 
         #else asset doesn't exist
         #dialog box: enter valid ticker number like msft
 
-
-    
-    msft = yf.Ticker("MSFT")
-
-    return render(request, 'portfolioapp/index.html', context)
-
-
-    def post(self,request):
-
+        return render(request, 'portfolioapp/index.html', context)
 
 
 def portfolio(request):
