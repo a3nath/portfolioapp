@@ -1,13 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+
+
+{% block title %}
     Search ticker
-    <!-- <form action="{% url 'starting-page' %}" method="post">
+{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+
+<section>
+    <p>{{method}}</p>
+
+   
+    <!-- <form action="{% url 'portfolio-page' %}" method="post">
         {% csrf_token %}
         <ul>
             {{tickerform.as_ul}}
@@ -16,7 +25,7 @@
     </form> -->
     <!-- if post request then ticker else news -->
 
-    <div>
+    <div class='get'>
         <p>News here</p>
         {% for item in news %}
             <span> {{item.title}} </span>
@@ -30,12 +39,24 @@
                 </li>
             {% endfor %}
         </ul>
+        <p>Ticker</p>
+        <p>{{ticker}}</p>
+        <p>{{Hi}}</p>
+        <span>{{ticker_exists}}</span>
     </div>
 
-    <div>
+    <div class='post'>
+
+    <form action="{% url 'portfolio-page' %}" method="post">
+        {% csrf_token %}
+        <ul>
+            {{tickerform.as_ul}}
+        </ul>
+        <button>Search</button>
+    </form>
         <!-- {% if ticker_exist %} -->
-        <p>{{ ticker}}</p>
-        <p>{{response}}</p>
+        <!-- <p>{{ ticker}}</p>
+        <p>{{response}}</p> -->
         <!-- show ticker data + news -->
             
         <!-- button to send ticker to database with cookie id/user session info -->
@@ -47,5 +68,7 @@
             <p>Couldn't find ticker</p>
         {% endif %} -->
     </div>
-</body>
-</html>
+
+</section>
+
+{% endblock %}
