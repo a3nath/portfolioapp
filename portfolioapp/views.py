@@ -34,12 +34,18 @@ import yfinance as yf
 
 class StartingPageView(View):
     def get(self, request):
-        asset = yf.Ticker('MSFT')
+        # asset_id = request.session['search_ticker']
+        # try:
+        #     asset = yf.Ticker("MSFT")
+        # except:
+        #     print("Try a new ticker hommie!")
+        
         context = {
+            # "is_searched": ,
+            # 'asset_id':request.session['search_ticker']
             "tickerform":tickerForm(),
-            "asset": asset,
-            "news":asset.news,
-            'ticker': asset.ticker,
+            # "asset": asset,
+            # "news":asset.news,
             'method': "GET"
         }
 
@@ -47,6 +53,7 @@ class StartingPageView(View):
 
     def post(self, request):
         tickerform = tickerForm(request.POST)
+        # request.session['search_ticker'] = tickerform.ticker
         # ticker= tickerform.ticker
 
         # asset = yf.Ticker(tickerform)
@@ -57,7 +64,7 @@ class StartingPageView(View):
         context = {
             # "ticker_exists" : True, 
             #        
-            'tickerform': tickerForm(),
+            'tickerform': tickerForm,
             'method': "POST"
             # 'response': tickerForm(request.POST),
         }
@@ -65,7 +72,7 @@ class StartingPageView(View):
         #else asset doesn't exist
         #dialog box: enter valid ticker number like msft
 
-        return render(request, 'portfolioapp/index.html', context)
+        return HttpResponseRedirect(reverse('starting-page'))
 
 
 def portfolio(request):

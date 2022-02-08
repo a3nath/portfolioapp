@@ -46,7 +46,8 @@
     </div>
 
     <div class='post'>
-        {{formObj}}
+
+        {{tickerform.ticker}}
     <form action="{% url 'starting-page' %}" method="post">
         {% csrf_token %}
         <ul>
