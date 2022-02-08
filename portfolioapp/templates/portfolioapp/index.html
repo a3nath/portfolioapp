@@ -46,14 +46,15 @@
     </div>
 
     <div class='post'>
-
-    <form action="{% url 'portfolio-page' %}" method="post">
+        {{formObj}}
+    <form action="{% url 'starting-page' %}" method="post">
         {% csrf_token %}
         <ul>
             {{tickerform.as_ul}}
         </ul>
         <button>Search</button>
     </form>
+   
         <!-- {% if ticker_exist %} -->
         <!-- <p>{{ ticker}}</p>
         <p>{{response}}</p> -->
