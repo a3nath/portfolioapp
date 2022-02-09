@@ -10,6 +10,13 @@ import yfinance as yf
 # Create your views here.
 
 
+# if request get
+# access asset
+#session['ticker'] = ticker
+#within get I can check if it exists or not
+##if it does then asset = something otherwise something for context
+##Do I need context for post?
+##save session info at post and ask from there at get
 
 
 # def starting_Page(request):
@@ -39,20 +46,32 @@ class StartingPageView(View):
         #     asset = yf.Ticker("MSFT")
         # except:
         #     print("Try a new ticker hommie!")
+
+        if request.session.get('ticker_exists'): 
+            ticker = request.session.get('ticker')
+        else:
+            ticker = "DNE"
+            context = {
+                # "is_searched": ,
+                # 'asset_id':request.session['search_ticker']
+                "tickerform":tickerForm(),
+                # "asset": asset,
+                # "news":asset.news,
+                'method': "GET",
+                'ticker': ticker
+            }
         
-        context = {
-            # "is_searched": ,
-            # 'asset_id':request.session['search_ticker']
-            "tickerform":tickerForm(),
-            # "asset": asset,
-            # "news":asset.news,
-            'method': "GET"
-        }
 
         return render(request, 'portfolioapp/index.html', context)
 
     def post(self, request):
-        tickerform = tickerForm(request.POST)
+        ticker_form = tickerForm(request.POST)
+        if ticker_form.is_valid():
+            ticker = ticker_form.cleaned_data['ticker']
+            request.session['ticker'] = ticker
+            request.session['ticker_exists'] = True
+            
+            
         # request.session['search_ticker'] = tickerform.ticker
         # ticker= tickerform.ticker
 
@@ -61,13 +80,13 @@ class StartingPageView(View):
         # asset = yf.Ticker('MSFT')
         
         # if asset exists then:
-        context = {
-            # "ticker_exists" : True, 
-            #        
-            'tickerform': tickerForm,
-            'method': "POST"
-            # 'response': tickerForm(request.POST),
-        }
+    #  context = {
+    #         # "ticker_exists" : True, 
+    #         #        
+    #         'method': "POST",
+    #         'ticker':ticker
+    #         # 'response': tickerForm(request.POST),
+    #     }
 
         #else asset doesn't exist
         #dialog box: enter valid ticker number like msft

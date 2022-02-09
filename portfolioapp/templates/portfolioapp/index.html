@@ -40,14 +40,11 @@
             {% endfor %}
         </ul>
         <p>Ticker</p>
-        <p>{{ticker}}</p>
-        <p>{{Hi}}</p>
-        <span>{{ticker_exists}}</span>
     </div>
 
     <div class='post'>
+        {{ticker}}
 
-        {{tickerform.ticker}}
     <form action="{% url 'starting-page' %}" method="post">
         {% csrf_token %}
         <ul>
