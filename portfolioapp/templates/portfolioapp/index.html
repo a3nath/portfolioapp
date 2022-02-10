@@ -12,8 +12,36 @@
 
 {% block content %}
 
-<section>
+<section class='welcome'>
+
     <p>{{method}}</p>
+    <form action="{% url 'starting-page' %}" method="post">
+        {% csrf_token %}
+        <ul>
+            {{tickerform.as_ul}}
+        </ul>
+        <button>Search</button>
+    </form>
+
+</section>
+<section class='get-info'>
+    {% if ticker_valid %}
+        <div class="ticker-details">
+            <form action="{% url 'portfolio-page' %}" method="post">
+                {% csrf_token %}
+                <button>Add</button>
+            </form>
+        </div>
+
+        <div class='news'>
+                {% for item in news %}
+                        <article> {{item.title}} </article>
+                    {% endfor %}
+        </div>
+    {% endif %}
+    
+</section>
+
 
    
     <!-- <form action="{% url 'portfolio-page' %}" method="post">
@@ -25,28 +53,13 @@
     </form> -->
     <!-- if post request then ticker else news -->
 
-    <div class='get'>
-        
     
-    </div>
 
-    <div class='post'>
         
 
-    <form action="{% url 'starting-page' %}" method="post">
-        {% csrf_token %}
-        <ul>
-            {{tickerform.as_ul}}
-        </ul>
-        <button>Search</button>
-    </form>
-    {% if news %}
-        {% for item in news %}
-                <article> {{item.title}} </article>
-            {% endfor %}
-    {% endif %}
-    <p>asset</p>
-        
+   
+ 
+    
     
    
         <!-- {% if ticker_exist %} -->
@@ -62,8 +75,6 @@
         {% else %}
             <p>Couldn't find ticker</p>
         {% endif %} -->
-    </div>
 
-</section>
 
 {% endblock %}

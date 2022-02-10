@@ -54,11 +54,27 @@ class StartingPageView(View):
             asset = yf.Ticker(ticker)
             info = asset.info
             if info["regularMarketPrice"] == None:
-                news = ""
+                ticker_valid = False
             else:
-                news = asset.news
+                ticker_valid = True   
         else:
-            news = ""
+            ticker_valid = False
+
+        if ticker_valid:
+            context = {
+                "tickerform":tickerForm(),
+                'ticker_valid': True,
+                'news': asset.news 
+            }
+        else:
+            context = {
+                "tickerform":tickerForm(),
+                'ticker_valid': False,
+                'news': ''
+            }
+
+           
+            
 
 
             # try:
@@ -71,15 +87,15 @@ class StartingPageView(View):
             # except Exception:
             #     raise ValueError("VALS")
         
-        context = {
-            # "is_searched": ,
-            # 'asset_id':request.session['search_ticker']
-            "tickerform":tickerForm(),
-            # "asset": asset,
-            # "news":asset.news,
-            'method': "GET",
-            'news':news,
-        }
+        # context = {
+        #     # "is_searched": ,
+        #     # 'asset_id':request.session['search_ticker']
+         
+        #     # "asset": asset,
+        #     # "news":asset.news,
+        #     'method': "GET",
+        #     'news':news,
+        # }
 
         return render(request, 'portfolioapp/index.html', context)
 
