@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import tickerForm
 
+
 import yfinance as yf
 # Create your views here.
 
@@ -50,19 +51,26 @@ class StartingPageView(View):
         if request.session.get('ticker_exists'): 
             ticker = request.session.get('ticker')
             ###try except
-            try:
-                asset = yf.Ticker(ticker)
+            asset = yf.Ticker(ticker)
+            info = asset.info
+            if info["regularMarketPrice"] == None:
+                news = ""
+            else:
                 news = asset.news
-            except ConnectionError:
-                raise ConnectionError("CON")
-            except TimeoutError:
-                raise TimeoutError("TIME")
-            except Exception:
-                raise ValueError("VALS")
         else:
-            ticker = "DNE"
-            asset = ''
-            news = ''
+            news = ""
+
+
+            # try:
+            #     asset = yf.Ticker(ticker)
+            #     info = asset.info
+            # except ConnectionError:
+            #     raise ConnectionError("CON")
+            # except TimeoutError:
+            #     raise TimeoutError("TIME")
+            # except Exception:
+            #     raise ValueError("VALS")
+        
         context = {
             # "is_searched": ,
             # 'asset_id':request.session['search_ticker']
@@ -70,8 +78,7 @@ class StartingPageView(View):
             # "asset": asset,
             # "news":asset.news,
             'method': "GET",
-            'ticker': ticker,
-            'news':news
+            'news':news,
         }
 
         return render(request, 'portfolioapp/index.html', context)
