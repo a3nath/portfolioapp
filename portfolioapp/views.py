@@ -49,8 +49,16 @@ class StartingPageView(View):
 
         if request.session.get('ticker_exists'): 
             ticker = request.session.get('ticker')
-            asset = yf.Ticker('MSFT')
-            news = asset.news
+            ###try except
+            try:
+                asset = yf.Ticker(ticker)
+                news = asset.news
+            except ConnectionError:
+                raise ConnectionError("CON")
+            except TimeoutError:
+                raise TimeoutError("TIME")
+            except Exception:
+                raise ValueError("VALS")
         else:
             ticker = "DNE"
             asset = ''
@@ -74,6 +82,7 @@ class StartingPageView(View):
             ticker = ticker_form.cleaned_data['ticker']
             request.session['ticker'] = ticker
             request.session['ticker_exists'] = True
+
             
             
         # request.session['search_ticker'] = tickerform.ticker
