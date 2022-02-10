@@ -49,18 +49,22 @@ class StartingPageView(View):
 
         if request.session.get('ticker_exists'): 
             ticker = request.session.get('ticker')
+            asset = yf.Ticker('MSFT')
+            news = asset.news
         else:
             ticker = "DNE"
-            context = {
-                # "is_searched": ,
-                # 'asset_id':request.session['search_ticker']
-                "tickerform":tickerForm(),
-                # "asset": asset,
-                # "news":asset.news,
-                'method': "GET",
-                'ticker': ticker
-            }
-        
+            asset = ''
+            news = ''
+        context = {
+            # "is_searched": ,
+            # 'asset_id':request.session['search_ticker']
+            "tickerform":tickerForm(),
+            # "asset": asset,
+            # "news":asset.news,
+            'method': "GET",
+            'ticker': ticker,
+            'news':news
+        }
 
         return render(request, 'portfolioapp/index.html', context)
 

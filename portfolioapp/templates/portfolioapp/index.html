@@ -26,24 +26,12 @@
     <!-- if post request then ticker else news -->
 
     <div class='get'>
-        <p>News here</p>
-        {% for item in news %}
-            <span> {{item.title}} </span>
-        {% endfor %}
+        
     
-        <p>News 2</p>
-        <ul>
-            {% for li in news %}
-                <li>
-                    <p>li.title</p>
-                </li>
-            {% endfor %}
-        </ul>
-        <p>Ticker</p>
     </div>
 
     <div class='post'>
-        {{ticker}}
+        
 
     <form action="{% url 'starting-page' %}" method="post">
         {% csrf_token %}
@@ -52,6 +40,14 @@
         </ul>
         <button>Search</button>
     </form>
+    {{ticker}}
+    {% if news %}
+        {% for item in news %}
+                <article> {{item.title}} </article>
+            {% endfor %}
+    {% endif %}
+        
+    
    
         <!-- {% if ticker_exist %} -->
         <!-- <p>{{ ticker}}</p>
