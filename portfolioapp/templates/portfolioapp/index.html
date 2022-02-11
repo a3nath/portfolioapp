@@ -20,16 +20,16 @@
         <ul>
             {{tickerform.as_ul}}
         </ul>
-        <button>Search</button>
+        <button name='searchticker'>Search</button>
     </form>
 
 </section>
 <section class='get-info'>
     {% if ticker_valid %}
         <div class="ticker-details">
-            <form action="{% url 'portfolio-page' %}" method="post">
+            <form action="{% url 'starting-page' %}" method="post">
                 {% csrf_token %}
-                <button>Add</button>
+                <button name='addasset'>Add</button>
             </form>
         </div>
 
@@ -39,6 +39,7 @@
                     {% endfor %}
         </div>
     {% endif %}
+    {{sess}}
     
 </section>
 

@@ -4,7 +4,7 @@ from django.views import View
 from django.views.generic import ListView, DetailView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .forms import tickerForm
+from .forms import TickerForm, AssetForm
 
 
 import yfinance as yf
@@ -62,16 +62,19 @@ class StartingPageView(View):
 
         if ticker_valid:
             context = {
-                "tickerform":tickerForm(),
+                "tickerform":TickerForm(),
                 'ticker_valid': True,
-                'news': asset.news 
+                'news': asset.news,
+                'sess':request.session.session_key
             }
         else:
             context = {
-                "tickerform":tickerForm(),
+                "tickerform":TickerForm(),
                 'ticker_valid': False,
                 'news': ''
             }
+
+        return render(request, 'portfolioapp/index.html', context)
 
            
             
@@ -97,14 +100,26 @@ class StartingPageView(View):
         #     'news':news,
         # }
 
-        return render(request, 'portfolioapp/index.html', context)
+      
 
     def post(self, request):
-        ticker_form = tickerForm(request.POST)
-        if ticker_form.is_valid():
-            ticker = ticker_form.cleaned_data['ticker']
-            request.session['ticker'] = ticker
-            request.session['ticker_exists'] = True
+        if 'searchticker' in request.POST:
+            ticker_form = TickerForm(request.POST)
+            if ticker_form.is_valid():
+                ticker = ticker_form.cleaned_data['ticker']
+                request.session['ticker'] = ticker
+                request.session['ticker_exists'] = True
+        elif 'addasset' in request.POST:
+            asset_form = AssetForm(request.POST)
+            if asset_form.is_valid():
+                ##save user input
+                asset = asset_form.save(commit=False)
+                ##add session
+                asset.session = "SessTEST"
+                return HttpResponseRedirect(reverse("starting-page"))
+
+
+        
 
             
             
@@ -130,5 +145,3 @@ class StartingPageView(View):
         return HttpResponseRedirect(reverse('starting-page'))
 
 
-def portfolio(request):
-    pass

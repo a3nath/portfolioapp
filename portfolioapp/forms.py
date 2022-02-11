@@ -1,4 +1,11 @@
 from django import forms
 
-class tickerForm(forms.Form):
+from .models import Asset
+
+class TickerForm(forms.Form):
     ticker = forms.CharField(label='Ticker name', max_length=50)
+
+class AssetForm(forms.ModelForm):
+    class Meta:
+        model = Asset
+        fields = '__all__'
