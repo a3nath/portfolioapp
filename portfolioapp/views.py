@@ -65,20 +65,18 @@ class StartingPageView(View):
                 "tickerform":TickerForm(),
                 'ticker_valid': True,
                 'news': asset.news,
-                'sess':request.session.session_key
+                'sess':request.session.session_key,
             }
+            request.session['ticker_exists'] = False
         else:
             context = {
                 "tickerform":TickerForm(),
                 'ticker_valid': False,
-                'news': ''
+                'news': '',
             }
+            request.session['ticker_exists'] = False
 
         return render(request, 'portfolioapp/index.html', context)
-
-           
-            
-
 
             # try:
             #     asset = yf.Ticker(ticker)
@@ -109,6 +107,9 @@ class StartingPageView(View):
                 ticker = ticker_form.cleaned_data['ticker']
                 request.session['ticker'] = ticker
                 request.session['ticker_exists'] = True
+            else:
+                request.session['ticker_exists'] = False
+            return HttpResponseRedirect(reverse("starting-page"))
         elif 'addasset' in request.POST:
             asset_form = AssetForm(request.POST)
             if asset_form.is_valid():
@@ -116,7 +117,9 @@ class StartingPageView(View):
                 asset = asset_form.save(commit=False)
                 ##add session
                 asset.session = "SessTEST"
-                return HttpResponseRedirect(reverse("starting-page"))
+            else:
+                pass
+            return HttpResponseRedirect(reverse("starting-page"))
 
 
         

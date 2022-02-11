@@ -12,25 +12,33 @@
 
 {% block content %}
 
+<section class='test'>
+    <p>{{method}}</p>
+    <p>{{asset}}</p>
+
+</section>
+
 <section class='welcome'>
 
-    <p>{{method}}</p>
+    
     <form action="{% url 'starting-page' %}" method="post">
         {% csrf_token %}
         <ul>
             {{tickerform.as_ul}}
         </ul>
-        <button name='searchticker'>Search</button>
+        <input type='submit' name='searchticker' value='Search'/>
     </form>
 
 </section>
 <section class='get-info'>
+    {{ticker_valid}}
     {% if ticker_valid %}
         <div class="ticker-details">
             <form action="{% url 'starting-page' %}" method="post">
                 {% csrf_token %}
-                <button name='addasset'>Add</button>
-            </form>
+            </form type='submit'>
+            <input type='submit' name='addasset' value='Add'/>
+            </form >
         </div>
 
         <div class='news'>
@@ -39,7 +47,8 @@
                     {% endfor %}
         </div>
     {% endif %}
-    {{sess}}
+    <p>session: {{sess}}</p>
+    
     
 </section>
 
