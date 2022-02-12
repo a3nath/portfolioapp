@@ -146,11 +146,13 @@ class StartingPageView(View):
         #dialog box: enter valid ticker number like msft
 
     
-class PortfolioPageView(View):
-    def get(self, request):
-        holdings = Asset.objects.get(session=request.session.session_key)
-        context = {
-            'holdings':holdings
-        }
-        return render(request, 'portfolioapp/portfolio.html', context)
+class PortfolioPageView(ListView):
+    template_name = 'portfolioapp/portfolio.html'
+    model = Asset
+    context_object_name = 'holdings'
+   
+    # def get_queryset(self,request):
+    #    base_query = super().get_queryset()
+    #    data = base_query.filter(session = request.session.session_key)
+    #    return data
 

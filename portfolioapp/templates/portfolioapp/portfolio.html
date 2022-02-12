@@ -11,12 +11,13 @@
 {% endblock %}
 
 {% block content %}
-<section class='return'></section>
-<section class='holdings'>
-    <ul>
-        {% for holding in holdings %}
-            {% include 'portfolioapp/includes/holding.html' %}
-        {% endfor %}
-    </ul>
+<section class='return'>
+    <section class='holdings'>
+        <ul>
+            {% for holding in holdings %}
+                {% include 'portfolioapp/includes/holding.html' %}
+            {% endfor %}
+        </ul>
+    </section>
 </section>
 {% endblock %}
