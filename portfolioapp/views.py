@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import TickerForm, AssetForm
+from .models import Asset
 
 
 import yfinance as yf
@@ -42,39 +43,36 @@ import yfinance as yf
 
 class StartingPageView(View):
     def get(self, request):
-        # asset_id = request.session['search_ticker']
-        # try:
-        #     asset = yf.Ticker("MSFT")
-        # except:
-        #     print("Try a new ticker hommie!")
 
-        if request.session.get('ticker_exists'): 
-            ticker = request.session.get('ticker')
+        if request.session.get('session_exists'): 
+            ticker_input = request.session.get('ticker_input')
             ###try except
-            asset = yf.Ticker(ticker)
-            info = asset.info
+            ticker_asset = yf.Ticker(ticker_input)
+            info = ticker_asset.info
             if info["regularMarketPrice"] == None:
                 ticker_valid = False
             else:
                 ticker_valid = True   
+                request.session['ticker_name'] = ticker_input
+                # request.session['closing_price'] = asset.history(period="1d")['Close']
         else:
             ticker_valid = False
 
         if ticker_valid:
             context = {
-                "tickerform":TickerForm(),
-                'ticker_valid': True,
-                'news': asset.news,
-                'sess':request.session.session_key,
+                "ticker_form":TickerForm(),
+                "ticker_valid": True,
+                "news": ticker_asset.news
+                # "asset_form": AssetForm()
             }
-            request.session['ticker_exists'] = False
+            request.session['session_exists'] = False
         else:
             context = {
-                "tickerform":TickerForm(),
+                "ticker_form":TickerForm(),
                 'ticker_valid': False,
                 'news': '',
             }
-            request.session['ticker_exists'] = False
+            request.session['session_exists'] = False
 
         return render(request, 'portfolioapp/index.html', context)
 
@@ -104,22 +102,24 @@ class StartingPageView(View):
         if 'searchticker' in request.POST:
             ticker_form = TickerForm(request.POST)
             if ticker_form.is_valid():
-                ticker = ticker_form.cleaned_data['ticker']
-                request.session['ticker'] = ticker
-                request.session['ticker_exists'] = True
+                ticker_input = ticker_form.cleaned_data['ticker']
+                request.session['ticker_input'] = ticker_input
+                request.session['session_exists'] = True
             else:
-                request.session['ticker_exists'] = False
-            return HttpResponseRedirect(reverse("starting-page"))
+                request.session['session_exists'] = False
+            # return HttpResponseRedirect(reverse("starting-page"))
         elif 'addasset' in request.POST:
-            asset_form = AssetForm(request.POST)
-            if asset_form.is_valid():
+            # asset_form = AssetForm(request.POST)
+            # if asset_form.is_valid():
+                asset = Asset.objects.create(ticker=request.session.get('ticker_name'), session=request.session.session_key)
                 ##save user input
-                asset = asset_form.save(commit=False)
+                # asset = asset_form.save(commit=False)
                 ##add session
-                asset.session = "SessTEST"
-            else:
-                pass
-            return HttpResponseRedirect(reverse("starting-page"))
+                asset.save()
+            # else:
+            #     pass
+            # return HttpResponseRedirect(reverse("starting-page"))
+        return HttpResponseRedirect(reverse('starting-page'))
 
 
         
@@ -135,7 +135,7 @@ class StartingPageView(View):
         
         # if asset exists then:
     #  context = {
-    #         # "ticker_exists" : True, 
+    #         # "session_exists" : True, 
     #         #        
     #         'method': "POST",
     #         'ticker':ticker
@@ -145,6 +145,12 @@ class StartingPageView(View):
         #else asset doesn't exist
         #dialog box: enter valid ticker number like msft
 
-        return HttpResponseRedirect(reverse('starting-page'))
-
+    
+class PortfolioPageView(View):
+    def get(self, request):
+        holdings = Asset.objects.get(session=request.session.session_key)
+        context = {
+            'holdings':holdings
+        }
+        return render(request, 'portfolioapp/portfolio.html', context)
 

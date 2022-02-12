@@ -24,7 +24,7 @@
     <form action="{% url 'starting-page' %}" method="post">
         {% csrf_token %}
         <ul>
-            {{tickerform.as_ul}}
+            {{ticker_form.as_ul}}
         </ul>
         <input type='submit' name='searchticker' value='Search'/>
     </form>
@@ -35,9 +35,11 @@
     {% if ticker_valid %}
         <div class="ticker-details">
             <form action="{% url 'starting-page' %}" method="post">
-                {% csrf_token %}
-            </form type='submit'>
-            <input type='submit' name='addasset' value='Add'/>
+            {% csrf_token %}
+                <!-- <ul>
+                    {{asset_form.as_ul}}
+                </ul> -->
+                <input type='submit' name='addasset' value='Add'/>
             </form >
         </div>
 

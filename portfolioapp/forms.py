@@ -8,4 +8,4 @@ class TickerForm(forms.Form):
 class AssetForm(forms.ModelForm):
     class Meta:
         model = Asset
-        fields = '__all__'
+        exclude = "__all__"
