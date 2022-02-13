@@ -151,8 +151,8 @@ class PortfolioPageView(ListView):
     model = Asset
     context_object_name = 'holdings'
    
-    # def get_queryset(self,request):
-    #    base_query = super().get_queryset()
-    #    data = base_query.filter(session = request.session.session_key)
-    #    return data
+    def get_queryset(self):
+       base_query = super().get_queryset()
+       data = base_query.filter(session = self.request.session.session_key)
+       return data
 
