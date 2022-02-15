@@ -70,7 +70,7 @@ class StartingPageView(View):
             context = {
                 "ticker_form":TickerForm(),
                 'ticker_valid': False,
-                'news': '',
+                'news': ''
             }
             request.session['session_exists'] = False
 
