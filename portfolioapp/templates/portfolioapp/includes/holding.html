@@ -1,7 +1,12 @@
 <li class='holding'>
     <article>
             <div class="ticker_name">
-                <h3>{{holding.ticker}}</h3>
+                <form method="POST" action="{% url 'portfolio-page' %}">
+                    <h3>{{holding.ticker}}</h3>
+                    <p>{{holding.closing_price}}</p>
+                    <button name={{holding.ticker}} value={{holding.ticker}}>Edit </button>
+                </form>
+                
                 <!-- <p>{{holding.closing_price}}</p> -->
             </div>
     </article>
