@@ -6,8 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
-    <link rel='stylesheet' href="{% static app.css %}">
-    {% block css_files %}{% endblock %}
+    <link rel='stylesheet' href="{% static 'app.css' %}">
+    <link rel='stylesheet' href="{% static 'css/bootstrap.css' %}"> 
+    {% block css_files %}
+    {% endblock %}
 </head>
 <body>
     <header class="main-navigation">
@@ -15,5 +17,8 @@
     </header>
     {% block content %}
     {% endblock %}
-</body>
+    <script type='text/javascript' src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <script type='text/javascript' src="{% static 'js/popper.js' %}"></script>
+    <script type='text/javascript' src="{% static 'js/bootstrap.js' %}"></script>
+   </body>
 </html>
