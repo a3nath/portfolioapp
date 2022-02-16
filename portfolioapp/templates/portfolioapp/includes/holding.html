@@ -1,10 +1,16 @@
+{% load static %}
+
+
+
 <li class='holding'>
     <article>
             <div class="ticker_name">
-                <form method="POST" action="{% url 'portfolio-page' %}">
+                <form method="POST" action=''>
                     <h3>{{holding.ticker}}</h3>
                     <p>{{holding.closing_price}}</p>
-                    <button name={{holding.ticker}} value={{holding.ticker}}>Edit </button>
+                    <!-- <button name={{holding.ticker}} value={{holding.ticker}}>Edit</button> -->
+                    <button type="button" class="update-holding btn btn-sm btn-primary" data-form-url="{% url 'update_holding' book.pk %}">
+                    <span class="fa fa-pencil"></span>
                 </form>
                 
                 <!-- <p>{{holding.closing_price}}</p> -->

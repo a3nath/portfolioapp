@@ -13,11 +13,19 @@
 {% block content %}
 <section class='return'>
     <section class='holdings'>
-        <ul>
+        <table id='holdings-table' class='table'>
+            <thead>
+            </thead>
             {% for holding in holdings %}
+            <tr>
                 {% include 'portfolioapp/includes/holding.html' %}
+            </tr>
             {% endfor %}
-        </ul>
+        </table>
     </section>
 </section>
+<script src="{% static 'portfolioapp/js/bootstrap.js' %}"></script>
+<script src="{% static 'assets/js/jquery.js' %}"></script>
+<script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+<!-- You can alternatively load the minified version -->
 {% endblock %}
