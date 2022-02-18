@@ -2,10 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic import ListView, DetailView
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
-from .forms import TickerForm, AssetForm
+from .forms import TickerForm, AssetForm, HoldingForm
 from .models import Asset
+from django.template.loader import render_to_string
 
 
 import yfinance as yf
@@ -156,3 +157,31 @@ class PortfolioPageView(ListView):
        data = base_query.filter(session = self.request.session.session_key)
        return data
 
+# class UpdateHoldingView(View):
+#     def get(self,request,slug):
+#         holdings = Asset.objects.get(session = self.session.session_key)
+#         context = {
+#             "holdings": holdings,
+#         }
+#     def post(self,request, slug):
+#         # retrieve the appropriate asset
+#         # send the asset to modal
+#         # modal opens form
+#         # add closing price and quantity
+#         # form submits response to view
+#         # view get post form?
+#         # in get is there form?
+#         # save form, model
+       
+
+def holdings(self, request):
+    data = dict()
+    if request.method == 'GET':
+        holdings = Asset.objects.get(session = self.session.session_key)
+        # asyncSettings.dataKey = 'table'
+        data['table'] = render_to_string(
+            '_portfolio_table.html',
+            {'holdings': holdings},
+            request=request
+        )
+        return JsonResponse(data)

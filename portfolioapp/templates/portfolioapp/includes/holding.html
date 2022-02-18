@@ -1,19 +1,25 @@
-{% load static %}
+<!-- {% load static %}
+
+
+<div class="holding">
+    <h3>{{holding.ticker}}</h3>
+    <p>{{holding.closing_price}}</p>
+    <button type="button" class="update-holding btn btn-sm btn-primary" data-form-url="{% url 'update_holding' holding.pk %}">
+        <span class="fa fa-pencil"></span>
+    </button>
+     <p>{{holding.closing_price}}</p> 
+</div>
+ 
+<script type="text/javascript">
+    $(function () {
+  
+      // update holding buttons
+      $(".update-holding").each(function () {
+          $(this).modalForm({formURL: $(this).data("form-url")});
+      })
+})
 
 
 
-<li class='holding'>
-    <article>
-            <div class="ticker_name">
-                <form method="POST" action=''>
-                    <h3>{{holding.ticker}}</h3>
-                    <p>{{holding.closing_price}}</p>
-                    <!-- <button name={{holding.ticker}} value={{holding.ticker}}>Edit</button> -->
-                    <button type="button" class="update-holding btn btn-sm btn-primary" data-form-url="{% url 'update_holding' book.pk %}">
-                    <span class="fa fa-pencil"></span>
-                </form>
-                
-                <!-- <p>{{holding.closing_price}}</p> -->
-            </div>
-    </article>
-</li>
+
+</script> -->

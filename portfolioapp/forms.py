@@ -9,3 +9,8 @@ class AssetForm(forms.ModelForm):
     class Meta:
         model = Asset
         exclude = "__all__"
+
+class HoldingForm(forms.ModelForm):
+    class Meta:
+        model = Asset
+        fields = ['purchase_price', 'purchase_quantity']
