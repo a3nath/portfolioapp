@@ -10,6 +10,19 @@
 {% endblock %}
 
 {% block content %}
+
+<!-- Modal 2 with id="modal" -->
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <!-- action attribute of the form to formURL set in #6. -->
+
+      </div>
+    </div>
+</div>
+
+
 <section class='return'>
     <section class='holdings'>
         <table id='holdings-table' class='table'>
@@ -21,7 +34,9 @@
                         <div class="holding">
                             <h3>{{holding.ticker}}</h3>
                             <p>{{holding.closing_price}}</p>
-                            <button type="button" class="update-holding btn btn-sm btn-primary" data-form-url="{% url 'update_holding' %}">
+                            <p>{{holding.purchase_price}}</p>
+                            <p>{{holding.purchase_quantity}}</p>
+                            <button type="button" class="update-holding btn btn-sm btn-primary" data-form-url="{% url 'update_holding' holding.ticker %}">
                                 <span class="fa fa-pencil"></span>
                             </button>
                             <!-- <p>{{holding.closing_price}}</p> -->
@@ -34,6 +49,15 @@
     </section>
 </section>
 <script type="text/javascript">
+    $(function () {
+      // Update trigger - formURL is retrieved from the data of the element and ticker passed?
+      $(".update-book").each(function () {
+          $(this).modalForm({formURL: $(this).data("form-url")});
+      });
+    });
+  </script>
+
+<!-- <script type="text/javascript">
     $(function () {
         var asyncSuccessMessage = [
           "<div ",
@@ -57,7 +81,7 @@
               asyncSettings: {
                 closeOnSubmit: false,
                 successMessage: asyncSuccessMessage,
-                dataUrl: "portfolio/",
+                dataUrl: "holdings/",
                 dataElementId: "#holdings-table",
                 dataKey: "table",
                 addModalFormFunction: updateHoldingModalForm
@@ -67,7 +91,7 @@
         }
         updateHoldingModalForm();
     })
-</script>
+</script> -->
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
