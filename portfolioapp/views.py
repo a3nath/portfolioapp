@@ -147,15 +147,39 @@ class StartingPageView(View):
         #dialog box: enter valid ticker number like msft
 
     
-class PortfolioPageView(ListView):
-    template_name = 'portfolioapp/portfolio.html'
-    model = Asset
-    context_object_name = 'holdings'
+class PortfolioPageView(View):
+    def get(self, request):
+        holdings = Asset.objects.get(session = self.request.session.session_key)
+        
+        if 'update_holding' in request.GET:
+            data = dict()
+            # asyncSettings.dataKey = 'table'
+            data['table'] = render_to_string(
+                'portfolio.html',
+                {'holdings': holdings},
+                request=request
+            )
+            return JsonResponse(data)
+        
+        else:
+            context = {
+                'holdings':holdings
+            }
+            return render(request, 'portfolioapp/portfolio.html', context)
+    
    
-    def get_queryset(self):
-       base_query = super().get_queryset()
-       data = base_query.filter(session = self.request.session.session_key)
-       return data
+
+
+
+# class PortfolioPageView(ListView):
+#     template_name = 'portfolioapp/portfolio.html'
+#     model = Asset
+#     context_object_name = 'holdings'
+   
+#     def get_queryset(self):
+#        base_query = super().get_queryset()
+#        data = base_query.filter(session = self.request.session.session_key)
+#        return data
 
 # class UpdateHoldingView(View):
 #     def get(self,request,slug):
@@ -172,6 +196,11 @@ class PortfolioPageView(ListView):
 #         # view get post form?
 #         # in get is there form?
 #         # save form, model
+
+#           switch to normal view from list view          
+#          need to have input button identifier
+#          if its  form button clicked render JsonResponse
+
        
 
 def holdings(self, request):
@@ -180,7 +209,7 @@ def holdings(self, request):
         holdings = Asset.objects.get(session = self.session.session_key)
         # asyncSettings.dataKey = 'table'
         data['table'] = render_to_string(
-            '_portfolio_table.html',
+            'portfolio.html',
             {'holdings': holdings},
             request=request
         )
