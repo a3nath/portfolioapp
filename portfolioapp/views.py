@@ -204,28 +204,37 @@ class PortfolioPageView(View):
 #          need to have input button identifier
 #          if its  form button clicked render JsonResponse
 
-def HoldingUpdate(self,request, ticker):
+def HoldingUpdate(self,request,ticker):
     holdings = Asset.objects.filter(session = self.request.session.session_key)
     ##read
     ##view form with placeholder values
 
-    def get(self,request, ticker):
+    def get(self,request,ticker):
         ticker = get_object_or_404 (holdings, ticker=ticker)
         holding_form = HoldingForm()
+        context= {
+            "holding_form" : holding_form,
+            "ticker": ticker
+        }
         ##pass placeholder values
+        #slug apporpriate
+        return render(request, "portfolioapp/portfolio.html",context)
+
 
     ##post
     ##submit form and update values in db
 
     def post(self,request):
-        update_purchase = 
-
         holding_form = HoldingForm(request.POST)
         if holding_form.is_valid:
             form = holding_form.save(commit=False)
             form.purchase_price = form.cleaned_data['purchase_price']
             form.purchase_quantity = form.cleaned_data['purchase_quantity']
             form.save()
+            return HttpResponseRedirect(reverse("portfolio-page", args=[ticker]))
+       
+
+             
 
 
 
@@ -244,10 +253,7 @@ def HoldingUpdate(self,request, ticker):
     # saves valid form reponse to databse
     # redirects to portfolio template
     
- 
 
-
-    def post(self,request):
 
     #add form data here
 
