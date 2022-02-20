@@ -113,6 +113,9 @@ class StartingPageView(View):
         elif 'addasset' in request.POST:
             # asset_form = AssetForm(request.POST)
             # if asset_form.is_valid():
+
+            # check if already exists
+            # if doesnt add otherwise error
                 asset = Asset.objects.create(ticker=request.session.get('ticker_name'), session=request.session.session_key)
                 ##save user input
                 # asset = asset_form.save(commit=False)
@@ -202,14 +205,30 @@ class PortfolioPageView(View):
 #          if its  form button clicked render JsonResponse
 
 def HoldingUpdate(self,request, ticker):
+    holdings = Asset.objects.filter(session = self.request.session.session_key)
+    ##read
+    ##view form with placeholder values
 
     def get(self,request, ticker):
-        holdings = Asset.objects.filter(session = self.request.session.session_key)
         ticker = get_object_or_404 (holdings, ticker=ticker)
         holding_form = HoldingForm()
+        ##pass placeholder values
+
+    ##post
+    ##submit form and update values in db
 
     def post(self,request):
-        ticker = 
+        update_purchase = 
+
+        holding_form = HoldingForm(request.POST)
+        if holding_form.is_valid:
+            form = holding_form.save(commit=False)
+            form.purchase_price = form.cleaned_data['purchase_price']
+            form.purchase_quantity = form.cleaned_data['purchase_quantity']
+            form.save()
+
+
+
 
     
     #triggered bu edit button in table
