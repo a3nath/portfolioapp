@@ -210,11 +210,12 @@ def HoldingUpdate(request,ticker):
     # Open a modal with form on it
 
     if request.method == "GET":
-        # holdings = Asset.objects.filter(session = self.request.session.session_key)
-        # ticker = get_object_or_404(holdings, ticker=ticker)
+        holdings = Asset.objects.filter(session = request.session.session_key)
+        asset = get_object_or_404(holdings, ticker=ticker)
         holding_form = HoldingForm()
         context= {
-            "form" : holding_form
+            "form" : holding_form,
+            "ticker": asset.ticker
         }
         ##pass placeholder values
         #slug apporpriate

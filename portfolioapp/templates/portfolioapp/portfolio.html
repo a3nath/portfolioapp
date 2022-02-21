@@ -51,12 +51,17 @@
 <script type="text/javascript">
     $(function () {
       // Update trigger - formURL is retrieved from the data of the element and ticker passed?
-      $(".update-book").each(function () {
-          $(this).modalForm({formURL: $(this).data("form-url")});
+      $(".update-book").modalForm({
+        formURL:$(this).data("form-url"),
+        modalID: "#modal"
       });
     });
-  </script>
-
+</script>
+<!-- <script type="text/javascript">
+  $(document).ready(function(){
+      $('.modal').modal('show');
+  });
+</script> -->
 <!-- <script type="text/javascript">
     $(function () {
         var asyncSuccessMessage = [
