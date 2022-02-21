@@ -1,3 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Upfate Holding
+{% endblock %}
+
+{% block css %}
+    <link rel='stylesheet' href="{% static 'portfolioapp/update-holding.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- <div>
+    "TESTINS"
+</div> -->
+
 <div class="modal fade" tabindex="-1" role="dialog" id="modal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -20,7 +36,6 @@
                     {% for field in form %}
                         <div class= "form-group">
                         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                        {% render_field field class="form-control" placeholder=field.label %}
                         <div class="{% if field.errors %} invalid{% endif %}">
                             {% for error in field.errors %}
                             <p class="help-block">{{ error }}</p>
@@ -33,11 +48,10 @@
                     <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Update</button>
                     </div>
-                
-                <!-- <button name={{holding.ticker}} value={{holding.ticker}}>Edit</button> -->
-                        <span class="fa fa-pencil"></span>
+                                        <span class="fa fa-pencil"></span>
             </form>
         </div>
     </div>
   </div>
 
+{% endblock %}

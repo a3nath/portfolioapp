@@ -8,4 +8,4 @@ urlpatterns = [
     # path('holdings/<str:ticker>', views.holdings, name='update_holding')
     #   dateHoldingView.as_view(), name='update_holding')
 
-]
+] 
