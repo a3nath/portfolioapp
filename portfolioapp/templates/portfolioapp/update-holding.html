@@ -17,17 +17,17 @@
 <div class="modal fade" tabindex="-1" role="dialog" id="modal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form method="POST" action=''>  
-                {% csrf_token %}
                 <div class="modal-header">
                     <h5 class="modal-title">Update Holding</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    </div>
+                </div>
             
                 <div class="modal-body">
-                    <div class="{% if form.non_field_errors %}invalid{% endif %} mb-2">
+                    <form method="post" action="{% url 'update_holding' ticker  %}">  
+                        {% csrf_token %}
+                    <!-- <div class="{% if form.non_field_errors %}invalid{% endif %} mb-2">
                         {% for error in form.non_field_errors %}
                         {{ error }}
                         {% endfor %}
@@ -42,15 +42,14 @@
                             {% endfor %}
                         </div>
                         </div>
-                    {% endfor %}
-                    {{ticker}}
-                    </div>
-                
-                    <div class="modal-footer">
+                    {% endfor %} -->
+                        <ul>
+                            {{form.as_ul}}
+                        </ul>
                     <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-                                        <span class="fa fa-pencil"></span>
-            </form>
+                    <!-- <span class="fa fa-pencil"></span> -->
+                    </form>
+                </div>
         </div>
     </div>
 </div>
