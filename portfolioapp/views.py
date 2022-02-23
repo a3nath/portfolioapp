@@ -98,8 +98,6 @@ class StartingPageView(View):
         #     'news':news,
         # }
 
-      
-
     def post(self, request):
         if 'searchticker' in request.POST:
             ticker_form = TickerForm(request.POST)
@@ -125,10 +123,6 @@ class StartingPageView(View):
             #     pass
             # return HttpResponseRedirect(reverse("starting-page"))
         return HttpResponseRedirect(reverse('starting-page'))
-
-
-        
-
             
             
         # request.session['search_ticker'] = tickerform.ticker
@@ -225,19 +219,18 @@ def HoldingUpdate(request,ticker):
         #slug apporpriate
         return render(request, "portfolioapp/update-holding.html",context)
 
-
     # ##post
     # ##submit form and update values in db
 
-         
     if request.method == "POST":
-        # holdings = Asset.objects.filter(session = self.request.session.session_key)
+        holdings = Asset.objects.filter(session = request.session.session_key)
+        asset = get_object_or_404(holdings, ticker=ticker)
         holding_form = HoldingForm(request.POST)
-        if holding_form.is_valid:
-            # form = holding_form.save(commit=False)
-            # form.purchase_price = form.cleaned_data['purchase_price']
-            # form.purchase_quantity = form.cleaned_data['purchase_quantity']
-            holding_form.save()
+        if holding_form.is_valid():
+            asset.purchase_price = holding_form.cleaned_data['purchase_price']
+            asset.purchase_quantity = holding_form.cleaned_data['purchase_quantity']
+            #  holding_form.cleaned_data['purchase_quantity']
+            asset.save()
             return HttpResponseRedirect(reverse("portfolio-page"))
         else:
             # if form isn't valid
