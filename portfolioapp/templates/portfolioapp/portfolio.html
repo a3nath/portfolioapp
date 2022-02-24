@@ -36,9 +36,10 @@
                             <p>{{holding.closing_price}}</p>
                             <p>{{holding.purchase_price}}</p>
                             <p>{{holding.purchase_quantity}}</p>
-                            <button type="button" class="update-holding btn btn-sm btn-primary bs-modal" data-form-url="{% url 'update_holding' holding.ticker %}">
+                            <!-- <button type="button" class="update-holding btn btn-sm btn-primary bs-modal" data-form-url="{% url 'update_holding' holding.ticker %}">
                                 <span class="fa fa-pencil"></span>
-                            </button>
+                            </button> -->
+                            <button><a href="{% url 'update_holding' holding.ticker %}">SUBMIT</a></button>
                             <!-- <p>{{holding.closing_price}}</p> -->
                         </div>
                         <!-- {% include 'portfolioapp/includes/holding.html' %} -->
@@ -57,7 +58,10 @@
 <!-- <script type="text/javascript">
     $(function () {
       // Update trigger - formURL is retrieved from the data of the element and ticker passed?
-      $(".update-holding").modal({
+      $(".update-holding").on('show.bs.modal', function(event){
+        let button = $(event.relatedTarget)
+        let recipent = button.data('form-url')
+        let modal = $(this)
         formURL:$(this).data("form-url"),
         modalID: "#modal"
       });
