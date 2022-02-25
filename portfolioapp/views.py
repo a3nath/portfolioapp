@@ -223,24 +223,27 @@ def HoldingUpdate(request,ticker):
     # ##submit form and update values in db
 
     if request.method == "POST":
-        holdings = Asset.objects.filter(session = request.session.session_key)
-        asset = get_object_or_404(holdings, ticker=ticker)
-        holding_form = HoldingForm(request.POST)
-        if holding_form.is_valid():
-            asset.purchase_price = holding_form.cleaned_data['purchase_price']
-            asset.purchase_quantity = holding_form.cleaned_data['purchase_quantity']
-            #  holding_form.cleaned_data['purchase_quantity']
-            asset.save()
-            return HttpResponseRedirect(reverse("portfolio-page"))
+        if 'update' in request.POST:
+            holdings = Asset.objects.filter(session = request.session.session_key)
+            asset = get_object_or_404(holdings, ticker=ticker)
+            holding_form = HoldingForm(request.POST)
+            if holding_form.is_valid():
+                asset.purchase_price = holding_form.cleaned_data['purchase_price']
+                asset.purchase_quantity = holding_form.cleaned_data['purchase_quantity']
+                #  holding_form.cleaned_data['purchase_quantity']
+                asset.save()
+                return HttpResponseRedirect(reverse("portfolio-page"))
+            else:
+                # if form isn't valid
+                context  = {
+                "form" : holding_form,
+                "ticker": asset.ticker,
+                "pp": pp,
+                "pq": pq
+                }
+                return render(request, 'portfolioapp/update-holding.html', context)
         else:
-            # if form isn't valid
-            context  = {
-            "form" : holding_form,
-            "ticker": asset.ticker,
-            "pp": pp,
-            "pq": pq
-            }
-            return render(request, 'portfolioapp/update-holding.html', context)
+            return HttpResponseRedirect(reverse("portfolio-page"))
 
              
 
