@@ -11,43 +11,36 @@
 
 {% block content %}
 
-<!-- Modal 2 with id="modal" -->
+<section class='holding-return'>
+<!-- for {holding in holdings} -->
+<!-- {{holding.closing_price}} - -->
+{{return_doll}}
+{{return_per}}
 
-<!-- <div class="modal fade" tabindex="-1" role="dialog" id="modal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content"> -->
-        <!-- action attribute of the form to formURL set in #6. -->
+</section>
 
-      <!-- </div>
-    </div>
-</div> -->
-
-
-<section class='return'>
-    <section class='holdings'>
-        <table id='holdings-table' class='table'>
-            <thead>
-            </thead>
-            <tbody>
-                {% for holding in holdings %}
-                    <tr>
-                        <div class="holding">
-                            <h3>{{holding.ticker}}</h3>
-                            <p>{{holding.closing_price}}</p>
-                            <p>{{holding.purchase_price}}</p>
-                            <p>{{holding.purchase_quantity}}</p>
-                            <!-- <button type="button" class="update-holding btn btn-sm btn-primary bs-modal" data-form-url="{% url 'update_holding' holding.ticker %}">
-                                <span class="fa fa-pencil"></span>
-                            </button> -->
-                            <button><a href="{% url 'update_holding' holding.ticker %}">SUBMIT</a></button>
-                            <!-- <p>{{holding.closing_price}}</p> -->
-                        </div>
-                        <!-- {% include 'portfolioapp/includes/holding.html' %} -->
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </section>
+<section class='holdings'>
+    <table id='holdings-table' class='table'>
+        <thead>
+        </thead>
+        <tbody>
+            {% for holding in holdings %}
+                <tr>
+                    <div class="holding">
+                        <h3>{{holding.ticker}}</h3>
+                        <p>{{holding.purchase_price}}</p>
+                        <p>{{holding.purchase_quantity}}</p>
+                        <!-- <button type="button" class="update-holding btn btn-sm btn-primary bs-modal" data-form-url="{% url 'update_holding' holding.ticker %}">
+                            <span class="fa fa-pencil"></span>
+                        </button> -->
+                        <button><a href="{% url 'update_holding' holding.ticker %}">Add Details</a></button>
+                        <!-- <p>{{holding.closing_price}}</p> -->
+                    </div>
+                    <!-- {% include 'portfolioapp/includes/holding.html' %} -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </section>
 <script type='text/javascript' src="{% static 'js/jquery-3.6.0.js' %}"></script>
 <script type='text/javascript' src="{% static 'js/popper.js' %}"></script>

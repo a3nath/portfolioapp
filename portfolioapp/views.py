@@ -149,18 +149,48 @@ class PortfolioPageView(View):
     def get(self, request):
         holdings = Asset.objects.filter(session = self.request.session.session_key)
         
-        # if 'update_holding' in request.GET:
-        #     data = dict()
-        #     # asyncSettings.dataKey = 'table'
-        #     data['table'] = render_to_string(
-        #         'portfolio.html',
-        #         {'holdings': holdings},
-        #         request=request
-        #     )
-        #     return JsonResponse(data)
+        # for each holding
+        # get purchase_price, purchase_q
+        # get closing price
+
+        return_doll = 0
+        sum_net = 0 
+        ppTot = 0
+        for holding in holdings:
+            if holding.purchase_price:
+                pp = holding.purchase_price
+                pq = holding.purchase_quantity
+                ticker_asset = yf.Ticker(holding.ticker)
+                cp = ticker_asset.history(period="1d").iloc[0]["Close"]
+            else: 
+                pp = 0
+                pq = 0
+                cp = 0
+            return_doll += (cp - pp)*pq
+            sum_net += (cp - pp)
+            ppTot += pp
+
+
+
+
+
+        # dollar-ret + (closing-PP)*PQ
+        # return_dol = 0
+        # 
+        # 
+        # Per-ret 
+        # sum of (CP-PP) / sum of pp
+        #
+        if ppTot > 0:
+            return_per = sum_net/ppTot
+        else: 
+            return_per = 0
+
 
         context = {
-            'holdings':holdings
+            'holdings':holdings,
+            'return_doll':return_doll,
+            'return_per': return_per
         }
         return render(request, 'portfolioapp/portfolio.html', context)
     
