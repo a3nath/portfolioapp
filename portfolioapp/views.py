@@ -209,6 +209,8 @@ def HoldingUpdate(request,ticker):
         holding_form = HoldingForm()
         pp = asset.purchase_price
         pq = asset.purchase_quantity
+        holding_form.fields['purchase_price'].widget.attrs.update({'placeholder': pp})
+        holding_form.fields['purchase_quantity'].widget.attrs.update({'placeholder': pq})
         context= {
             "form" : holding_form,
             "ticker": asset.ticker,
