@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% load widget_tweaks %}
 
 {% block title %}
     Update Holding
@@ -26,28 +25,17 @@
                 <div class="modal-body">
                     <form method="post" action="{% url 'update_holding' ticker %}">  
                         {% csrf_token %}
-                    
-                    {% for field in form %}
-                        <div class= "form-group">
-                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                        {% render_field field class="form-control" placeholder=field.label %}
-                        <div class="{% if field.errors %} invalid{% endif %}">
-                            {% for error in field.errors %}
-                            <p class="help-block">{{ error }}</p>
-                            {% endfor %}
-                        </div>
-                        </div>
-                    {% endfor %}
-                        <!-- <ul>
+                        <ul>
                             {{form.as_ul}}
-                        </ul> -->
+                        </ul>
                     <div class='modal-footer'>
-                        <input type="submit" name='update' class="btn btn-primary" value='Update'>
-                        <input type="submit" name='cancel' class="btn btn-secondary" value='Cancel'>
+                        <input type="submit" name='update' class="btn btn-primary" value='Update' >
+                        <button class="btn btn-secondary"><a href="{% url 'portfolio-page'  %}">Cancel</a></button>
+
                     <!-- <span class="fa fa-pencil"></span> -->
                     </div>
                     </form>
-                </div>
+                                    </div>
         </div>
     </div>
 </div>

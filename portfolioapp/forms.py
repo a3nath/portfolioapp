@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import NumberInput
 
 from .models import Asset
 
@@ -14,3 +15,7 @@ class HoldingForm(forms.ModelForm):
     class Meta:
         model = Asset
         fields = ['purchase_price', 'purchase_quantity']
+        widgets = {
+            'purchase_price': NumberInput(attrs={'placeholder': 0}),
+            'purchase_quantity': NumberInput(attrs={'placeholder': 0})
+        }
