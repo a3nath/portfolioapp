@@ -47,6 +47,11 @@
                         <article> {{item.title}} </article>
                     {% endfor %}
         </div>
+    {% else %}
+        <div>
+            {{news}}
+        </div>
+
     {% endif %}
     <p>session: {{sess}}</p>
     

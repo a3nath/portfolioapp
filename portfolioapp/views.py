@@ -23,80 +23,57 @@ import yfinance as yf
 ##save session info at post and ask from there at get
 
 
-# def starting_Page(request):
-#     if request.method == "POST":
-#         resp = "post"
-#         context = {
-#             'method': "POST",
-#             "tickerform":tickerForm()
-#         }
-#     else:
-#         resp = "get"
-#         asset = yf.Ticker('MSFT')
-#         context = {
-#             # "tickerform":tickerForm(),
-#             "asset": asset,
-#             "news":asset.news,
-#             'ticker': asset.ticker,
-#             'method': "GET"
-#         }
-#     return render (request, 'portfolioapp/index.html', context)
-
-
 class StartingPageView(View):
     def get(self, request):
 
+        ##searched already
         if request.session.get('session_exists'): 
             ticker_input = request.session.get('ticker_input')
-            ###try except
             ticker_asset = yf.Ticker(ticker_input)
             info = ticker_asset.info
             if info["regularMarketPrice"] == None:
+                #invalid ticker then set invalid identifier False
                 ticker_valid = False
+                context = {
+                "ticker_form":TickerForm(),
+                'ticker_valid': ticker_valid,
+                "news": "DOESNT Exist"
+                }
+                request.session['session_exists'] = False
             else:
-                ticker_valid = True   
+                #valid ticker then set valid identifier True 
+                ticker_valid = True  
+                context = {
+                "ticker_form":TickerForm(),
+                "ticker_valid": ticker_valid,
+                "news": ticker_asset.news
+                }
                 request.session['ticker_name'] = ticker_input
-                # request.session['closing_price'] = asset.history(period="1d")['Close']
+                request.session['session_exists'] = False
         else:
             ticker_valid = False
+            context = {
+            "ticker_form":TickerForm(),
+            'ticker_valid': ticker_valid,
+            "news": ""
+            }
 
-        if ticker_valid:
-            context = {
-                "ticker_form":TickerForm(),
-                "ticker_valid": True,
-                "news": ticker_asset.news
-                # "asset_form": AssetForm()
-            }
-            request.session['session_exists'] = False
-        else:
-            context = {
-                "ticker_form":TickerForm(),
-                'ticker_valid': False,
-                'news': ''
-            }
-            request.session['session_exists'] = False
+        # if ticker_valid:
+        #     # context = {
+        #     #     "ticker_form":TickerForm(),
+        #     #     "ticker_valid": True,
+        #     #     "news": ticker_asset.news
+        #     # }
+        #     # request.session['session_exists'] = False
+        # else:
+        #     context = {
+        #         "ticker_form":TickerForm(),
+        #         'ticker_valid': False,
+        #         "news": news
+        #     }
+        #     request.session['session_exists'] = False
 
         return render(request, 'portfolioapp/index.html', context)
-
-            # try:
-            #     asset = yf.Ticker(ticker)
-            #     info = asset.info
-            # except ConnectionError:
-            #     raise ConnectionError("CON")
-            # except TimeoutError:
-            #     raise TimeoutError("TIME")
-            # except Exception:
-            #     raise ValueError("VALS")
-        
-        # context = {
-        #     # "is_searched": ,
-        #     # 'asset_id':request.session['search_ticker']
-         
-        #     # "asset": asset,
-        #     # "news":asset.news,
-        #     'method': "GET",
-        #     'news':news,
-        # }
 
     def post(self, request):
         if 'searchticker' in request.POST:
@@ -107,56 +84,25 @@ class StartingPageView(View):
                 request.session['session_exists'] = True
             else:
                 request.session['session_exists'] = False
-            # return HttpResponseRedirect(reverse("starting-page"))
         elif 'addasset' in request.POST:
-            # asset_form = AssetForm(request.POST)
-            # if asset_form.is_valid():
-
             # check if already exists
             # if doesnt add otherwise error
                 asset = Asset.objects.create(ticker=request.session.get('ticker_name'), session=request.session.session_key)
                 ##save user input
-                # asset = asset_form.save(commit=False)
-                ##add session
                 asset.save()
-            # else:
-            #     pass
-            # return HttpResponseRedirect(reverse("starting-page"))
         return HttpResponseRedirect(reverse('starting-page'))
-            
-            
-        # request.session['search_ticker'] = tickerform.ticker
-        # ticker= tickerform.ticker
-
-        # asset = yf.Ticker(tickerform)
-
-        # asset = yf.Ticker('MSFT')
-        
-        # if asset exists then:
-    #  context = {
-    #         # "session_exists" : True, 
-    #         #        
-    #         'method': "POST",
-    #         'ticker':ticker
-    #         # 'response': tickerForm(request.POST),
-    #     }
-
-        #else asset doesn't exist
-        #dialog box: enter valid ticker number like msft
-
+                      
     
 class PortfolioPageView(View):
     def get(self, request):
         holdings = Asset.objects.filter(session = self.request.session.session_key)
-        
-        # for each holding
-        # get purchase_price, purchase_q
-        # get closing price
-
         return_doll = 0
         sum_net = 0 
         ppTot = 0
         for holding in holdings:
+              # for each holding
+            # get purchase_price, purchase_q
+            # get closing price
             if holding.purchase_price:
                 pp = holding.purchase_price
                 pq = holding.purchase_quantity
@@ -169,18 +115,6 @@ class PortfolioPageView(View):
             return_doll += (cp - pp)*pq
             sum_net += (cp - pp)
             ppTot += pp
-
-
-
-
-
-        # dollar-ret + (closing-PP)*PQ
-        # return_dol = 0
-        # 
-        # 
-        # Per-ret 
-        # sum of (CP-PP) / sum of pp
-        #
         if ppTot > 0:
             return_per = sum_net/ppTot
         else: 
@@ -194,46 +128,12 @@ class PortfolioPageView(View):
         }
         return render(request, 'portfolioapp/portfolio.html', context)
     
-   
-
-
-
-# class PortfolioPageView(ListView):
-#     template_name = 'portfolioapp/portfolio.html'
-#     model = Asset
-#     context_object_name = 'holdings'
-   
-#     def get_queryset(self):
-#        base_query = super().get_queryset()
-#        data = base_query.filter(session = self.request.session.session_key)
-#        return data
-
-# class UpdateHoldingView(View):
-#     def get(self,request,slug):
-#         holdings = Asset.objects.get(session = self.session.session_key)
-#         context = {
-#             "holdings": holdings,
-#         }
-#     def post(self,request, slug):
-#         # retrieve the appropriate asset
-#         # send the asset to modal
-#         # modal opens form
-#         # add closing price and quantity
-#         # form submits response to view
-#         # view get post form?
-#         # in get is there form?
-#         # save form, model
-
-#           switch to normal view from list view          
-#          need to have input button identifier
-#          if its  form button clicked render JsonResponse
 
 def HoldingUpdate(request,ticker):
-        #read
-    #view form with placeholder values
-    # Open a modal with form on it
-
     if request.method == "GET":
+        # show asset specific info
+        # asset ticker
+        # asset purchase quantity and purchase price
         holdings = Asset.objects.filter(session = request.session.session_key)
         asset = get_object_or_404(holdings, ticker=ticker)
         holding_form = HoldingForm()
@@ -247,8 +147,6 @@ def HoldingUpdate(request,ticker):
             "pp": pp,
             "pq": pq
         }
-        ##pass placeholder values
-        #slug apporpriate
         return render(request, "portfolioapp/update-holding.html",context)
 
     # ##post
@@ -260,9 +158,10 @@ def HoldingUpdate(request,ticker):
             asset = get_object_or_404(holdings, ticker=ticker)
             holding_form = HoldingForm(request.POST)
             if holding_form.is_valid():
+                # saves valid form reponse to databse
+                # redirects to portfolio template
                 asset.purchase_price = holding_form.cleaned_data['purchase_price']
                 asset.purchase_quantity = holding_form.cleaned_data['purchase_quantity']
-                #  holding_form.cleaned_data['purchase_quantity']
                 asset.save()
                 return HttpResponseRedirect(reverse("portfolio-page"))
             else:
@@ -276,45 +175,3 @@ def HoldingUpdate(request,ticker):
                 return render(request, 'portfolioapp/update-holding.html', context)
         else:
             return HttpResponseRedirect(reverse("portfolio-page"))
-
-             
-
-
-
-
-    
-    #triggered bu edit button in table
-
-    # get view
-
-    # show asset specific info
-    # asset ticker
-    # asset purchase quantity and purchase price
-
-    # post
-
-    # saves valid form reponse to databse
-    # redirects to portfolio template
-    
-
-
-    #add form data here
-
-    # model = Book
-    # template_name = 'examples/update_book.html'
-    # form_class = BookModelForm
-    # success_message = 'Success: Book was updated.'
-    # success_url = reverse_lazy('index')
-
-
-# def holdings(self, request):
-#     data = dict()
-#     if request.method == 'GET':
-#         holdings = Asset.objects.filter(session = self.session.session_key)
-#         # asyncSettings.dataKey = 'table'
-#         data['table'] = render_to_string(
-#             'portfolio.html',
-#             {'holdings': holdings},
-#             request=request
-#         )
-#         return JsonResponse(data)
