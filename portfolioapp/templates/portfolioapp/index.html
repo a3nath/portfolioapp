@@ -12,11 +12,10 @@
 
 {% block content %}
 
-<section class='test'>
-    <p>{{method}}</p>
-    <p>{{asset}}</p>
-
-</section>
+<nav class="nav nav-pills nav-fill">
+    <a class="nav-item nav-link nav-home active" href="{% url 'starting-page' %}">Home</a>
+    <a class="nav-item nav-link nav-portfolio" href="{% url 'portfolio-page' %}">Portfolio</a>
+</nav>
 
 <section class='welcome'>
 

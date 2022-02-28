@@ -12,13 +12,11 @@
     {% endblock %}
 </head>
 <body>
-    <header class="main-navigation">
-        <h1><a href="{% url 'starting-page' %}"></a></h1>
-    </header>
     {% block content %}
     {% endblock %}
     <script type='text/javascript' src="{% static 'js/jquery-3.6.0.js' %}"></script>
     <script type='text/javascript' src="{% static 'js/popper.js' %}"></script>
     <script type='text/javascript' src="{% static 'js/bootstrap.js' %}"></script>
-   </body>
+    <script type='text/javascript' src="{% static 'js/index.js' %}"></script>
+</body>
 </html>

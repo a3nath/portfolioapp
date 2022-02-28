@@ -10,6 +10,10 @@
 {% endblock %}
 
 {% block content %}
+<nav class="nav nav-pills nav-fill">
+    <a class="nav-item nav-link nav-home" href="{% url 'starting-page' %}">Home</a>
+    <a class="nav-item nav-link nav-portfolio active" href="{% url 'portfolio-page' %}">Portfolio</a>
+</nav>
 
 <section class='holding-return'>
 <!-- for {holding in holdings} -->
