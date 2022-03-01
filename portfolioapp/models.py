@@ -7,7 +7,10 @@ class Asset(models.Model):
     closing_price = models.FloatField(max_length=20, blank=True, null=True)
     purchase_price = models.FloatField(max_length=20, blank=False, null=True)
     purchase_quantity = models.FloatField(max_length=20, blank=False, null=True)
-    session = models.CharField(max_length=200, blank=True)
+    session = models.CharField(max_length=200, blank=False, null=True)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['ticker', 'session'], name='ticker session unique constraint')]
 
     def __str__(self):
         return f"{self.ticker} {self.closing_price}"
