@@ -8,11 +8,16 @@ from django.urls import reverse
 from .forms import TickerForm, AssetForm, HoldingForm
 from .models import Asset
 from django.template.loader import render_to_string
+from django.db import IntegrityError
 
 
 import yfinance as yf
 # Create your views here.
 
+#figure out session_exists true false changing how Im using it
+# i need it for session storage
+# if a user has searched already
+# start,save session of validate form so its not blank?
 
 # if request get
 # access asset
@@ -25,71 +30,86 @@ import yfinance as yf
 
 class StartingPageView(View):
     def get(self, request):
-
         ##searched already
         if request.session.get('session_exists'): 
-            ticker_input = request.session.get('ticker_input')
-            ticker_asset = yf.Ticker(ticker_input)
-            info = ticker_asset.info
-            if info["regularMarketPrice"] == None:
-                #invalid ticker then set invalid identifier False
-                ticker_valid = False
-                context = {
-                "ticker_form":TickerForm(),
-                'ticker_valid': ticker_valid,
-                "news": "DOESNT Exist"
+            if request.session.get('error_exists'):
+                context ={
+                    "errExists": True,
+                    'message':  "ASSET ALREADY in DB"
                 }
-                request.session['session_exists'] = False
+                request.session['error_exists'] = False
+                request.session["message"] = ""
+                render(request, 'portfolioapp/index.html', context)
             else:
-                #valid ticker then set valid identifier True 
-                ticker_valid = True  
-                context = {
-                "ticker_form":TickerForm(),
-                "ticker_valid": ticker_valid,
-                "news": ticker_asset.news
-                }
-                request.session['ticker_name'] = ticker_input
-                request.session['session_exists'] = False
+                ticker_input = request.session.get('ticker_input')
+                ticker_asset = yf.Ticker(ticker_input)
+                info = ticker_asset.info
+                if info["regularMarketPrice"] == None:
+                    #invalid ticker then set invalid identifier False
+                    ticker_valid = False
+                    context = {
+                    "ticker_form":TickerForm(),
+                    'ticker_valid': ticker_valid,
+                    "message": "Asset doesnt Exist"
+                    }
+                    # request.session['session_exists'] = False
+                    request.session['error_exists'] = True
+                else:
+                    #valid ticker then set valid identifier True 
+                    ticker_valid = True  
+                    #request.session['session_exists'] = False
+                    request.session['ticker_name'] = ticker_input
+                    # request.session['session_exists'] = False
+                    request.session['error_exists'] = False
+                    context = {
+                    "ticker_form":TickerForm(),
+                    "ticker_valid": ticker_valid,
+                    "news": ticker_asset.news,
+                    "errExists": request.session.get('error_exists'),
+                    'message':  "All good"
+                    } 
         else:
             ticker_valid = False
             context = {
             "ticker_form":TickerForm(),
             'ticker_valid': ticker_valid,
-            "news": ""
+            "news": "Sess doesnt exisit" ,
+            "errExists": request.session.get('error_exists'),
+            'message':  "Sess doesnt exist"
             }
-
-        # if ticker_valid:
-        #     # context = {
-        #     #     "ticker_form":TickerForm(),
-        #     #     "ticker_valid": True,
-        #     #     "news": ticker_asset.news
-        #     # }
-        #     # request.session['session_exists'] = False
-        # else:
-        #     context = {
-        #         "ticker_form":TickerForm(),
-        #         'ticker_valid': False,
-        #         "news": news
-        #     }
-        #     request.session['session_exists'] = False
-
         return render(request, 'portfolioapp/index.html', context)
 
     def post(self, request):
         if 'searchticker' in request.POST:
             ticker_form = TickerForm(request.POST)
+            #form isnt blank
             if ticker_form.is_valid():
                 ticker_input = ticker_form.cleaned_data['ticker']
                 request.session['ticker_input'] = ticker_input
                 request.session['session_exists'] = True
             else:
-                request.session['session_exists'] = False
+                request.session['error_exists'] = True
+                request.session['error_message'] = "form is blank"
+                # request.session['session_exists'] = False
         elif 'addasset' in request.POST:
+            try:
             # check if already exists
             # if doesnt add otherwise error
+                request.session['error_exists'] = False
+                request.session['error_message'] = ""
                 asset = Asset.objects.create(ticker=request.session.get('ticker_name'), session=request.session.session_key)
                 ##save user input
                 asset.save()
+            except IntegrityError:
+                request.session['error_exists'] = True
+                request.session['error_message'] = "Assets exisits in your portfolio already. Please try another asset"
+                # context = {
+                # "errExists": request.session.get('error_exists'),
+                # "message": request.session.get('error_message')
+                # }
+                # request.session['error_exists'] = False
+                # request.session['error_message'] = ""
+                # return HttpResponseRedirect(reverse('starting-page'))
         return HttpResponseRedirect(reverse('starting-page'))
                       
     
