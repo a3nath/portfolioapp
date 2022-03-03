@@ -31,36 +31,41 @@ import yfinance as yf
 class StartingPageView(View):
     def get(self, request):
         ##searched already
-        if request.session.get('session_exists'): 
-            if request.session.get('error_exists'):
-                context ={
-                    "errExists": True,
-                    'message':  "ASSET ALREADY in DB"
-                }
-                request.session['error_exists'] = False
-                request.session["message"] = ""
-                render(request, 'portfolioapp/index.html', context)
-            else:
+        if request.session.get('error_exists'):
+            context ={
+                "errExists": True,
+                'message':  request.session.get('error_message'),
+                "ticker_form":TickerForm()
+            }
+            request.session['error_exists'] = False
+            render(request, 'portfolioapp/index.html', context)  
+        else:
+            if request.session.get('session_exists'): 
                 ticker_input = request.session.get('ticker_input')
                 ticker_asset = yf.Ticker(ticker_input)
                 info = ticker_asset.info
                 if info["regularMarketPrice"] == None:
                     #invalid ticker then set invalid identifier False
                     ticker_valid = False
+                    # request.session['session_exists'] = False
+                    request.session['error_exists'] = True
+                    request.session['error_message'] = 'Asset doesnt Exist'
                     context = {
                     "ticker_form":TickerForm(),
                     'ticker_valid': ticker_valid,
-                    "message": "Asset doesnt Exist"
+                    "message": request.session.get('error_message')
                     }
-                    # request.session['session_exists'] = False
-                    request.session['error_exists'] = True
+                    #Once search is completed set session to False
+                    #Otherwise it will still show previous loaded response
                 else:
                     #valid ticker then set valid identifier True 
                     ticker_valid = True  
-                    #request.session['session_exists'] = False
-                    request.session['ticker_name'] = ticker_input
-                    # request.session['session_exists'] = False
+                    #Once search is completed set session to False
+                    #Otherwise it will still show previous loaded response
                     request.session['error_exists'] = False
+                    request.session['error_message'] = ''
+                    request.session['session_exists'] = False
+                    request.session['ticker_name'] = ticker_input
                     context = {
                     "ticker_form":TickerForm(),
                     "ticker_valid": ticker_valid,
@@ -68,19 +73,18 @@ class StartingPageView(View):
                     "errExists": request.session.get('error_exists'),
                     'message':  "All good"
                     } 
-        else:
-            ticker_valid = False
-            context = {
-            "ticker_form":TickerForm(),
-            'ticker_valid': ticker_valid,
-            "news": "Sess doesnt exisit" ,
-            "errExists": request.session.get('error_exists'),
-            'message':  "Sess doesnt exist"
-            }
+            else:
+                ticker_valid = False
+                context = {
+                "ticker_form":TickerForm(),
+                'ticker_valid': ticker_valid,
+                "news": "News Sess doesnt exisit"
+                }
         return render(request, 'portfolioapp/index.html', context)
 
     def post(self, request):
         if 'searchticker' in request.POST:
+            #if search button is clicked
             ticker_form = TickerForm(request.POST)
             #form isnt blank
             if ticker_form.is_valid():
@@ -88,9 +92,10 @@ class StartingPageView(View):
                 request.session['ticker_input'] = ticker_input
                 request.session['session_exists'] = True
             else:
-                request.session['error_exists'] = True
+            #form is blank
+                # request.session['error_exists'] = True
                 request.session['error_message'] = "form is blank"
-                # request.session['session_exists'] = False
+                request.session['session_exists'] = False
         elif 'addasset' in request.POST:
             try:
             # check if already exists
@@ -100,6 +105,9 @@ class StartingPageView(View):
                 asset = Asset.objects.create(ticker=request.session.get('ticker_name'), session=request.session.session_key)
                 ##save user input
                 asset.save()
+                ##session info, news to show
+                request.session['session_exists'] = True
+                ##NEED POP UP THAT SAYS ASSET ADDED
             except IntegrityError:
                 request.session['error_exists'] = True
                 request.session['error_message'] = "Assets exisits in your portfolio already. Please try another asset"
