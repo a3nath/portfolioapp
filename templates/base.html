@@ -11,9 +11,11 @@
     {% block css_files %}
     {% endblock %}
 </head>
-<body>
-    {% block content %}
-    {% endblock %}
+<body class>
+    <div class='container-fluid'>
+        {% block content %}
+        {% endblock %}
+    </div>
     <script type='text/javascript' src="{% static 'js/jquery-3.6.0.js' %}"></script>
     <script type='text/javascript' src="{% static 'js/popper.js' %}"></script>
     <script type='text/javascript' src="{% static 'js/bootstrap.js' %}"></script>

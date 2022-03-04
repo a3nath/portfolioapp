@@ -12,9 +12,23 @@
 
 {% block content %}
 
-<nav class="nav nav-pills nav-fill">
-    <a class="nav-item nav-link nav-home active" href="{% url 'starting-page' %}">Home</a>
-    <a class="nav-item nav-link nav-portfolio" href="{% url 'portfolio-page' %}">Portfolio</a>
+<nav class="nav nav-pills nav-fill navbar navbar-expand-sm sticky-top">
+    <div class="container">
+        <a class='navbar-brand' href='#'><img src='img/logo-one.png' class='navbar-logo'>
+        </a>
+        <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#home-nav'>
+            <span class='navbar-togler-icon'>
+            </span>
+        </button>
+        <div class='navbar-collapse collapse' id='home-nav'>
+            <ul class='navbar-nav'>
+                <li class='nav-item active'>
+                    <a class="nav-link nav-home active" href="{% url 'starting-page' %}">Home</a>
+                </li>
+                <li class='nav-item'>
+                    <a class="nav-link nav-portfolio" href="{% url 'portfolio-page' %}">Portfolio</a>
+                </li>
+    </div>
 </nav>
 
 <section class='welcome'>
@@ -25,10 +39,11 @@
         </ul>
         <input type='submit' class='btn btn-primary' name='searchticker' value='Search'/>
     </form>
-
+    <div class='err-mess'>
+        {{message}}
+    </div>
 </section>
 <section class='get-info'>
-    <p>Ticker Valid+{{ticker_valid}}</p>
     {% if ticker_valid %}
         <div class="ticker-details">
             <form action="{% url 'starting-page' %}" method="post">
@@ -51,11 +66,6 @@
         </div>
 
     {% endif %}
-    <p>Message</p>
-    {{message}}
-    <p>Err Exists</p>
-    {{errExists}}
- 
 </section>
 
 

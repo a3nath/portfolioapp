@@ -11,41 +11,58 @@
 
 {% block content %}
 <nav class="nav nav-pills nav-fill">
-    <a class="nav-item nav-link nav-home" href="{% url 'starting-page' %}">Home</a>
-    <a class="nav-item nav-link nav-portfolio active" href="{% url 'portfolio-page' %}">Portfolio</a>
+    <div class="container">
+        <a class='navbar-brand' href='#'><img src='img/logo-one.png' class='navbar-logo'>
+        </a>
+        <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#home-nav'>
+            <span class='navbar-togler-icon'>
+            </span>
+        </button>
+        <div class='navbar-collapse collapse' id='home-nav'>
+            <ul class='navbar-nav'>
+                <li class='nav-item'>
+                    <a class="nav-link nav-home" href="{% url 'starting-page' %}">Home</a>
+                </li>
+                <li class='nav-item active'>
+                    <a class="nav-link nav-portfolio" href="{% url 'portfolio-page' %}">Portfolio</a>
+                </li>
+        </div>
+    </div>
 </nav>
 
 <section class='holding-return'>
-<!-- for {holding in holdings} -->
-<!-- {{holding.closing_price}} - -->
-{{return_doll}}
-{{return_per}}
-
+    <div class="container">
+        {{return_doll}}
+        {{return_per}}
+    </div>
 </section>
 
 <section class='holdings'>
-    <table id='holdings-table' class='table'>
-        <thead>
-        </thead>
-        <tbody>
-            {% for holding in holdings %}
+    <div class="container">
+        <table id='holdings-table' class='table'>
+            <thead>
+                Holdings
+            </thead>
+            <tbody>
+                {% for holding in holdings %}
                 <tr>
-                    <div class="holding">
+                    <div class="asset-holding">
                         <h3>{{holding.ticker}}</h3>
                         <p>{{holding.purchase_price}}</p>
                         <p>{{holding.purchase_quantity}}</p>
-                        <!-- <button type="button" class="update-holding btn btn-sm btn-primary bs-modal" data-form-url="{% url 'update_holding' holding.ticker %}">
-                            <span class="fa fa-pencil"></span>
-                        </button> -->
-                        <button><a href="{% url 'update_holding' holding.ticker %}">Add Details</a></button>
-                        <!-- <p>{{holding.closing_price}}</p> -->
+                        <button>
+                            <span class="fa fa-pencil">
+                                <a href="{% url 'update_holding' holding.ticker %}">Add Details</a>
+                            </span>
+                        </button>
                     </div>
-                    <!-- {% include 'portfolioapp/includes/holding.html' %} -->
                 </tr>
             {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </section>
+
 <script type='text/javascript' src="{% static 'js/jquery-3.6.0.js' %}"></script>
 <script type='text/javascript' src="{% static 'js/popper.js' %}"></script>
 <script type='text/javascript' src="{% static 'js/bootstrap.js' %}"></script>
