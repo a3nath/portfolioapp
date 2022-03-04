@@ -10,7 +10,8 @@
 {% endblock %}
 
 {% block content %}
-<nav class="nav nav-pills nav-fill">
+
+<nav class="nav nav-pills nav-fill navbar navbar-expand-sm sticky-top">
     <div class="container">
         <a class='navbar-brand' href='#'><img src='img/logo-one.png' class='navbar-logo'>
         </a>
@@ -32,8 +33,12 @@
 
 <section class='holding-return'>
     <div class="container">
-        {{return_doll}}
-        {{return_per}}
+        <div class="return_doll return">
+            {{return_doll}}
+        </div>
+        <div class="return_per return">
+            {{return_per}}
+        </div>
     </div>
 </section>
 
@@ -48,8 +53,8 @@
                 <tr>
                     <div class="asset-holding">
                         <h3>{{holding.ticker}}</h3>
-                        <p>{{holding.purchase_price}}</p>
-                        <p>{{holding.purchase_quantity}}</p>
+                        <p class='hold_pp'><span>Purchased Price </span><span> {{holding.purchase_price}}</span></p>
+                        <p class='hold_pq'><span>Purchased Quantity </span><span> {{holding.purchase_quantity}}</span></p>
                         <button>
                             <span class="fa fa-pencil">
                                 <a href="{% url 'update_holding' holding.ticker %}">Add Details</a>
