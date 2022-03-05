@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.StartingPageView.as_view(), name='starting-page'),
     path('portfolio/', views.PortfolioPageView.as_view(), name='portfolio-page'),
-    path('holdings/<str:ticker>', views.HoldingUpdate, name='update_holding')
+    path('holdings/<str:ticker>', views.HoldingUpdate, name='update-holding')
     # path('holdings/<str:ticker>', views.holdings, name='update_holding')
     #   dateHoldingView.as_view(), name='update_holding')
 ] 
