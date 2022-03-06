@@ -146,6 +146,8 @@ class PortfolioPageView(View):
             'return_per': return_per
         }
         return render(request, 'portfolioapp/portfolio.html', context)
+
+        # delete a ticker
     
 
 def HoldingUpdate(request,ticker):

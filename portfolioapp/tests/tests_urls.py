@@ -13,7 +13,7 @@ class TestUrls(SimpleTestCase):
         url = reverse('portfolio-page')
         self.assertEquals(resolve(url).func.view_class, PortfolioPageView)
 
-    def test_holding_url_is_resolved(self):
+    def test_update_holding_url_is_resolved(self):
         url = reverse('update-holding', args=['some-ticker'])
         self.assertEquals(resolve(url).func, HoldingUpdate)
 
