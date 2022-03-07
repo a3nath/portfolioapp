@@ -38,7 +38,7 @@ class StartingPageView(View):
                 "ticker_form":TickerForm()
             }
             request.session['error_exists'] = False
-            render(request, 'portfolioapp/index.html', context)  
+            # render(request, 'portfolioapp/index.html', context)  
         else:
             if request.session.get('session_exists'): 
                 ticker_input = request.session.get('ticker_input')
@@ -138,8 +138,6 @@ class PortfolioPageView(View):
             return_per = sum_net/ppTot
         else: 
             return_per = 0
-
-
         context = {
             'holdings':holdings,
             'return_doll':return_doll,
