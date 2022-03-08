@@ -148,7 +148,7 @@ class PortfolioPageView(View):
         # delete a ticker
     
 
-def HoldingUpdate(request,ticker):
+def PortfolioUpdate(request,ticker):
     if request.method == "GET":
         # show asset specific info
         # asset ticker
@@ -166,7 +166,7 @@ def HoldingUpdate(request,ticker):
             "pp": pp,
             "pq": pq
         }
-        return render(request, "portfolioapp/update-holding.html",context)
+        return render(request, "portfolioapp/update-portfolio.html",context)
 
     # ##post
     # ##submit form and update values in db
@@ -191,6 +191,6 @@ def HoldingUpdate(request,ticker):
                 "pp": pp,
                 "pq": pq
                 }
-                return render(request, 'portfolioapp/update-holding.html', context)
+                return render(request, 'portfolioapp/update-portfolio.html', context)
         else:
             return HttpResponseRedirect(reverse("portfolio-page"))

@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block css %}
-    <link rel='stylesheet' href="{% static 'portfolioapp/update-holding.css' %}">
+    <link rel='stylesheet' href="{% static 'portfolioapp/update-portfolio.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -24,7 +24,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-form">
-                    <form method="post" action="{% url 'update-holding' ticker %}">  
+                    <form method="post" action="{% url 'update-portfolio' ticker %}">  
                         {% csrf_token %}
                         <ul>
                             {{form.as_ul}}
