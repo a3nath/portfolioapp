@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from django.urls import reverse
+from django.db import IntegrityError, transaction
 from portfolioapp.models import Asset
 import json
 
@@ -31,9 +32,10 @@ class TestViews(TestCase):
 
     def test_update_GET(self):
         response = self.client.get(self.update_url)
+        print(Asset.objects.all())
+        print(self.update_url)
         print(response)
-
-        # self.assertEquals(response.status_code, 200)
+        # self.assertEquals(response.status_code)
         # self.assertTemplateUsed(response, 'portfolioapp/update-holding.html')
 
     # # Post to search ticker
@@ -43,23 +45,30 @@ class TestViews(TestCase):
         response = self.client.post(self.home_url, {
             'searchticker': 'Search', 
             'ticker': 'fb', 
-            'session': 'sessionTest456'}
+            'session': 'sessionTest123'}
             ,follow=True
         )
 
         self.assertEquals(response.status_code, 200)
 
     # # Post to add ticker
-    def test_home_add_ticker_POST(self):
-        response = self.client.post(self.home_url, {
-            'addasset': 'Add', 
-            'ticker': 'msft', 
-            'session': 'sessionTest123'}
-            , follow=True
-        )
+    # def test_home_add_ticker_POST(self):
+    #     try:
+    #         with transaction.atomic():
 
-        # add
-        print(response)
+    #     except IntegrityError:
+
+
+
+    #     response = self.client.post(self.home_url, {
+    #         'addasset': 'Add', 
+    #         'ticker': 'msft', 
+    #         'session': 'sessionTest123'}
+    #         , follow=True
+    #     )
+
+    #     # add
+    #     print(response)
     #     self.assertEquals(response.status_code, 302)
 
     # def test_update_add_ticker_POST(self):

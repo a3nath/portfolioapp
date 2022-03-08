@@ -4,7 +4,7 @@ from django.db import models
 
 class Asset(models.Model):
     ticker = models.CharField(max_length=50, blank=False, null=False)
-    closing_price = models.FloatField(max_length=20, blank=True, null=True)
+    closing_price = models.FloatField(max_length=20, blank=True, null=True, default=0)
     purchase_price = models.FloatField(max_length=20, blank=False, null=True, default=0)
     purchase_quantity = models.FloatField(max_length=20, blank=False, null=True, default=0)
     session = models.CharField(max_length=200, blank=False, null=True)
