@@ -9,6 +9,7 @@ from .forms import TickerForm, AssetForm, HoldingForm
 from .models import Asset
 from django.template.loader import render_to_string
 from django.db import IntegrityError
+import json
 
 
 import yfinance as yf
@@ -144,13 +145,15 @@ class PortfolioPageView(View):
         }
         return render(request, 'portfolioapp/portfolio.html', context)
 
-    def post(self, *args, **kwargs):
+    def post(self, request):
+        ticker = json.loads(request.body)['ticker']
         holdings = Asset.objects.filter(session = self.request.session.session_key)
-        print(self.request.get('value'))
-        # asset = Asset.objects.get(ticker=self.dataset.id)
+        asset = Asset.objects.get(ticker=ticker)
+        asset.delete()
         # print('Hello Im ' % self.request.POST.get('_method'))
-        return HttpResponse(status=204)
+        return HttpResponseRedirect(reverse("portfolio-page"))
 
+        
 
 
 # def portfolioPage(request):

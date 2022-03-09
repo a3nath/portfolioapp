@@ -56,13 +56,14 @@
                         <p class='hold_pp'><span>Purchased Price </span><span> {{holding.purchase_price}}</span></p>
                         <p class='hold_pq'><span>Purchased Quantity </span><span> {{holding.purchase_quantity}}</span></p>
                             <div class="ticker-details"></div>
-                                <form action="{% url 'portfolio-page' %}" method="post">
+                                <!-- <form action="{% url 'portfolio-page' %}" method="post">
                                 {% csrf_token %}
-                                    <input type='submit' name="_method" value={{holding.ticker}}/>
-                                </form >
-                                <!-- <a class="close-icon" onclick="deleteExpense(this)" data-id="{{ expense.id }}">
+                                    <input type='submit' value='Delete' data-id={{holding.ticker}}>
+                                </form > -->
+                                <!-- NEED TO PASS in ticker value -->
+                                <a class="close-icon" onclick="deleteTicker(this)" data-id="{{ holding.ticker }}">
                                     <i class="material-icons red-text right">close</i>
-                                </a> -->
+                                </a>
                             </div>  
                         <button>
                             <span class="fa fa-pencil">
@@ -75,12 +76,15 @@
         </table>
     </div>
 </section>
-<!-- <script>
+
+
+
+<script>
     function deleteTicker(e){
         let ticker = e.dataset.id
       
         fetch('', {
-          method: 'DELETE',
+          method: 'POST',
           headers: {
             'X-CSRFToken': '{{ csrf_token }}'
           },
@@ -90,7 +94,7 @@
           credentials: 'same-origin',
         })
     }
-</script> -->
+</script>
 
 
 <script type='text/javascript' src="{% static 'js/jquery-3.6.0.js' %}"></script>
