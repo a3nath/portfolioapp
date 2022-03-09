@@ -50,26 +50,20 @@
             </thead>
             <tbody>
                 {% for holding in holdings %}
-                <tr>
+                <tr class='asset-row'>
                     <div class="asset-holding">
                         <h3>{{holding.ticker}}</h3>
                         <p class='hold_pp'><span>Purchased Price </span><span> {{holding.purchase_price}}</span></p>
                         <p class='hold_pq'><span>Purchased Quantity </span><span> {{holding.purchase_quantity}}</span></p>
-                            <div class="ticker-details"></div>
-                                <!-- <form action="{% url 'portfolio-page' %}" method="post">
-                                {% csrf_token %}
-                                    <input type='submit' value='Delete' data-id={{holding.ticker}}>
-                                </form > -->
-                                <!-- NEED TO PASS in ticker value -->
-                                <a class="close-icon" onclick="deleteTicker(this)" data-id="{{ holding.ticker }}">
-                                    <i class="material-icons red-text right">close</i>
-                                </a>
-                            </div>  
+                        <a class="close-icon" onclick="deleteTicker(this)" data-id="{{ holding.ticker }}">
+                            <i class="material-icons red-text right">close</i>
+                        </a>
                         <button>
                             <span class="fa fa-pencil">
                                 <a href="{% url 'update-portfolio' holding.ticker %}">Add Details</a>
                             </span>
                         </button>
+                    </div>  
                 </tr>
             {% endfor %}
             </tbody>
@@ -81,8 +75,10 @@
 
 <script>
     function deleteTicker(e){
+        
         let ticker = e.dataset.id
-      
+        e.closest('div').remove()
+
         fetch('', {
           method: 'POST',
           headers: {
