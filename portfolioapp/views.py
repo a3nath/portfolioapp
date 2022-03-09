@@ -111,7 +111,6 @@ class StartingPageView(View):
                 request.session['error_message'] = "Assets exisits in your portfolio already. Please try another asset"
         return HttpResponseRedirect(reverse('starting-page'))
                       
-    
 class PortfolioPageView(View):
     def get(self, request):
         holdings = Asset.objects.filter(session = self.request.session.session_key)
@@ -145,7 +144,55 @@ class PortfolioPageView(View):
         }
         return render(request, 'portfolioapp/portfolio.html', context)
 
-        # delete a ticker
+    def post(self, *args, **kwargs):
+        holdings = Asset.objects.filter(session = self.request.session.session_key)
+        print(self.request.get('value'))
+        # asset = Asset.objects.get(ticker=self.dataset.id)
+        # print('Hello Im ' % self.request.POST.get('_method'))
+        return HttpResponse(status=204)
+
+
+
+# def portfolioPage(request):
+#     if request.method == 'GET':
+#         holdings = Asset.objects.filter(session = request.session.session_key)
+#         return_doll = 0
+#         sum_net = 0 
+#         ppTot = 0
+#         for holding in holdings:
+#               # for each holding
+#             # get purchase_price, purchase_q
+#             # get closing price
+#             if holding.purchase_price:
+#                 pp = holding.purchase_price
+#                 pq = holding.purchase_quantity
+#                 ticker_asset = yf.Ticker(holding.ticker)
+#                 cp = ticker_asset.history(period="1d").iloc[0]["Close"]
+#             else: 
+#                 pp = 0
+#                 pq = 0
+#                 cp = 0
+#             return_doll += (cp - pp)*pq
+#             sum_net += (cp - pp)
+#             ppTot += pp
+#         if ppTot > 0:
+#             return_per = sum_net/ppTot
+#         else: 
+#             return_per = 0
+#         context = {
+#             'holdings':holdings,
+#             'return_doll':return_doll,
+#             'return_per': return_per
+#         }
+#         return render(request, 'portfolioapp/portfolio.html', context)
+#         # delete a ticker
+#     elif request.method == "DELETE":
+#         holdings = Asset.objects.filter(session = request.session.session_key)
+#         asset = Asset.objects.get(ticker=ticker)
+#         print('method delete')
+#         asset.delete()
+#         return HttpResponse(status=204)
+
     
 
 def PortfolioUpdate(request,ticker):
@@ -167,11 +214,9 @@ def PortfolioUpdate(request,ticker):
             "pq": pq
         }
         return render(request, "portfolioapp/update-portfolio.html",context)
-
     # ##post
     # ##submit form and update values in db
-
-    if request.method == "POST":
+    elif request.method == "POST":
         if 'update' in request.POST:
             holdings = Asset.objects.filter(session = request.session.session_key)
             asset = get_object_or_404(holdings, ticker=ticker)
@@ -194,3 +239,5 @@ def PortfolioUpdate(request,ticker):
                 return render(request, 'portfolioapp/update-portfolio.html', context)
         else:
             return HttpResponseRedirect(reverse("portfolio-page"))
+
+    
