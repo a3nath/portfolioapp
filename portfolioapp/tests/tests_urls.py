@@ -1,6 +1,6 @@
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
-from portfolioapp.views import StartingPageView, PortfolioPageView, HoldingUpdate
+from portfolioapp.views import StartingPageView, PortfolioPageView, PortfolioUpdate
 
 
 class TestUrls(SimpleTestCase):
@@ -13,9 +13,9 @@ class TestUrls(SimpleTestCase):
         url = reverse('portfolio-page')
         self.assertEquals(resolve(url).func.view_class, PortfolioPageView)
 
-    def test_update_holding_url_is_resolved(self):
-        url = reverse('update-holding', args=['some-ticker'])
-        self.assertEquals(resolve(url).func, HoldingUpdate)
+    def test_update_portfolio_url_is_resolved(self):
+        url = reverse('update-portfolio', args=['some-ticker'])
+        self.assertEquals(resolve(url).func, PortfolioUpdate)
 
     
 

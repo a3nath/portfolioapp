@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+from django.test import TestCase, Client, TransactionTestCase
 from django.urls import reverse
 from django.db import IntegrityError, transaction
 from portfolioapp.models import Asset
@@ -7,12 +7,12 @@ import json
 
 class TestViews(TestCase):
 
-    #runs before every test scenario
+    #setup run before every test scenario
     def setUp(self):
         self.client = Client()
         self.home_url = reverse('starting-page')
         self.portfolio_url = reverse('portfolio-page')
-        self.update_url = reverse('update-holding', args=['msft'])
+        self.update_url = reverse('update-portfolio', args=['msft'])
         self.msft = Asset.objects.create(
             ticker = 'msft', 
             session = "testSession123"
@@ -30,17 +30,8 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'portfolioapp/portfolio.html')
 
-    def test_update_GET(self):
-        response = self.client.get(self.update_url)
-        print(Asset.objects.all())
-        print(self.update_url)
-        print(response)
-        # self.assertEquals(response.status_code)
-        # self.assertTemplateUsed(response, 'portfolioapp/update-holding.html')
-
     # # Post to search ticker
     def test_home_search_ticker_POST(self):
-
         #search
         response = self.client.post(self.home_url, {
             'searchticker': 'Search', 
@@ -48,43 +39,69 @@ class TestViews(TestCase):
             'session': 'sessionTest123'}
             ,follow=True
         )
-
         self.assertEquals(response.status_code, 200)
 
-    # # Post to add ticker
+    # Post to update holding
+    def test_update_POST(self):
+        response = self.client.post(self.update_url, {'ticker': 'fb', 'closing_price': 200, 'purchase_quantity': 10, 'purchase_price': 150, 'session': 'testSession123'})
+        self.assertEquals(response.status_code, 302)
+
+
+   # # Post to add ticker
     # def test_home_add_ticker_POST(self):
     #     try:
     #         with transaction.atomic():
-
+    #             print(self.home_url)
+    #             # response = self.client.post(self.home_url, {
+    #             #     'addasset': 'Add'
+    #                 # 'ticker': 'msft', 
+    #                 # 'session': 'sessionTest123'  
+    #             #})
+            
     #     except IntegrityError:
+    #         print("err")
+    #         pass
+
+        # add
+        # self.assertEquals(response.status_code, 302)
+
+#  def test_update_GET(self):
+#         response = self.client.get(self.update_url)
+#         print(Asset.objects.all())
+#         print(self.update_url)
+#         print(response)
+#         # self.assertEquals(response.status_code)
+#         # self.assertTemplateUsed(response, 'portfolioapp/update-holding.html')
 
 
+# class TestAddAssetView(TransactionTestCase):
+    
+#     def setUp(self):
+#         self.client = Client()
+#         self.home_url = reverse('starting-page')
+#         self.portfolio_url = reverse('portfolio-page')
+#         self.update_url = reverse('update-portfolio', args=['msft'])
+#         self.msft = Asset.objects.create(
+#             ticker = 'msft', 
+#             session = "testSession123"
+#         )
 
-    #     response = self.client.post(self.home_url, {
-    #         'addasset': 'Add', 
-    #         'ticker': 'msft', 
-    #         'session': 'sessionTest123'}
-    #         , follow=True
-    #     )
-
-    #     # add
-    #     print(response)
-    #     self.assertEquals(response.status_code, 302)
-
-    # def test_update_add_ticker_POST(self):
-    #     response = self.client.post(self.home_url, {'addasset': 'Add'}, follow=True)
-
-    #     # add
-    #     self.assertEquals(response.status_code, 302)
-        
-    # # Non duplicate
-
-    # # Post to update holding
-    # def test_update_POST(self):
-    #     response = self.client.post(self.update_url, {'ticker': 'testTicker2', 'closing_price': 100, 'purchase_quantity': 10, 'purchase_price': 150, 'session': 'testSession'})
-
-    #     tickerTest = Asset.objects.get(ticker='testTicker2')
-    #     self.assertEquals(tickerTest.closing_price, 100)
+#     def test_home_add_ticker_POST(self):
+#         try:
+#             with transaction.atomic():
+#                 #print(self.home_url)
+#                 response = self.client.post(self.home_url, {
+#                     'addasset': 'Add',
+#                     'ticker': 'msft', 
+#                     'session': 'sessionTest123'  
+#                 })
+            
+#         except IntegrityError:
+#             print("err")
+#             pass
+#         except Exception as e:
+#             print('unknown exception')
+#             print(e)
 
 
 
