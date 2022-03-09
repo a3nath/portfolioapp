@@ -57,6 +57,11 @@
                         <p class='hold_pq'><span>Purchased Quantity </span><span> {{holding.purchase_quantity}}</span></p>
                         <button>
                             <span class="fa fa-pencil">
+                                <a class="close-icon" onclick="deleteExpense(this)" data-id="{{ holding.ticker }}">Remove Asset</a>
+                            </span>
+                        </button>
+                        <button>
+                            <span class="fa fa-pencil">
                                 <a href="{% url 'update-portfolio' holding.ticker %}">Add Details</a>
                             </span>
                         </button>
@@ -67,6 +72,23 @@
         </table>
     </div>
 </section>
+<script>
+    function deleteExpense(e){
+        let ticker = e.dataset.id
+        e.closest('li').remove()
+      
+        fetch('', {
+          method: 'DELETE',
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+          },
+          body: JSON.stringify({
+            'ticker': ticker
+          }),
+          credentials: 'same-origin',
+        })
+</script>
+
 
 <script type='text/javascript' src="{% static 'js/jquery-3.6.0.js' %}"></script>
 <script type='text/javascript' src="{% static 'js/popper.js' %}"></script>
