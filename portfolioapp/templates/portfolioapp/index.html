@@ -7,7 +7,7 @@
     Search ticker
 {% endblock %}
 
-{% block css %}
+{% block css_files %}
 <link rel='stylesheet' href="{% static 'portfolioapp/index.css' %}">
 {% endblock %}
 
@@ -33,40 +33,37 @@
 </nav>
 
 <section class='welcome'>
-    <form action="{% url 'starting-page' %}" method="post">
-        {% csrf_token %}
-        <ul>
-            {{ticker_form.as_ul}}
-        </ul>
-        <input type='submit' class='btn btn-primary' name='searchticker' value='Search'/>
-    </form>
-    <div class='err-mess'>
-        {{message}}
+    <div class="container ticker-search">
+        <h1>Search a ticker</h1>
+        <form action="{% url 'starting-page' %}" method="post" class='search-form'>
+            {% csrf_token %}
+            <ul>
+                {{ticker_form.as_ul}}
+            </ul>
+            <input type='submit' class='btn btn-primary' name='searchticker' value='Search'/>
+        </form>
+        <div class='err-mess'>
+            {{message}}
+        </div>
     </div>
 </section>
 <section class='get-info'>
-    {% if ticker_valid %}
-        <div class="ticker-details">
-            <form action="{% url 'starting-page' %}" method="post">
-            {% csrf_token %}
-                <!-- <ul>
-                    {{asset_form.as_ul}}
-                </ul> -->
-                <input type='submit' name='addasset' value='Add'/>
-            </form >
-        </div>
-
-        <div class='news'>
+    <div class="container ticker-add">
+        {% if ticker_valid %}
+            <!-- Add Ticker button -->
+            <div class="ticker-details">
+                <form action="{% url 'starting-page' %}" method="post">
+                {% csrf_token %}
+                    <input type='submit' name='addasset' value='Add'/>
+                </form >
+            </div>
+            <div class='news'>
                 {% for item in news %}
                         <article> {{item.title}} </article>
-                    {% endfor %}
-        </div>
-    {% else %}
-        <div>
-            {{news}}
-        </div>
-
-    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 </section>
 
 

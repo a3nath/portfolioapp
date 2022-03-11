@@ -1,0 +1,31 @@
+.ticker-search{
+    padding: 200px 50px;
+}
+
+.search-form{
+    padding: 40px 0;
+    display: flex;
+}
+
+.search-form ul {
+    margin: 0;
+    width: 70%;
+    padding: 0;
+}
+
+.search-form label{
+    display: none;
+}
+
+.search-form input[type = "text"]{
+    width: 90%;
+    height: 45px;
+    margin-right: 0 10px;
+}
+
+.search-form input[type='submit']{
+    padding: 0 20px;
+    margin-left: 0 50px;
+    width: 10%;
+    height: 45px;
+}

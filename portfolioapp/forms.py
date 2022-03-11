@@ -4,7 +4,7 @@ from django.forms import NumberInput
 from .models import Asset
 
 class TickerForm(forms.Form):
-    ticker = forms.CharField(label='Ticker name', max_length=50)
+    ticker = forms.CharField(max_length=50,required=True, error_messages={'required': 'Please give us a ticker'}, widget=forms.TextInput(attrs={'placeholder': 'MSFT'}))
 
 class AssetForm(forms.ModelForm):
     class Meta:
