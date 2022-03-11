@@ -35,10 +35,11 @@ class StartingPageView(View):
         if request.session.get('error_exists'):
             context ={
                 "errExists": True,
-                'message':  request.session.get('error_message'),
+                'message':  request.session.get('message'),
                 "ticker_form":TickerForm()
             }
             request.session['error_exists'] = False
+            request.session['message'] = ''
             # render(request, 'portfolioapp/index.html', context)  
         else:
             if request.session.get('session_exists'): 
@@ -50,11 +51,11 @@ class StartingPageView(View):
                     ticker_valid = False
                     # error exists that ticker doesnt exist
                     request.session['error_exists'] = True
-                    request.session['error_message'] = 'Asset doesnt Exist'
+                    request.session['message'] = 'Asset doesnt Exist'
                     context = {
                     "ticker_form":TickerForm(),
                     'ticker_valid': ticker_valid,
-                    "message": request.session.get('error_message')
+                    "message": request.session.get('message')
                     }
                 else:
                     #valid ticker then set valid identifier True 
@@ -64,13 +65,14 @@ class StartingPageView(View):
                     request.session['ticker_name'] = ticker_input 
                     # no error
                     request.session['error_exists'] = False
-                    request.session['error_message'] = ''
+                    
                     context = {
                     "ticker_form":TickerForm(),
                     "ticker_valid": ticker_valid,
                     "news": ticker_asset.news,
-                    "errExists": request.session.get('error_exists')
+                    "message": request.session.get('message')
                     } 
+                    request.session['message'] = ''
             else:
                 # at load - search hasnt started yet
                 ticker_valid = False
@@ -92,24 +94,25 @@ class StartingPageView(View):
                 request.session['session_exists'] = True
             else:
             #form is blank
-                request.session['error_message'] = "form is blank"
+                request.session['message'] = "form is blank"
                 request.session['session_exists'] = False
         elif 'addasset' in request.POST:
             try:
             # add response to user portfolio
                 request.session['error_exists'] = False
-                request.session['error_message'] = ""
+                request.session['message'] = "Asset added successfully"
                 asset = Asset.objects.create(ticker=request.session.get('ticker_name'), session=request.session.session_key)
                 ##save user input
                 asset.save()
                 ##show asset info even after user adds
                 request.session['session_exists'] = True
+                
                 ##NEED POP UP THAT SAYS ASSET ADDED
             except IntegrityError:
             # asset already exists in portfolio
             # stops adding duplicate
                 request.session['error_exists'] = True
-                request.session['error_message'] = "Assets exisits in your portfolio already. Please try another asset"
+                request.session['message'] = "Assets exisits in your portfolio already. Please try another asset"
         return HttpResponseRedirect(reverse('starting-page'))
                       
 class PortfolioPageView(View):
