@@ -35,12 +35,12 @@
 <section class='holding-return'>
     <div class="container return-container">
         <div class="return-dol return">
-            {% fa5_icon 'dollar-sign' %}
-            {{return_doll}}
+                {% fa5_icon 'dollar-sign fab' class='dollar-icon return-icon' %}
+                <span class='doll-num return-num'>{{return_doll}}</span>
         </div>
         <div class="return-per return">
-            {% fa5_icon 'percent' %}
-            {{return_per}}
+            {% fa5_icon 'percent' class='percent-icon return-icon' %}
+            <span class='percent-num return-num'>{{return_per}}</span>
         </div>
     </div>
 </section>
