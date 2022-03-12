@@ -10,5 +10,9 @@ ul{
 nav{
     height: 80px;
     background: salmon;
+    border-radius: 0 0 15px 15px ;
 }
 
+.container-fluid{
+    padding: 0;
+}

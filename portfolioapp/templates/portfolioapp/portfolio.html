@@ -13,8 +13,8 @@
 
 <nav class="nav nav-pills nav-fill navbar navbar-expand-sm sticky-top">
     <div class="container">
-        <a class='navbar-brand' href='#'><img src='img/logo-one.png' class='navbar-logo'>
-        </a>
+        <!-- <a class='navbar-brand' href='#'><img src='img/logo-one.png' class='navbar-logo'>
+        </a> -->
         <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#home-nav'>
             <span class='navbar-togler-icon'>
             </span>
@@ -25,18 +25,20 @@
                     <a class="nav-link nav-home" href="{% url 'starting-page' %}">Home</a>
                 </li>
                 <li class='nav-item active'>
-                    <a class="nav-link nav-portfolio" href="{% url 'portfolio-page' %}">Portfolio</a>
+                    <a class="nav-link nav-portfolio active" href="{% url 'portfolio-page' %}">Portfolio</a>
                 </li>
         </div>
     </div>
 </nav>
 
 <section class='holding-return'>
-    <div class="container">
-        <div class="return_doll return">
+    <div class="container return-container">
+        <div class="return-dol return">
+            <i class="fa-solid fa-dollar-sign"></i>
             {{return_doll}}
         </div>
-        <div class="return_per return">
+        <div class="return-per return">
+            <i class="fa-solid fa-percent"></i>
             {{return_per}}
         </div>
     </div>

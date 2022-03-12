@@ -1,0 +1,10 @@
+.return-container{
+    display: flex;
+    justify-content: space-around;
+}
+
+.return{
+    border: solid grey 5px;
+    padding: 50px;
+    margin: 20px;
+}
