@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load fontawesome_5 %}
 
 {% block title %}
     Portfolio
@@ -34,11 +35,11 @@
 <section class='holding-return'>
     <div class="container return-container">
         <div class="return-dol return">
-            <i class="fa-solid fa-dollar-sign"></i>
+            {% fa5_icon 'dollar-sign' %}
             {{return_doll}}
         </div>
         <div class="return-per return">
-            <i class="fa-solid fa-percent"></i>
+            {% fa5_icon 'percent' %}
             {{return_per}}
         </div>
     </div>
