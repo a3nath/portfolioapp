@@ -125,11 +125,13 @@ class PortfolioPageView(View):
               # for each holding
             # get purchase_price, purchase_q
             # get closing price
+
+            ticker_asset = yf.Ticker(holding.ticker)
+            holding.closing_price = round(ticker_asset.history(period="1d").iloc[0]["Close"])
             if holding.purchase_price:
                 pp = holding.purchase_price
                 pq = holding.purchase_quantity
-                ticker_asset = yf.Ticker(holding.ticker)
-                cp = ticker_asset.history(period="1d").iloc[0]["Close"]
+                cp = holding.closing_price      
             else: 
                 pp = 0
                 pq = 0
