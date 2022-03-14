@@ -32,7 +32,7 @@
     </div>
 </nav>
 
-<section class='holding-return'>
+<section class='portfolio-return'>
     <div class="container return-container">
         <h2>Return</h2>
         <div class="return-dol return">
@@ -57,9 +57,18 @@
                 <tr class='asset-row'>
                     <div class="asset-holding">
                         <h3>{{holding.ticker}}</h3>
-                        <span class='holding_closing_price'>{{holding.closing_price}}</span>
-                        <p class='hold_pp'><span>Purchased Price </span><span> {{holding.purchase_price}}</span></p>
-                        <p class='hold_pq'><span>Purchased Quantity </span><span> {{holding.purchase_quantity}}</span></p>
+                        <div>
+                            <!-- icon -->
+                            {% if holding.net_return > 0 %} 
+                                {% fa5_icon 'caret-up fas' class='return-up holding-return-icon' %}
+                            {% else %}
+                                {% fa5_icon 'caret-down fas' class='return-down holding-return-icon' %}
+                            {% endif %}
+                            <span class='holding-return'>{{holding.net_return}}</span>
+                            <span class='holding-closing-price'>{{holding.closing_price}}</span>
+                        </div>
+                        <p class='hold-pp'><span>Purchased Price </span><span> {{holding.purchase_price}}</span></p>
+                        <p class='hold-pq'><span>Purchased Quantity </span><span> {{holding.purchase_quantity}}</span></p>
                         <a class="close-icon" onclick="deleteTicker(this)" data-id="{{ holding.ticker }}">
                             <i class="material-icons red-text right">close</i>
                         </a>

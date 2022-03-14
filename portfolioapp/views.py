@@ -131,7 +131,8 @@ class PortfolioPageView(View):
             if holding.purchase_price:
                 pp = holding.purchase_price
                 pq = holding.purchase_quantity
-                cp = holding.closing_price      
+                cp = holding.closing_price    
+                holding.net_return = round((cp-pp)*pq)
             else: 
                 pp = 0
                 pq = 0
