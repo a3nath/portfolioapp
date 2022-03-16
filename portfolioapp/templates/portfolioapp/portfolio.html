@@ -50,12 +50,17 @@
     <div class="container">
         <table id='holdings-table' class='table'>
             <tbody>
+                <tr>
+                    <th class='cell'>Ticker</th>
+                    <th class='cell'>Value</th>
+                    <th class='cell'>Actions</th>
+                </tr>
                 {% for holding in holdings %}
                 <tr class='asset-row'>
-                        <td class='col-8'>
+                        <td class='col-8 cell'>
                             <h3 class='ticker-title'>{{holding.ticker}}</h3>
                         </td>
-                        <td>
+                        <td class='cell'>
                             <div class='holding-return'>
                                 <span class='holding-total'>{{holding.total_return}}</span>
                                 <div class="holding-net">
@@ -69,7 +74,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td class='cell'>
                             <div class='holding-buttons'>
                                 <button class='holding-btn'>
                                         <a href="{% url 'update-portfolio' holding.ticker %}">

@@ -72,3 +72,6 @@ a {
     font-size: 2rem;
 }
 
+tr > .cell {
+    padding: 12px;
+}

@@ -89,7 +89,7 @@ class StartingPageView(View):
             ticker_form = TickerForm(request.POST)
             if ticker_form.is_valid():
             #form isnt blank
-                ticker_input = ticker_form.cleaned_data['ticker'].lower()
+                ticker_input = ticker_form.cleaned_data['ticker'].upper()
                 request.session['ticker_input'] = ticker_input
                 request.session['session_exists'] = True
             else:
