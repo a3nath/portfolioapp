@@ -52,19 +52,21 @@
             <tbody>
                 {% for holding in holdings %}
                 <tr class='asset-row'>
-                        <td>
-                            <h3>{{holding.ticker}}</h3>
+                        <td class='col-8'>
+                            <h3 class='ticker-title'>{{holding.ticker}}</h3>
                         </td>
                         <td>
                             <div class='holding-return'>
                                 <span class='holding-total'>{{holding.total_return}}</span>
-                                   <!-- icon -->
+                                <div class="holding-net">
+                                     <!-- icon -->
                                    {% if holding.net_return > 0 %} 
-                                   {% fa5_icon 'caret-up fas' class='return-up holding-return-icon' %}
-                               {% else %}
-                                   {% fa5_icon 'caret-down fas' class='return-down holding-return-icon' %}
-                               {% endif %}
-                                <span class='holding-net'>{{holding.net_return}}</span>
+                                        {% fa5_icon 'caret-up fas' class='return-up holding-return-icon' %}
+                                    {% elif 0 > holding.net_return   %}
+                                        {% fa5_icon 'caret-down fas' class='return-down holding-return-icon' %}
+                                    {% endif %}
+                                <span class='holding-net-val'>{{holding.net_return}}</span>
+                                </div>
                             </div>
                         </td>
                         <td>
