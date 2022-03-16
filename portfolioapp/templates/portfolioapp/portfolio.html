@@ -58,25 +58,31 @@
                     <div class="asset-holding">
                         <h3>{{holding.ticker}}</h3>
                         <div>
-                            <!-- icon -->
-                            {% if holding.net_return > 0 %} 
-                                {% fa5_icon 'caret-up fas' class='return-up holding-return-icon' %}
-                            {% else %}
-                                {% fa5_icon 'caret-down fas' class='return-down holding-return-icon' %}
-                            {% endif %}
+                            <span class='holding-closing-price'>{{holding.total_return}}</span>
+                               <!-- icon -->
+                               {% if holding.net_return > 0 %} 
+                               {% fa5_icon 'caret-up fas' class='return-up holding-return-icon' %}
+                           {% else %}
+                               {% fa5_icon 'caret-down fas' class='return-down holding-return-icon' %}
+                           {% endif %}
                             <span class='holding-return'>{{holding.net_return}}</span>
-                            <span class='holding-closing-price'>{{holding.closing_price}}</span>
                         </div>
-                        <p class='hold-pp'><span>Purchased Price </span><span> {{holding.purchase_price}}</span></p>
-                        <p class='hold-pq'><span>Purchased Quantity </span><span> {{holding.purchase_quantity}}</span></p>
-                        <a class="close-icon" onclick="deleteTicker(this)" data-id="{{ holding.ticker }}">
-                            <i class="material-icons red-text right">close</i>
-                        </a>
-                        <button>
-                            <span class="fa fa-pencil">
-                                <a href="{% url 'update-portfolio' holding.ticker %}">Add Details</a>
-                            </span>
-                        </button>
+                        <!-- <p class='hold-pp'><span>Purchased Price </span><span> {{holding.purchase_price}}</span></p>
+                        <p class='hold-pq'><span>Purchased Quantity </span><span> {{holding.purchase_quantity}}</span></p> -->
+                        <div class="holding-buttons">
+                            <button>
+                                <span class="fa fa-pencil">
+                                    {% fa5_icon 'pencil fas' class='holding-edit holding-button-icon' %}
+                                    <a href="{% url 'update-portfolio' holding.ticker %}">Edit</a>
+                                </span>
+                            </button>
+                            <button>
+                                <a class="close-icon" onclick="deleteTicker(this)" data-id="{{ holding.ticker }}">
+                                    {% fa5_icon 'delete fas' class='return-up holding-return-icon' %}
+                                    <i class="material-icons red-text right">Delete</i>
+                                </a>
+                            </button>
+                        </div>
                     </div>  
                 </tr>
             {% endfor %}
@@ -91,7 +97,7 @@
     function deleteTicker(e){
         
         let ticker = e.dataset.id
-        e.closest('div').remove()
+        e.closest('.asset-holding').remove()
 
         fetch('', {
           method: 'POST',
