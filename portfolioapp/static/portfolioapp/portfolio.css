@@ -1,3 +1,8 @@
+tr {
+    margin-bottom: 50px;
+}
+
+
 .return-container{
     display: flex;
 }
@@ -32,4 +37,29 @@
 .return-down{
     color:red;
     font-size: 20px;
+}
+
+.holding-button-icon{
+    font-size: 25px;
+}
+
+a {
+    text-decoration: none;
+    color: green
+}
+
+.holding-return{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.holding-buttons{
+    display: flex;
+    flex-direction: column;
+}
+
+.holding-btn{
+    background: none;
+    border: none;
 }
