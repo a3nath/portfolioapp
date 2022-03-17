@@ -75,3 +75,10 @@ a {
 tr > .cell {
     padding: 12px;
 }
+
+.holding-button-icon{
+    border: solid whitesmoke;
+    padding: 5px;
+    border-radius: 50%;
+    margin: 2px 0;
+}
