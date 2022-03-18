@@ -74,6 +74,7 @@ a {
 
 tr > .cell {
     padding: 12px;
+    /* background */
 }
 
 .holding-button-icon{
