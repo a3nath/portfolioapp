@@ -33,21 +33,24 @@
 </nav>
 
 <section class='portfolio-return'>
-    <div class="container return-container">
-        <h2>Return</h2>
-        <div class="return-dol return">
+    <div class="container">
+        <h1 class='holding-title'>Return</h1>
+        <div class="return-container">
+            <div class="return-dol return">
                 {% fa5_icon 'dollar-sign fab' class='dollar-icon return-icon' %}
                 <span class='doll-num return-num'>{{return_doll}}</span>
-        </div>
-        <div class="return-per return">
+            </div>
+            <div class="return-per return">
             {% fa5_icon 'percent' class='percent-icon return-icon' %}
             <span class='percent-num return-num'>{{return_per}}</span>
+            </div>
         </div>
     </div>
 </section>
 
 <section class='holdings'>
     <div class="container">
+        <h1 class='holding-title'>Holdings</h1>
         <table id='holdings-table' class='table'>
             <tbody>
                 <tr>
@@ -57,11 +60,10 @@
                 </tr>
                 {% for holding in holdings %}
                 <tr class='asset-row'>
-                        <td class='col-8 cell'>
+                        <td class='cell col-3'>
                             <h3 class='ticker-title'>{{holding.ticker}}</h3>
                         </td>
-                        <td class='cell'>
-                            <div class='holding-return'>
+                        <td class='cell holding-return col-5'>
                                 <span class='holding-total'>{{holding.total_return}}</span>
                                 <div class="holding-net">
                                      <!-- icon -->
@@ -71,25 +73,24 @@
                                         {% fa5_icon 'caret-down fas' class='return-down holding-return-icon' %}
                                     {% endif %}
                                 <span class='holding-net-val'>{{holding.net_return}}</span>
-                                </div>
+                             
                             </div>
                         </td>
-                        <td class='cell'>
-                            <div class='holding-buttons'>
-                                <button class='holding-btn'>
-                                        <a href="{% url 'update-portfolio' holding.ticker %}">
-                                            {% fa5_icon 'pen fas' class='holding-edit holding-button-icon' %}
-                                            Edit
-                                        </a>
-                                </button>
-                                <button class='holding-btn'>
-                                        <a class="close-icon" onclick="deleteTicker(this)" data-id="{{ holding.ticker }}">
-                                            {% fa5_icon 'trash fas' class='holding-trash holding-button-icon' %}
-                                            Delete
-                                        </a>
-                                </button>
-                            </div>
-                        </td>
+                        <td class='cell holding-buttons col-4'>
+                            <button class='holding-btn'>
+                                    <a href="{% url 'update-portfolio' holding.ticker %}">
+                                        {% fa5_icon 'pen fas' class='holding-edit holding-button-icon' %}
+                                        Edit
+                                    </a>
+                            </button>
+                            <button class='holding-btn'>
+                                    <a class="close-icon" onclick="deleteTicker(this)" data-id="{{ holding.ticker }}">
+                                        {% fa5_icon 'trash fas' class='holding-trash holding-button-icon' %}
+                                        Delete
+                                    </a>
+                            </button>
+                        
+                    </td>
                         <!-- <p class='hold-pp'><span>Purchased Price </span><span> {{holding.purchase_price}}</span></p>
                         <p class='hold-pq'><span>Purchased Quantity </span><span> {{holding.purchase_quantity}}</span></p> -->
                 </tr>
