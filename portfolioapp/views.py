@@ -69,6 +69,7 @@ class StartingPageView(View):
                     context = {
                     "ticker_form":TickerForm(),
                     "ticker_valid": ticker_valid,
+                    "ticker_name": request.session['ticker_name'],
                     "news": ticker_asset.news,
                     "message": request.session.get('message')
                     } 

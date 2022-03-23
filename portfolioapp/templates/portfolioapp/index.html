@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load fontawesome_5 %}
 
 
 
@@ -41,7 +42,11 @@
                 <ul>
                     {{ticker_form.as_ul}}
                 </ul>
-                <input type='submit' class='btn btn-primary' name='searchticker' value='Search'/>
+                <button type='submit' class='btn btn-primary' name='searchticker' value='Search'>
+                    {% fa5_icon 'search fas' class='holding-plus holding-button-icon' %}
+                    Search
+                </button>
+                <!-- <input type='submit' class='btn btn-primary' name='searchticker' value='Search'/> -->
             </form>
             <div class='err-mess'>
                 {{message}}
@@ -53,12 +58,18 @@
             {% if ticker_valid %}
                 <!-- Add Ticker button -->
                 <div class="ticker-details">
+                    <h2>{{ticker_name}}</h2>
                     <form action="{% url 'starting-page' %}" method="post">
                     {% csrf_token %}
-                        <input type='submit' name='addasset' value='Add'/>
+                        <button type='submit' name='addasset' value='Add' class='btn btn-primary'>
+                            {% fa5_icon 'plus fas' class='holding-plus holding-button-icon' %}
+                            Add to Portfolio
+                        </button>
+                        <!-- <input type='submit' name='addasset' value='Add'/> -->
                     </form >
                 </div>
                 <div class='news'>
+                    <h1 class='title'>News</h1>
                     {% for item in news %}
                             <article> {{item.title}} </article>
                     {% endfor %}

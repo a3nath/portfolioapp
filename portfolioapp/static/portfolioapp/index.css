@@ -1,5 +1,5 @@
-.ticker-search{
-    padding: 200px 50px;
+.ticker-search, .ticker-add{
+    padding:  50px;
 }
 
 .search-form{
@@ -31,6 +31,10 @@
 }
 
 .welcome-info-container{
-    height: calc(100vh - 130px)
+    height: calc(100vh - 130px);
+    padding: 100px 0
 }
 
+.ticker-details{
+    display: flex;
+}
