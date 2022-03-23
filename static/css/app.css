@@ -16,7 +16,7 @@ ul{
 
 nav{
     height: 80px;
-    background: salmon;
+    background: #4787ff;
     border-radius: 0 0 15px 15px ;
 }
 
@@ -24,3 +24,31 @@ nav{
     padding: 0;
 }
 
+.footer{
+    background-color: #4787ff;
+    height: 50px;
+    padding:15px;
+    text-align: center;
+}
+
+.heart-icon{
+    color: tomato;
+}
+
+.heart-icon:hover{
+    color: maroon
+}
+
+.footer a {
+    color: tomato;
+    text-decoration: none;
+}
+
+.nav-item .nav-link{
+    color: #fff;
+    padding: 15px;
+}
+
+.nav-item > .nav-link.active{
+    background-color: tomato;
+}

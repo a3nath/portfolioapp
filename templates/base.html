@@ -13,12 +13,12 @@
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <!--Font Awesome -->
     {% fontawesome_5_static %} 
-    <!-- <script src="https://kit.fontawesome.com/41953ab97d.js" crossorigin="anonymous"></script> -->
     <!-- fonts -->
-    <link rel='stylesheet' href="{% static 'css/app.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+    <!-- base css -->
+    <link rel='stylesheet' href="{% static 'css/app.css' %}">
     {% block css_files %}
     {% endblock %}
 </head>
@@ -26,10 +26,18 @@
     <div class='container-fluid'>
         {% block content %}
         {% endblock %}
+        <section class='footer'>
+            <div class="container">
+                Made with 
+                {% fa5_icon 'heart' class='heart-icon footer-icon' %}
+                by <a href='https://github.com/a3nath'> Amar Nath</a>
+            </div>
+        </section>
+
     </div>
+    <!-- jquery, popper, bootstrap -->
     <script type='text/javascript' src="{% static 'js/jquery-3.6.0.js' %}"></script>
     <script type='text/javascript' src="{% static 'js/popper.js' %}"></script>
     <script type='text/javascript' src="{% static 'js/bootstrap.js' %}"></script>
-    <script type='text/javascript' src="{% static 'js/index.js' %}"></script>
 </body>
 </html>

@@ -29,3 +29,8 @@
     width: 10%;
     height: 45px;
 }
+
+.welcome-info-container{
+    height: calc(100vh - 130px)
+}
+

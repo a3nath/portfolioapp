@@ -89,3 +89,7 @@ tr > .cell {
     margin-top: 40px;
     margin-bottom: 20px;
 }
+
+.portfolio-holdings-container{
+    height: calc(100vh - 130px);
+}
