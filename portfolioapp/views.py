@@ -51,7 +51,7 @@ class StartingPageView(View):
                     ticker_valid = False
                     # error exists that ticker doesnt exist
                     request.session['error_exists'] = True
-                    request.session['message'] = 'Asset doesnt Exist'
+                    request.session['message'] = 'Asset doesnot exist. Please try another ticker'
                     context = {
                     "ticker_form":TickerForm(),
                     'ticker_valid': ticker_valid,
@@ -69,7 +69,8 @@ class StartingPageView(View):
                     context = {
                     "ticker_form":TickerForm(),
                     "ticker_valid": ticker_valid,
-                    "ticker_name": request.session['ticker_name'],
+                    "asset_ticker": request.session['ticker_name'],
+                    "asset_name": ticker_asset.info['shortName'],
                     "news": ticker_asset.news,
                     "message": request.session.get('message')
                     } 
@@ -101,7 +102,7 @@ class StartingPageView(View):
             try:
             # add response to user portfolio
                 request.session['error_exists'] = False
-                request.session['message'] = "Asset added successfully"
+                request.session['message'] = "Asset added to your portfolio"
                 asset = Asset.objects.create(ticker=request.session.get('ticker_name'), session=request.session.session_key)
                 ##save user input
                 asset.save()
@@ -113,7 +114,7 @@ class StartingPageView(View):
             # asset already exists in portfolio
             # stops adding duplicate
                 request.session['error_exists'] = True
-                request.session['message'] = "Assets exisits in your portfolio already. Please try another asset"
+                request.session['message'] = "Assets already exisits in your portfolio already. Please try another ticker"
         return HttpResponseRedirect(reverse('starting-page'))
                       
 class PortfolioPageView(View):

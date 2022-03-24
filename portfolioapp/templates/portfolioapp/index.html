@@ -42,13 +42,13 @@
                 <ul>
                     {{ticker_form.as_ul}}
                 </ul>
-                <button type='submit' class='btn btn-primary' name='searchticker' value='Search'>
+                <button type='submit' class='btn btn-primary search-btn' name='searchticker' value='Search'>
                     {% fa5_icon 'search fas' class='holding-plus holding-button-icon' %}
                     Search
                 </button>
                 <!-- <input type='submit' class='btn btn-primary' name='searchticker' value='Search'/> -->
             </form>
-            <div class='err-mess'>
+            <div class='mess'>
                 {{message}}
             </div>
         </div>
@@ -58,10 +58,13 @@
             {% if ticker_valid %}
                 <!-- Add Ticker button -->
                 <div class="ticker-details">
-                    <h2>{{ticker_name}}</h2>
-                    <form action="{% url 'starting-page' %}" method="post">
+                    <div class="ticker-name">
+                        <h2>{{asset_name}}</h2>
+                        <h3>{{asset_ticker}}</h3>
+                    </div>
+                    <form action="{% url 'starting-page' %}" method="post" class="add-form">
                     {% csrf_token %}
-                        <button type='submit' name='addasset' value='Add' class='btn btn-primary'>
+                        <button type='submit' name='addasset' value='Add' class='btn btn-primary add-btn'>
                             {% fa5_icon 'plus fas' class='holding-plus holding-button-icon' %}
                             Add to Portfolio
                         </button>
