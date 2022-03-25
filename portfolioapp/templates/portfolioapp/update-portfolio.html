@@ -45,9 +45,16 @@
 <script type='text/javascript' src="{% static 'js/popper.js' %}"></script>
 <script type='text/javascript' src="{% static 'js/bootstrap.js' %}"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#modal').modal('show');
+
+$(document).ready(function(){
+    $('#modal').modal('show');
+}); 
+
+$(document).ready(function(){
+    $('#modal').modal({
+        keyboard: false
     });
+})
 </script>
 
 
