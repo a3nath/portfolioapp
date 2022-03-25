@@ -23,6 +23,7 @@ tr {
 
 .return-icon{
     font-size: 40px;
+    margin-right: 8px;
 }
 
 .return-num{
@@ -53,7 +54,7 @@ a:hover, .ticker-title:hover, .holding-total:hover, .holding-net-val:hover{
 }
 
 .holdings{
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .holding-buttons{
