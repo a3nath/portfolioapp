@@ -45,10 +45,16 @@ tr {
 
 a {
     text-decoration: none;
-    color: green
+    color: inherit;
 }
 
+a:hover, .ticker-title:hover, .holding-total:hover, .holding-net-val:hover{
+    color:tomato;
+}
 
+.holdings{
+    margin-bottom: 20px;
+}
 
 .holding-buttons{
     display: flex;
@@ -85,7 +91,4 @@ tr > .cell {
 }
 
 
-.portfolio-holdings-container{
-    height: calc(100vh - 130px);
-}
 
