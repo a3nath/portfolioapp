@@ -13,7 +13,7 @@
 {% block content %}
 
 
-<div class="modal fade" tabindex="-1" role="dialog" id="modal" aria-hidden="true">
+<div class="modal fade" tabindex="-1" role="dialog" id="modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -47,14 +47,24 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-    $('#modal').modal('show');
+    $('#modal').modal({
+        keyboard:false,
+        backdrop:'static'
+        });
 }); 
 
 $(document).ready(function(){
-    $('#modal').modal({
-        keyboard: false
-    });
-})
+    $('#modal').modal('show')
+}); 
+
+
+
+// $(document).ready(function(){
+//     $('#modal').modal({
+//         keyboard: false,
+//         backdrop: 'static'
+//     });
+// })
 </script>
 
 
