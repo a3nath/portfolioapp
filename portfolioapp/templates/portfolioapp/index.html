@@ -5,7 +5,7 @@
 
 
 {% block title %}
-    Search ticker
+    Search
 {% endblock %}
 
 {% block css_files %}
@@ -36,7 +36,8 @@
 <div class="welcome-info-container">
     <section class='welcome'>
         <div class="container ticker-search">
-            <h1>Search a ticker</h1>
+            <h1 class='title'>Search</h1>
+            <h4 class='subtitle'>Type a stock ticker symbol to start</h4>
             <form action="{% url 'starting-page' %}" method="post" class='search-form'>
                 {% csrf_token %}
                 <ul>
