@@ -66,6 +66,8 @@ class StartingPageView(View):
                     # no error
                     request.session['error_exists'] = False
                     
+                    
+                    # form to accept ticker name, pp, pq
                     context = {
                     "ticker_form":TickerForm(),
                     "ticker_valid": ticker_valid,
@@ -100,16 +102,18 @@ class StartingPageView(View):
                 request.session['session_exists'] = False
         elif 'addasset' in request.POST:
             try:
-            # add response to user portfolio
+            # add ticker, pp, pq to users portfolio
+
                 request.session['error_exists'] = False
                 request.session['message'] = "Asset added to your portfolio"
                 asset = Asset.objects.create(ticker=request.session.get('ticker_name'), session=request.session.session_key)
                 ##save user input
+                # tikcer name in form filled
+                # fill purhase price and quanity
+                
                 asset.save()
                 ##show asset info even after user adds
                 request.session['session_exists'] = True
-                
-                ##NEED POP UP THAT SAYS ASSET ADDED
             except IntegrityError:
             # asset already exists in portfolio
             # stops adding duplicate

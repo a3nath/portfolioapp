@@ -63,14 +63,19 @@
                         <h2>{{asset_name}}</h2>
                         <h3>{{asset_ticker}}</h3>
                     </div>
-                    <form action="{% url 'starting-page' %}" method="post" class="add-form">
+                    <button>
+                        <!-- click button opens modal -->
+                        <a href=''>
+                            <!-- Modal has form to add asset pp, pq -->
+                        </a>
+                    </button>
+                    <!-- <form action="{% url 'starting-page' %}" method="post" class="add-form">
                     {% csrf_token %}
                         <button type='submit' name='addasset' value='Add' class='btn btn-primary add-btn'>
                             {% fa5_icon 'plus fas' class='holding-plus holding-button-icon' %}
                             Add to Portfolio
                         </button>
-                        <!-- <input type='submit' name='addasset' value='Add'/> -->
-                    </form >
+                    </form > -->
                 </div>
                 <div class='news'>
                     <h1 class='title'>News</h1>
