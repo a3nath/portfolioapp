@@ -193,19 +193,29 @@ def PortfolioAdd(request,ticker):
         if 'add' in request.POST:
             # holdings = Asset.objects.filter(session = request.session.session_key)
             # asset = get_object_or_404(holdings, ticker=ticker)
-            holding_form = AssetForm(request.POST)
-            if asset.is_valid():
+            asset_form = AssetForm(request.POST)
+            if asset_form.is_valid():
                 # saves valid form reponse to databse
                 # redirects to portfolio template
                 try:
-                    asset.ticker = ticker
-                    asset.purchase_price = aseet_form.cleaned_data['purchase_price']
-                    asset.purchase_quantity = asset_form.cleaned_data['purchase_quantity']
-                    asset.session = request.session.session_key
+                    request.session['error_exists'] = False
+                    request.session['message'] = "Asset added to your portfolio"
+                    asset = Asset.objects.create(
+                        ticker=ticker, 
+                        purchase_price = asset_form.cleaned_data['purchase_price'],
+                        purchase_quantity = asset_form.cleaned_data['purchase_quantity'],
+                        session=request.session.session_key
+                    )
                     asset.save()
+                    request.session['session_exists'] = False
                     return HttpResponseRedirect(reverse("starting-page"))
                 except IntegrityError:
                     print("ERROR HOMES")
+                    request.session['error_exists'] = True
+                    request.session['message'] = "Assets already exisits in your portfolio already. Please try another ticker"
+                except Exception as e:
+                    print(e)
+                    return None
             else:
                 # if form isn't valid
                 context  = {
