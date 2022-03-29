@@ -65,12 +65,24 @@
                     </div>
                     <button>
                         <!-- click button opens modal -->
-                        <a href="{% url 'add-portfolio' asset_ticker %}">
-                            {% fa5_icon 'plus fas' class='holding-plus holding-button-icon' %}
-                            Add to Portfolio
-                            <!-- Modal has form to add asset pp, pq -->
-                        </a>
-                        
+                        <!-- if exists in portfolio -->
+                        <!-- button that deletes from portfolio -->
+
+                        <!-- if asset doesnt exist in portfolio -->
+                        {% if btn_action == "add" %}
+                            <a href="{% url 'add-portfolio' asset_ticker %}">
+                                {% fa5_icon 'plus fas' class='holding-plus holding-button-icon' %}
+                                Add to Portfolio
+                                <!-- Modal has form to add asset pp, pq -->
+                            </a>
+                        {% else %}
+                            <button class='holding-btn' name='searchticker' value='Search'>
+                                        <a class="close-icon" onclick="deleteTicker(this)" data-id="{{ asset_ticker }}">
+                                            {% fa5_icon 'trash fas' class='holding-trash holding-button-icon' %}
+                                            Delete
+                                        </a>
+                            </button>
+                        {% endif %}
                     </button>
                     <!-- <form action="{% url 'starting-page' %}" method="post" class="add-form">
                     {% csrf_token %}
@@ -90,6 +102,24 @@
         </div>
     </section>
 </div>
+
+<script>
+    function deleteTicker(e){
+
+        let ticker = e.dataset.id
+        
+        fetch('', {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+          },
+          body: JSON.stringify({
+            'ticker': ticker
+          }),
+          credentials: 'same-origin',
+        })
+    }
+</script>
 
 
 {% endblock %}

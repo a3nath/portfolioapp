@@ -65,8 +65,11 @@ class StartingPageView(View):
                     request.session['ticker_name'] = ticker_input 
                     # no error
                     request.session['error_exists'] = False
-                    
-                    
+                    holdings = Asset.objects.filter(ticker= ticker_input, session = self.request.session.session_key)
+                    if len(holdings) > 0:
+                        btn_action = 'delete'
+                    else:
+                        btn_action = 'add'
                     # form to accept ticker name, pp, pq
                     context = {
                     "ticker_form":TickerForm(),
@@ -74,7 +77,8 @@ class StartingPageView(View):
                     "asset_ticker": request.session['ticker_name'],
                     "asset_name": ticker_asset.info['shortName'],
                     "news": ticker_asset.news,
-                    "message": request.session.get('message')
+                    "message": request.session.get('message'),
+                    "btn_action": btn_action
                     } 
                     request.session['message'] = ''
             else:
@@ -121,6 +125,15 @@ class StartingPageView(View):
         #     # stops adding duplicate
         #         request.session['error_exists'] = True
         #         request.session['message'] = "Assets already exisits in your portfolio already. Please try another ticker"
+        elif 'delete' in request.POST:
+            ticker = json.loads(request.body)['ticker']
+            holdings = Asset.objects.filter(session = self.request.session.session_key)
+            asset = Asset.objects.get(ticker=ticker)
+            asset.delete()
+            # print('Hello Im ' % self.request.POST.get('_method'))
+            return HttpResponseRedirect(reverse("portfolio-page"))
+
+        
         return HttpResponseRedirect(reverse('starting-page'))
                       
 class PortfolioPageView(View):
@@ -198,8 +211,6 @@ def PortfolioAdd(request,ticker):
                 # saves valid form reponse to databse
                 # redirects to portfolio template
                 try:
-                    request.session['error_exists'] = False
-                    request.session['message'] = "Asset added to your portfolio"
                     asset = Asset.objects.create(
                         ticker=ticker, 
                         purchase_price = asset_form.cleaned_data['purchase_price'],
@@ -208,14 +219,13 @@ def PortfolioAdd(request,ticker):
                     )
                     asset.save()
                     request.session['session_exists'] = False
+                    request.session['error_exists'] = False
+                    request.session['message'] = "Asset added to your portfolio"
                     return HttpResponseRedirect(reverse("starting-page"))
                 except IntegrityError:
-                    print("ERROR HOMES")
                     request.session['error_exists'] = True
                     request.session['message'] = "Assets already exisits in your portfolio already. Please try another ticker"
-                except Exception as e:
-                    print(e)
-                    return None
+                    return HttpResponseRedirect(reverse("starting-page"))
             else:
                 # if form isn't valid
                 context  = {
