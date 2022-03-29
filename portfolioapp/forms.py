@@ -9,7 +9,11 @@ class TickerForm(forms.Form):
 class AssetForm(forms.ModelForm):
     class Meta:
         model = Asset
-        exclude = "__all__"
+        fields = ['purchase_price', 'purchase_quantity']
+        widgets = {
+            'purchase_price': NumberInput(attrs={'placeholder': 0}),
+            'purchase_quantity': NumberInput(attrs={'placeholder': 0})
+        }
 
 class HoldingForm(forms.ModelForm):
     class Meta:

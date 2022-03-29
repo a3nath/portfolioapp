@@ -100,25 +100,27 @@ class StartingPageView(View):
             #form is blank
                 request.session['message'] = "form is blank"
                 request.session['session_exists'] = False
-        elif 'addasset' in request.POST:
-            try:
-            # add ticker, pp, pq to users portfolio
+        ##Remove this
+        # elif 'addasset' in request.POST:
+            
+        #     try:
+        #     # add ticker, pp, pq to users portfolio
 
-                request.session['error_exists'] = False
-                request.session['message'] = "Asset added to your portfolio"
-                asset = Asset.objects.create(ticker=request.session.get('ticker_name'), session=request.session.session_key)
-                ##save user input
-                # tikcer name in form filled
-                # fill purhase price and quanity
+        #         request.session['error_exists'] = False
+        #         request.session['message'] = "Asset added to your portfolio"
+        #         asset = Asset.objects.create(ticker=request.session.get('ticker_name'), session=request.session.session_key)
+        #         ##save user input
+        #         # tikcer name in form filled
+        #         # fill purhase price and quanity
                 
-                asset.save()
-                ##show asset info even after user adds
-                request.session['session_exists'] = True
-            except IntegrityError:
-            # asset already exists in portfolio
-            # stops adding duplicate
-                request.session['error_exists'] = True
-                request.session['message'] = "Assets already exisits in your portfolio already. Please try another ticker"
+        #         asset.save()
+        #         ##show asset info even after user adds
+        #         request.session['session_exists'] = True
+        #     except IntegrityError:
+        #     # asset already exists in portfolio
+        #     # stops adding duplicate
+        #         request.session['error_exists'] = True
+        #         request.session['message'] = "Assets already exisits in your portfolio already. Please try another ticker"
         return HttpResponseRedirect(reverse('starting-page'))
                       
 class PortfolioPageView(View):
@@ -168,46 +170,51 @@ class PortfolioPageView(View):
 
         
 
-
-# def portfolioPage(request):
-#     if request.method == 'GET':
-#         holdings = Asset.objects.filter(session = request.session.session_key)
-#         return_doll = 0
-#         sum_net = 0 
-#         ppTot = 0
-#         for holding in holdings:
-#               # for each holding
-#             # get purchase_price, purchase_q
-#             # get closing price
-#             if holding.purchase_price:
-#                 pp = holding.purchase_price
-#                 pq = holding.purchase_quantity
-#                 ticker_asset = yf.Ticker(holding.ticker)
-#                 cp = ticker_asset.history(period="1d").iloc[0]["Close"]
-#             else: 
-#                 pp = 0
-#                 pq = 0
-#                 cp = 0
-#             return_doll += (cp - pp)*pq
-#             sum_net += (cp - pp)
-#             ppTot += pp
-#         if ppTot > 0:
-#             return_per = sum_net/ppTot
-#         else: 
-#             return_per = 0
-#         context = {
-#             'holdings':holdings,
-#             'return_doll':return_doll,
-#             'return_per': return_per
-#         }
-#         return render(request, 'portfolioapp/portfolio.html', context)
-#         # delete a ticker
-#     elif request.method == "DELETE":
-#         holdings = Asset.objects.filter(session = request.session.session_key)
-#         asset = Asset.objects.get(ticker=ticker)
-#         print('method delete')
-#         asset.delete()
-#         return HttpResponse(status=204)
+def PortfolioAdd(request,ticker):
+    if request.method == "GET":
+        # show asset specific info
+        # asset ticker
+        # asset purchase quantity and purchase price
+        # holdings = Asset.objects.filter(session = request.session.session_key)
+        # asset = get_object_or_404(holdings, ticker=ticker)
+        # holding_form = HoldingForm()
+        asset_form = AssetForm()
+        asset_form.fields['purchase_price'].widget.attrs.update({'placeholder': 0})
+        asset_form.fields['purchase_quantity'].widget.attrs.update({'placeholder': 0})
+        context= {
+            "form" : asset_form,
+            "ticker": ticker,
+        }
+        return render(request, "portfolioapp/add-portfolio.html",context)
+    # ##post
+    # ##submit form and update values in db
+    elif request.method == "POST":
+        ##try
+        if 'add' in request.POST:
+            # holdings = Asset.objects.filter(session = request.session.session_key)
+            # asset = get_object_or_404(holdings, ticker=ticker)
+            holding_form = AssetForm(request.POST)
+            if asset.is_valid():
+                # saves valid form reponse to databse
+                # redirects to portfolio template
+                try:
+                    asset.ticker = ticker
+                    asset.purchase_price = aseet_form.cleaned_data['purchase_price']
+                    asset.purchase_quantity = asset_form.cleaned_data['purchase_quantity']
+                    asset.session = request.session.session_key
+                    asset.save()
+                    return HttpResponseRedirect(reverse("starting-page"))
+                except IntegrityError:
+                    print("ERROR HOMES")
+            else:
+                # if form isn't valid
+                context  = {
+                "form" : asset_form,
+                "ticker": asset.ticker,
+                }
+                return render(request, 'portfolioapp/add-portfolio.html', context)
+        else:
+            return HttpResponseRedirect(reverse("starting-page"))
 
     
 
@@ -226,8 +233,8 @@ def PortfolioUpdate(request,ticker):
         context= {
             "form" : holding_form,
             "ticker": asset.ticker,
-            "pp": pp,
-            "pq": pq
+            # "pp": pp,
+            # "pq": pq
         }
         return render(request, "portfolioapp/update-portfolio.html",context)
     # ##post

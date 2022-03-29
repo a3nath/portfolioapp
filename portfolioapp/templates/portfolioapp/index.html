@@ -65,9 +65,12 @@
                     </div>
                     <button>
                         <!-- click button opens modal -->
-                        <a href=''>
+                        <a href="{% url 'add-portfolio' asset_ticker %}">
+                            {% fa5_icon 'plus fas' class='holding-plus holding-button-icon' %}
+                            Add to Portfolio
                             <!-- Modal has form to add asset pp, pq -->
                         </a>
+                        
                     </button>
                     <!-- <form action="{% url 'starting-page' %}" method="post" class="add-form">
                     {% csrf_token %}
