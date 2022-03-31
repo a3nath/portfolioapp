@@ -67,7 +67,7 @@ class StartingPageView(View):
                     request.session['error_exists'] = False
                     holdings = Asset.objects.filter(ticker= ticker_input, session = self.request.session.session_key)
                     if len(holdings) > 0:
-                        btn_action = 'delete'
+                        btn_action = 'exists'
                     else:
                         btn_action = 'add'
                     # form to accept ticker name, pp, pq
@@ -100,6 +100,9 @@ class StartingPageView(View):
                 ticker_input = ticker_form.cleaned_data['ticker'].upper()
                 request.session['ticker_input'] = ticker_input
                 request.session['session_exists'] = True
+                request.session['error_exists'] = False
+                request.session['message'] = ''
+
             else:
             #form is blank
                 request.session['message'] = "form is blank"
@@ -125,15 +128,14 @@ class StartingPageView(View):
         #     # stops adding duplicate
         #         request.session['error_exists'] = True
         #         request.session['message'] = "Assets already exisits in your portfolio already. Please try another ticker"
-        else:
-            ticker = json.loads(request.body)['ticker']
-            holdings = Asset.objects.filter(session = self.request.session.session_key)
-            asset = Asset.objects.get(ticker=ticker)
-            asset.delete()
-            # print('Hello Im ' % self.request.POST.get('_method'))
-            return HttpResponseRedirect(reverse("portfolio-page"))
+        # else:
+        #     ticker = json.loads(request.body)['ticker']
+        #     holdings = Asset.objects.filter(session = self.request.session.session_key)
+        #     asset = Asset.objects.get(ticker=ticker)
+        #     asset.delete()
+        #     # print('Hello Im ' % self.request.POST.get('_method'))
+        #     return HttpResponseRedirect(reverse("portfolio-page"))
 
-        
         return HttpResponseRedirect(reverse('starting-page'))
                       
 class PortfolioPageView(View):
@@ -220,11 +222,9 @@ def PortfolioAdd(request,ticker):
                     asset.save()
                     request.session['session_exists'] = False
                     request.session['error_exists'] = False
-                    request.session['message'] = "Asset added to your portfolio"
                     return HttpResponseRedirect(reverse("starting-page"))
                 except IntegrityError:
                     request.session['error_exists'] = True
-                    request.session['message'] = "Assets already exisits in your portfolio already. Please try another ticker"
                     return HttpResponseRedirect(reverse("starting-page"))
             else:
                 # if form isn't valid

@@ -77,12 +77,18 @@
                                 </a>
                             </button>
                         {% else %}
-                            <button class='' name='deleteticker' value='delete'>
-                                <a class="close-icon" onclick="deleteTicker(this)" data-id="{{ asset_ticker }}">
-                                    {% fa5_icon 'trash fas' class='holding-trash holding-button-icon' %}
-                                    Delete
-                                </a>
+                            <button>
+                                    {% fa5_icon 'plus fas' class='holding-plus holding-button-icon' %}
+                                    Exists in Portfolio
+                                    <!-- Modal has form to add asset pp, pq -->
                             </button>
+                            <!-- delete -->
+                            <!-- <button class='' name='deleteticker' value='delete'>
+                                    <a class="close-icon" onclick="deleteTicker(this)" data-id="{{ asset_ticker }}">
+                                        {% fa5_icon 'trash fas' class='holding-trash holding-button-icon' %}
+                                        Delete
+                                    </a>
+                                </button> -->
                         {% endif %}
                     <!-- <form action="{% url 'starting-page' %}" method="post" class="add-form">
                     {% csrf_token %}
