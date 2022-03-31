@@ -30,15 +30,23 @@
     </div>
 </nav>
 
-
+    <!-- total return of portfolio -->
     <section class='portfolio-return'>
         <div class="container">
             <h1 class='holding-title title'>Return</h1>
+            <div class='value-container'>
+                <div class="value">
+                    {% fa5_icon 'dollar-sign fab' class='dollar-icon return-icon' %}
+                    <span class='doll-num return-num'><h2>{{value}}</h2></span>
+                </div>
+            </div>
             <div class="return-container">
+                <!-- return in dollars -->
                 <div class="return-dol return">
                     {% fa5_icon 'dollar-sign fab' class='dollar-icon return-icon' %}
                     <span class='doll-num return-num'>{{return_doll}}</span>
                 </div>
+                <!-- return in percentage -->
                 <div class="return-per return">
                 {% fa5_icon 'percent' class='percent-icon return-icon' %}
                 <span class='percent-num return-num'>{{return_per}}</span>
@@ -61,6 +69,7 @@
                             <td class='cell col-3'>
                                 <h3 class='ticker-title'>{{holding.ticker}}</h3>
                             </td>
+                            <!-- asset value -->
                             <td class='cell holding-return col-5'>
                                     <span class='holding-total'>{{holding.total_return}}</span>
                                     <div class="holding-net">
@@ -74,7 +83,9 @@
                                  
                                 </div>
                             </td>
+                            <!-- asset actions -->
                             <td class='cell holding-buttons col-4'>
+                                <!-- edit price quanity -->
                                 <button class='holding-btn'>
                                         <a href="{% url 'update-portfolio' holding.ticker %}">
                                             {% fa5_icon 'pen fas' class='holding-edit holding-button-icon' %}
@@ -82,6 +93,7 @@
                                         </a>
                                 </button>
                                 <button class='holding-btn'>
+                                    <!-- remove asset -->
                                         <a class="close-icon" onclick="deleteTicker(this)" data-id="{{ holding.ticker }}">
                                             {% fa5_icon 'trash fas' class='holding-trash holding-button-icon' %}
                                             Delete

@@ -16,8 +16,6 @@
 
 <nav class="nav nav-pills nav-fill navbar navbar-expand-sm sticky-top">
     <div class="container">
-        <!-- <a class='navbar-brand' href='#'><img src='img/logo-one.png' class='navbar-logo'>
-        </a> -->
         <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#home-nav'>
             <span class='navbar-togler-icon'>
             </span>
@@ -38,6 +36,7 @@
         <div class="container ticker-search">
             <h1 class='title'>Search</h1>
             <h4 class='subtitle'>Type a stock ticker symbol to start</h4>
+            <!-- enter asset to search using yf API -->
             <form action="{% url 'starting-page' %}" method="post" class='search-form'>
                 {% csrf_token %}
                 <ul>
@@ -47,7 +46,6 @@
                     {% fa5_icon 'search fas' class='holding-plus holding-button-icon' %}
                     Search
                 </button>
-                <!-- <input type='submit' class='btn btn-primary' name='searchticker' value='Search'/> -->
             </form>
             <div class='mess'>
                 {{message}}
@@ -63,40 +61,22 @@
                         <h2>{{asset_name}}</h2>
                         <h3>{{asset_ticker}}</h3>
                     </div>
-                        <!-- click button opens modal -->
-                        <!-- if exists in portfolio -->
-                        <!-- button that deletes from portfolio -->
-
                         <!-- if asset doesnt exist in portfolio -->
                         {% if btn_action == "add" %}
-                            <button>
+                            <button class='btn btn-primary add-btn ticker-btn'>
+                                <!-- Modal form to add asset pp, pq -->
                                 <a href="{% url 'add-portfolio' asset_ticker %}">
-                                    {% fa5_icon 'plus fas' class='holding-plus holding-button-icon' %}
+                                    {% fa5_icon 'plus fas' class='' %}
                                     Add to Portfolio
-                                    <!-- Modal has form to add asset pp, pq -->
                                 </a>
                             </button>
+                        <!-- if asset exists in portfolio -->
                         {% else %}
-                            <button>
-                                    {% fa5_icon 'plus fas' class='holding-plus holding-button-icon' %}
-                                    Exists in Portfolio
-                                    <!-- Modal has form to add asset pp, pq -->
-                            </button>
-                            <!-- delete -->
-                            <!-- <button class='' name='deleteticker' value='delete'>
-                                    <a class="close-icon" onclick="deleteTicker(this)" data-id="{{ asset_ticker }}">
-                                        {% fa5_icon 'trash fas' class='holding-trash holding-button-icon' %}
-                                        Delete
-                                    </a>
-                                </button> -->
+                            <div class='btn btn-primary exist-btn ticker-btn'>
+                                    {% fa5_icon 'star fas' class='' %}
+                                    In Portfolio
+                            </div>
                         {% endif %}
-                    <!-- <form action="{% url 'starting-page' %}" method="post" class="add-form">
-                    {% csrf_token %}
-                        <button type='submit' name='addasset' value='Add' class='btn btn-primary add-btn'>
-                            {% fa5_icon 'plus fas' class='holding-plus holding-button-icon' %}
-                            Add to Portfolio
-                        </button>
-                    </form > -->
                 </div>
                 <div class='news'>
                     <h1 class='title'>News</h1>
@@ -108,26 +88,6 @@
         </div>
     </section>
 </div>
-
-<script>
-    function deleteTicker(e){
-
-        let ticker = e.dataset.id
-        
-    
-        fetch('', {
-          method: 'POST',
-          headers: {
-            'X-CSRFToken': '{{ csrf_token }}'
-          },
-          body: JSON.stringify({
-            'ticker': ticker
-          }),
-          credentials: 'same-origin',
-        })
-    }
-</script>
-
 
 <script type='text/javascript' src="{% static 'js/jquery-3.6.0.js' %}"></script>
 <script type='text/javascript' src="{% static 'js/popper.js' %}"></script>
