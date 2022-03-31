@@ -222,19 +222,20 @@ def PortfolioAdd(request,ticker):
                     asset.save()
                     request.session['session_exists'] = False
                     request.session['error_exists'] = False
-                    return HttpResponseRedirect(reverse("starting-page"))
+                    # direct to portfolio
+                    return HttpResponseRedirect(reverse("portfolio-page"))
                 except IntegrityError:
                     request.session['error_exists'] = True
                     return HttpResponseRedirect(reverse("starting-page"))
             else:
-                # if form isn't valid
+                # if form isn't valid back to same page
                 context  = {
                 "form" : asset_form,
                 "ticker": asset.ticker,
                 }
                 return render(request, 'portfolioapp/add-portfolio.html', context)
-        else:
-            return HttpResponseRedirect(reverse("starting-page"))
+        # else:
+        #     return HttpResponseRedirect(reverse("starting-page"))
 
     
 
