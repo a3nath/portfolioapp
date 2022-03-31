@@ -77,7 +77,7 @@
                                 </a>
                             </button>
                         {% else %}
-                            <button type='submit' class='' name='deleteticker' value='delete'>
+                            <button class='' name='deleteticker' value='delete'>
                                 <a class="close-icon" onclick="deleteTicker(this)" data-id="{{ asset_ticker }}">
                                     {% fa5_icon 'trash fas' class='holding-trash holding-button-icon' %}
                                     Delete
@@ -107,9 +107,8 @@
     function deleteTicker(e){
 
         let ticker = e.dataset.id
-        e.closest('.ticker-details').remove()
-
         
+    
         fetch('', {
           method: 'POST',
           headers: {
@@ -123,5 +122,9 @@
     }
 </script>
 
+
+<script type='text/javascript' src="{% static 'js/jquery-3.6.0.js' %}"></script>
+<script type='text/javascript' src="{% static 'js/popper.js' %}"></script>
+<script type='text/javascript' src="{% static 'js/bootstrap.js' %}"></script>
 
 {% endblock %}

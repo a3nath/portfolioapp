@@ -125,7 +125,7 @@ class StartingPageView(View):
         #     # stops adding duplicate
         #         request.session['error_exists'] = True
         #         request.session['message'] = "Assets already exisits in your portfolio already. Please try another ticker"
-        elif 'deleteticker' in request.POST:
+        else:
             ticker = json.loads(request.body)['ticker']
             holdings = Asset.objects.filter(session = self.request.session.session_key)
             asset = Asset.objects.get(ticker=ticker)
