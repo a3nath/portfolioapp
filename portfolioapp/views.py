@@ -117,6 +117,7 @@ class PortfolioPageView(View):
         return_doll = 0
         sum_net = 0 
         ppTot = 0
+        portfolio_val = 0
         # calculate total return and return per asset in portfolio 
         for holding in holdings:
             ticker_asset = yf.Ticker(holding.ticker)
@@ -127,23 +128,26 @@ class PortfolioPageView(View):
                 pp = holding.purchase_price
                 pq = holding.purchase_quantity
                 cp = holding.closing_price    
-                holding.total_return = round(cp*pq)
-                holding.net_return = round((cp-pp)*pq)
+                holding.tot_val = round(cp*pq)
+                holding.net_val = round((cp-pp)*pq)
             else: 
                 pp = 0
                 pq = 0
                 cp = 0
             return_doll += (cp - pp)*pq
-            sum_net += (cp - pp)
-            ppTot += pp
+            sum_net += (cp - pp)*pq
+            ppTot += pp*pq
+            portfolio_val += holding.tot_val
         if ppTot > 0:
             return_per = sum_net/ppTot
+        #not purchased anything so far
         else: 
             return_per = 0
         context = {
             'holdings':holdings,
             'return_doll':return_doll,
-            'return_per': return_per
+            'return_per': return_per,
+            'portfolio_val': portfolio_val
         }
         return render(request, 'portfolioapp/portfolio.html', context)
 

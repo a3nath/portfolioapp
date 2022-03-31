@@ -7,8 +7,8 @@ class Asset(models.Model):
     closing_price = models.FloatField(max_length=20, blank=True, null=True, default=0)
     purchase_price = models.FloatField(max_length=20, blank=False, null=True, default=0)
     purchase_quantity = models.FloatField(max_length=20, blank=False, null=True, default=0)
-    total_return = models.FloatField(max_length=20, blank=False, null=True, default=0)
-    net_return = models.FloatField(max_length=20, blank=False, null=True, default=0)
+    tot_val = models.FloatField(max_length=20, blank=False, null=True, default=0)
+    net_val = models.FloatField(max_length=20, blank=False, null=True, default=0)
     session = models.CharField(max_length=200, blank=False, null=True)
 
     class Meta:
