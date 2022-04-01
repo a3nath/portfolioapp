@@ -64,13 +64,13 @@
     <section class='holdings'>
         <div class="container">
             <h1 class='section-title'>Portfolio</h1>
-            <table id='holdings-table' class='table'>
+            <table class='holdings-table table'>
                 <tbody>
-                    <tr>
+                    <!-- <tr>
                         <th class='cell'>Ticker</th>
                         <th class='cell'>Value</th>
                         <th class='cell'>Actions</th>
-                    </tr>
+                    </tr> -->
                     {% for holding in holdings %}
                     <tr class='asset-row'>
                             <td class='cell col-3'>
@@ -78,16 +78,19 @@
                             </td>
                             <!-- asset value -->
                             <td class='cell holding-return col-5'>
-                                    <span class='holding-total'>{{holding.tot_val|floatformat:"-3g"}}</span>
-                                    <div class="holding-net">
-                                         <!-- icon -->
-                                       {% if holding.net_val > 0 %} 
-                                            {% fa5_icon 'caret-up fas' class='return-up holding-return-icon' %}
-                                        {% elif 0 > holding.net_val   %}
-                                            {% fa5_icon 'caret-down fas' class='return-down holding-return-icon' %}
-                                        {% endif %}
+                                <span class='holding-total'>
+                                    <span class='holding-total-text hold-text'>Total value:</span>
+                                    {{holding.tot_val|floatformat:"-3g"}}
+                                </span>
+                                <div class="holding-net">
+                                    <span class='holding-net-text hold-text'>Net change:</span>
+                                        <!-- icon -->
+                                    {% if holding.net_val > 0 %} 
+                                        {% fa5_icon 'caret-up fas' class='return-up holding-return-icon' %}
+                                    {% elif 0 > holding.net_val   %}
+                                        {% fa5_icon 'caret-down fas' class='return-down holding-return-icon' %}
+                                    {% endif %}
                                     <span class='holding-net-val'>{{holding.net_val|floatformat:"-3g"}}</span>
-                                 
                                 </div>
                             </td>
                             <!-- asset actions -->

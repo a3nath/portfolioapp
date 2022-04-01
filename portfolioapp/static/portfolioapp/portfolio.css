@@ -29,33 +29,29 @@ tr {
     width: 30px;
 }
 
+.portfolio-return{
+    padding-top: 100px;
+}
+
 .portfolio-num{
     font-size: 4rem;
     width: 65%;
     text-align: right;
 }
 
-.return-up{
-    color: green;
-    font-size: 20px;
-}
 
-.return-down{
-    color:red;
-    font-size: 20px;
-}
 
 .holding-button-icon{
     font-size: 12px;
 }
 
-
-a:hover, .holding-title:hover, .holding-total:hover, .holding-net-val:hover{
-    color:tomato;
+.holdings{
+    padding-bottom: 100px;
 }
 
-.holdings{
-    margin-bottom: 40px;
+.holdings-table{
+    margin-top: 50px;
+    color: #585858;
 }
 
 .holding-buttons{
@@ -81,6 +77,14 @@ a:hover, .holding-title:hover, .holding-total:hover, .holding-net-val:hover{
     padding:4px 0;
 }
 
+thead, tbody, tfoot, tr, td, th{
+    border: none;
+}
+
+tr{
+    border-bottom: thin dotted;
+}
+
 tr > .cell {
     padding: 12px;
 }
@@ -92,5 +96,32 @@ tr > .cell {
     margin: 2px 0;
 }
 
+.hold-text{
+    margin-right: 5px;
+}
 
+.fas{
+    color: tomato;
+}
 
+.fas:hover{
+    color:  #002b7c;
+}
+
+.return-up.holding-return-icon{
+    color: green;
+    font-size: 20px;
+}
+
+.return-down.holding-return-icon{
+    color:red;
+    font-size: 20px;
+}
+
+a {
+    color: #585858
+}
+
+a:hover{
+    color:tomato;
+}
