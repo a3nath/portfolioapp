@@ -63,7 +63,7 @@
     </section>
     <section class='holdings'>
         <div class="container">
-            <h1 class='holding-title section-title'>Portfolio</h1>
+            <h1 class='section-title'>Portfolio</h1>
             <table id='holdings-table' class='table'>
                 <tbody>
                     <tr>
@@ -74,7 +74,7 @@
                     {% for holding in holdings %}
                     <tr class='asset-row'>
                             <td class='cell col-3'>
-                                <h3 class='ticker-title'>{{holding.ticker}}</h3>
+                                <h3 class='holding-title'>{{holding.ticker}}</h3>
                             </td>
                             <!-- asset value -->
                             <td class='cell holding-return col-5'>

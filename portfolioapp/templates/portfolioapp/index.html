@@ -35,7 +35,7 @@
     <section class='welcome'>
         <div class="container ticker-search">
             <h1 class='welcome-title'>Portfolio Tracker</h1>
-            <h3 class='welcome-subtitle'>Seacrh stocks, add to your portfolio and track dollas!</h3>
+            <h3 class='welcome-subtitle'>Search stocks, add to your portfolio and track dollas!</h3>
             <h2 class='section-title'>Search</h2>
             <h4 class='section-subtitle'>Type a stock ticker symbol to start</h4>
             <!-- enter asset to search using yf API -->
@@ -58,10 +58,10 @@
         <div class="container ticker-add">
             {% if ticker_valid %}
                 <!-- Add Ticker button -->
-                <div class="ticker-details">
-                    <div class="ticker-name">
-                        <h3>{{asset_name}}</h3>
-                        <h4>{{asset_ticker}}</h4>
+                <div class="asset-details">
+                    <div class="asset-name-info">
+                        <h3 class='asset-name'>{{asset_name}}</h3>
+                        <h4 class='asset-ticker'>{{asset_ticker}}</h4>
                     </div>
                         <!-- if asset doesnt exist in portfolio -->
                         {% if btn_action == "add" %}
@@ -83,7 +83,10 @@
                 <div class='news'>
                     <h2 class='section-title'>News</h2>
                     {% for item in news %}
-                            <article> {{item.title}} </article>
+                            <div class='asset-news'>
+                                <article class='asset-article'> {{item.title}} </article>
+                                <span><span>{{item.publisher}}</span><a class='news-link' href='{{item.link}}'>Link</a></span>    
+                            </div>
                     {% endfor %}
                 </div>
             {% endif %}

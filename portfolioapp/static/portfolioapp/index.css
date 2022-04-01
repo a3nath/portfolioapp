@@ -31,11 +31,11 @@
 }
 
 .welcome-info-container{
-    height: calc(100vh - 130px);
+    min-height: calc(100vh - 130px);
     padding: 100px 0
 }
 
-.ticker-details{
+.asset-details{
     display: flex;
 }
 
@@ -45,15 +45,17 @@
 
 .ticker-btn{
     padding: 8px;
-    height: 80%;
-    margin-left: 10px;
+    height: 90%;
+    margin-left: 15px;
+    position: relative;
+    top: 5px;
 }
 
 .welcome{
     max-height: 400px;
 }
 
-.news > article{
+.asset-article{
     margin: 4px 0;
 }
 
@@ -72,12 +74,35 @@
 
 .welcome-subtitle{
     text-align: center;
+    font-size: 2.4rem;
 }
 
 .btn-primary{
     background-color: #002b7c;
+    border-color: #002b7c;
+    font-size: 1.2rem;
 }
 
 .btn-primary:hover{
     background-color: tomato ;
+    border-color: tomato;
+    color: #002b7c;
+}
+
+.asset-name{
+    font-size: 2.8rem;
+}
+
+.asset-ticker{
+    font-size: 1.8rem;
+}
+
+.news-link{
+    margin-left: 5px;
+    color: salmon;
+}
+
+.asset-news{
+    padding: 8px 0;
+    border-bottom: thin dotted;
 }
