@@ -34,22 +34,29 @@
     <section class='portfolio-return'>
         <div class="container">
             <h1 class='holding-title title'>Return</h1>
-            <div class='value-container'>
-                <div class="portfolio-value">
-                    {% fa5_icon 'dollar-sign fab' class='dollar-icon return-icon' %}
-                    <span class='doll-num return-num'><h2>{{portfolio_val}}</h2></span>
+            <div class='value-return-container'>
+                <div class="tot-val portfolio-val">
+                    <h1>Portfolio Value</h2>
+                    <div class="val-container">
+                        {% fa5_icon 'dollar-sign fab' class='dollar-icon return-icon' %}
+                        <span class='val-num portfolio-num'>{{portfolio_val}}</span>
+                    </div>
                 </div>
-            </div>
-            <div class="return-container">
                 <!-- return in dollars -->
-                <div class="return-dol return">
-                    {% fa5_icon 'dollar-sign fab' class='dollar-icon return-icon' %}
-                    <span class='doll-num return-num'>{{return_doll}}</span>
+                <div class="return-dol portfolio-val">
+                    <h3>Dollar Return</h3>
+                    <div class="val-container">
+                        {% fa5_icon 'dollar-sign fab' class='dollar-icon return-icon' %}
+                        <span class='doll-num portfolio-num'>{{return_doll}}</span>
+                    </div>
                 </div>
                 <!-- return in percentage -->
-                <div class="return-per return">
-                {% fa5_icon 'percent' class='percent-icon return-icon' %}
-                <span class='percent-num return-num'>{{return_per}}</span>
+                <div class="return-per portfolio-val">
+                    <h3>Percent Return</h3>
+                    <div class="val-container">
+                        {% fa5_icon 'percent' class='percent-icon return-icon' %}
+                        <span class='percent-num portfolio-num'>{{return_per}}</span>    
+                    </div>
                 </div>
             </div>
         </div>

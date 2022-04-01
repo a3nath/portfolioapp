@@ -10,6 +10,7 @@ from .models import Asset
 from django.template.loader import render_to_string
 from django.db import IntegrityError
 import json
+import locale
 
 
 import yfinance as yf
@@ -134,20 +135,23 @@ class PortfolioPageView(View):
                 pp = 0
                 pq = 0
                 cp = 0
-            return_doll += (cp - pp)*pq
+            return_doll += round((cp - pp)*pq)
             sum_net += (cp - pp)*pq
             ppTot += pp*pq
             portfolio_val += holding.tot_val
         if ppTot > 0:
-            return_per = sum_net/ppTot
+            return_per = round(sum_net/ppTot * 100)
         #not purchased anything so far
         else: 
             return_per = 0
+
+        locale.setlocale(locale.LC_ALL, 'en_US')
+        
         context = {
             'holdings':holdings,
-            'return_doll':return_doll,
+            'return_doll':locale.format("%d", return_doll, grouping=True),
             'return_per': return_per,
-            'portfolio_val': portfolio_val
+            'portfolio_val':  locale.format("%d", portfolio_val, grouping=True)
         }
         return render(request, 'portfolioapp/portfolio.html', context)
 

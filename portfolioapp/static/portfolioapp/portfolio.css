@@ -2,23 +2,22 @@ tr {
     margin-bottom: 50px;
 }
 
-
-.return-container{
-    display: flex;
+.value-return-container{
+    box-shadow: 0 20px 20px 0 #e0e0e0;
+    background: #fafafa;
+    border: dotted silver 1px;
+    width: 80%;
 }
 
-.return{
-    padding: 50px;
+.portfolio-val{
     margin: 50px 200px;
-    box-shadow: 0 20px 20px 0 #e0e0e0;
-    border: dotted silver 1px;
-    width: 30%;
-    height: 250px;
-    border-radius: 10px;
-    background: #fafafa;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
+}
+
+.val-container{
+    text-align: left;
 }
 
 .return-icon{
@@ -26,8 +25,8 @@ tr {
     margin-right: 8px;
 }
 
-.return-num{
-    font-size: 40px;
+.portfolio-num{
+    font-size: 4rem;
 }
 
 .return-up{
