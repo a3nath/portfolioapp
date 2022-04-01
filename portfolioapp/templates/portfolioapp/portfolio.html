@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 {% load fontawesome_5 %}
-{% load floatformat %}
 
 {% block title %}
     Portfolio
@@ -79,7 +78,7 @@
                             </td>
                             <!-- asset value -->
                             <td class='cell holding-return col-5'>
-                                    <span class='holding-total'>{{holding.tot_val|floatformat: "-3g"}}</span>
+                                    <span class='holding-total'>{{holding.tot_val|floatformat:"-3g"}}</span>
                                     <div class="holding-net">
                                          <!-- icon -->
                                        {% if holding.net_val > 0 %} 
@@ -87,7 +86,7 @@
                                         {% elif 0 > holding.net_val   %}
                                             {% fa5_icon 'caret-down fas' class='return-down holding-return-icon' %}
                                         {% endif %}
-                                    <span class='holding-net-val'>{{holding.net_val}}</span>
+                                    <span class='holding-net-val'>{{holding.net_val|floatformat:"-3g"}}</span>
                                  
                                 </div>
                             </td>
