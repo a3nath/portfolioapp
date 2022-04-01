@@ -7,6 +7,7 @@ html{
 body {
     font-family: 'Roboto', sans-serif;
     font-size: 1.6rem;
+    background: linen;
 }
 
 ul{
@@ -16,7 +17,7 @@ ul{
 
 nav{
     height: 80px;
-    background: #4787ff;
+    background: #002b7c;
 }
 
 .container-fluid{
@@ -24,10 +25,11 @@ nav{
 }
 
 .footer{
-    background-color: #4787ff;
+    background-color: #002b7c;
     height: 50px;
     padding:15px;
     text-align: center;
+    color: #fff;
 }
 
 .heart-icon{

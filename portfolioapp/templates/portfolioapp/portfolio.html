@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load fontawesome_5 %}
+{% load floatformat %}
 
 {% block title %}
     Portfolio
@@ -39,7 +40,7 @@
                     <h1>Portfolio Value</h2>
                     <div class="val-container">
                         {% fa5_icon 'dollar-sign fab' class='dollar-icon return-icon' %}
-                        <span class='val-num portfolio-num'>{{portfolio_val}}</span>
+                        <div class='val-num portfolio-num'>{{portfolio_val}}</div>
                     </div>
                 </div>
                 <!-- return in dollars -->
@@ -47,7 +48,7 @@
                     <h3>Dollar Return</h3>
                     <div class="val-container">
                         {% fa5_icon 'dollar-sign fab' class='dollar-icon return-icon' %}
-                        <span class='doll-num portfolio-num'>{{return_doll}}</span>
+                        <div class='doll-num portfolio-num'>{{return_doll}}</div>
                     </div>
                 </div>
                 <!-- return in percentage -->
@@ -55,7 +56,7 @@
                     <h3>Percent Return</h3>
                     <div class="val-container">
                         {% fa5_icon 'percent' class='percent-icon return-icon' %}
-                        <span class='percent-num portfolio-num'>{{return_per}}</span>    
+                        <div class='percent-num portfolio-num'>{{return_per}}</div>    
                     </div>
                 </div>
             </div>
@@ -78,7 +79,7 @@
                             </td>
                             <!-- asset value -->
                             <td class='cell holding-return col-5'>
-                                    <span class='holding-total'>{{holding.tot_val}}</span>
+                                    <span class='holding-total'>{{holding.tot_val|floatformat: "-3g"}}</span>
                                     <div class="holding-net">
                                          <!-- icon -->
                                        {% if holding.net_val > 0 %} 
