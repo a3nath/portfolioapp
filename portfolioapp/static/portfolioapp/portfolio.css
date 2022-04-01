@@ -49,10 +49,6 @@ tr {
     font-size: 12px;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
 
 a:hover, .ticker-title:hover, .holding-total:hover, .holding-net-val:hover{
     color:tomato;
