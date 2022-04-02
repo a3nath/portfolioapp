@@ -11,6 +11,10 @@ body {
     color: #585858
 }
 
+h1{
+    font-size: 2.4rem;
+}
+
 ul{
     list-style: none;
     margin: 0;

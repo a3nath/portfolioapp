@@ -33,7 +33,7 @@
     <!-- total return of portfolio -->
     <section class='portfolio-return'>
         <div class="container">
-            <h1 class='holding-title section-title'>Return</h1>
+            <h1 class='section-title'>Return</h1>
             <div class='value-return-container'>
                 <div class="tot-val portfolio-val">
                     <h1>Portfolio Value</h2>
@@ -73,11 +73,11 @@
                     </tr> -->
                     {% for holding in holdings %}
                     <tr class='asset-row'>
-                            <td class='cell col-3'>
+                            <td class='cell col-2'>
                                 <h3 class='holding-title'>{{holding.ticker}}</h3>
                             </td>
                             <!-- asset value -->
-                            <td class='cell holding-return col-5'>
+                            <td class='cell holding-return col-6'>
                                 <span class='holding-total'>
                                     <span class='holding-total-text hold-text'>Total value:</span>
                                     {{holding.tot_val|floatformat:"-3g"}}

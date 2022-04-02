@@ -66,11 +66,16 @@ tr {
 }
 
 .holding-title{
-    font-size: 2.4rem;
+    font-size: 2rem;
+    padding: 12px 0;
 }
 
 .holding-total{
     font-size: 2rem;
+}
+
+.holding-total-text{
+    font-size: 1.75rem;
 }
 
 .holding-net{
@@ -86,7 +91,8 @@ tr{
 }
 
 tr > .cell {
-    padding: 12px;
+    padding: 20px 12px;
+
 }
 
 .holding-button-icon{
