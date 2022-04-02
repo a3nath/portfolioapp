@@ -1,34 +1,38 @@
+{% comment %}
+
 {% extends "base.html" %}
 {% load static %}
 
 
 {% block title %}
-    Add
+    Update
 {% endblock %}
 
 {% block css_files %}
-    <link rel='stylesheet' href="{% static 'portfolioapp/modal.css' %}">
+    <link rel='stylesheet' href="{% static 'portfolioapp/update-portfolio.css' %}">
 {% endblock %}
 
 {% block content %}
+
+
 
 <!-- Modal opens with edit options -->
 <div class="modal fade" tabindex="-1" role="dialog" id="modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add Holding</h5>
+                <h5 class="modal-title">{{modal_title}}</h5>
             </div>
             <div class="modal-body">
                 <div class="container-form">
-                    <form method="post" action="{% url 'add-portfolio' ticker %}">  
+                    <form method="post" action="{% url {{portfolio_url}} {{slug}} %}">  
                         {% csrf_token %}
                         <ul>
                             {{form.as_ul}}
                         </ul>
                         <div class='modal-footer'>
-                            <input type="submit" name='addticker' class="btn btn-primary add-btn" value='Add'>
-                            <button class="btn btn-secondary cancel-btn"><a href="{% url 'starting-page' %}">Cancel</a></button>
+                            <input type="submit" name='{{input_name}}' class="btn btn-primary {{submit_btn_class}}" value='{{submit_btn_value}}' >
+                            <button class="btn btn-secondary cancel-btn"><a href="{% url '{{cancel_url}}'  %}">Cancel</a></button>
                         </div>
                     </form>
                 </div>
@@ -53,15 +57,9 @@ $(document).ready(function(){
     $('#modal').modal('show')
 }); 
 
-
-
-// $(document).ready(function(){
-//     $('#modal').modal({
-//         keyboard: false,
-//         backdrop: 'static'
-//     });
-// })
 </script>
 
 
 {% endblock %}
+
+{% endcomment %}

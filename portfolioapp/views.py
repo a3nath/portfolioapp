@@ -146,7 +146,7 @@ class PortfolioPageView(View):
             return_per = 0
 
         locale.setlocale(locale.LC_ALL, 'en_US')
-        
+
         context = {
             'holdings':holdings,
             'return_doll':locale.format("%d", return_doll, grouping=True),
@@ -180,32 +180,36 @@ def PortfolioAdd(request,ticker):
    #add asset purchase price and quantity to db
     elif request.method == "POST":
         asset_form = AssetForm(request.POST)
-    # if form not blank
-        if asset_form.is_valid():
-            #try:
-                # submit to db
-                asset = Asset.objects.create(
-                    ticker=ticker, 
-                    purchase_price = asset_form.cleaned_data['purchase_price'],
-                    purchase_quantity = asset_form.cleaned_data['purchase_quantity'],
-                    session=request.session.session_key
-                )
-                asset.save()
-                request.session['session_exists'] = False
-                request.session['error_exists'] = False
-                # direct to portfolio
-                return HttpResponseRedirect(reverse("portfolio-page"))
-            # delete this - shouldn't be able to add duplicate
-            # except IntegrityError:
-            #     request.session['error_exists'] = True
-            #     return HttpResponseRedirect(reverse("starting-page"))
-        # if form is blank, back to same page
+        if 'addticker' in request.POST:
+        # if form not blank
+            if asset_form.is_valid():
+                #try:
+                    # submit to db
+                    asset = Asset.objects.create(
+                        ticker=ticker, 
+                        purchase_price = asset_form.cleaned_data['purchase_price'],
+                        purchase_quantity = asset_form.cleaned_data['purchase_quantity'],
+                        session=request.session.session_key
+                    )
+                    asset.save()
+                    request.session['session_exists'] = False
+                    request.session['error_exists'] = False
+                    # direct to portfolio
+                    return HttpResponseRedirect(reverse("portfolio-page"))
+                # delete this - shouldn't be able to add duplicate
+                # except IntegrityError:
+                #     request.session['error_exists'] = True
+                #     return HttpResponseRedirect(reverse("starting-page"))
+            # if form is blank, back to same page
+            else:
+                context  = {
+                "form" : asset_form,
+                "ticker": asset.ticker,
+                }
+                return render(request, 'portfolioapp/add-portfolio.html', context)
         else:
-            context  = {
-            "form" : asset_form,
-            "ticker": asset.ticker,
-            }
-            return render(request, 'portfolioapp/add-portfolio.html', context)
+            return HttpResponseRedirect(reverse("starting-page"))
+            
     
 
 def PortfolioUpdate(request,ticker):
@@ -229,30 +233,28 @@ def PortfolioUpdate(request,ticker):
 
     #post updated asset purchase price and quantity to db
     elif request.method == "POST":
-        # if 'update' in request.POST:
-        
-        holdings = Asset.objects.filter(session = request.session.session_key)
-        asset = get_object_or_404(holdings, ticker=ticker)
-        holding_form = HoldingForm(request.POST)
-        # form isn't blank
-        if holding_form.is_valid():
-            # saves valid form reponse to databse
-            # redirects to portfolio template
-            asset.purchase_price = holding_form.cleaned_data['purchase_price']
-            asset.purchase_quantity = holding_form.cleaned_data['purchase_quantity']
-            asset.save()
-            return HttpResponseRedirect(reverse("portfolio-page"))
-        # form is blank
+        if 'updateticker' in request.POST:
+            holdings = Asset.objects.filter(session = request.session.session_key)
+            asset = get_object_or_404(holdings, ticker=ticker)
+            holding_form = HoldingForm(request.POST)
+            # form isn't blank
+            if holding_form.is_valid():
+                # saves valid form reponse to databse
+                # redirects to portfolio template
+                asset.purchase_price = holding_form.cleaned_data['purchase_price']
+                asset.purchase_quantity = holding_form.cleaned_data['purchase_quantity']
+                asset.save()
+                return HttpResponseRedirect(reverse("portfolio-page"))
+            # form is blank
+            else:
+                context  = {
+                "form" : holding_form,
+                "ticker": asset.ticker,
+                "pp": pp,
+                "pq": pq
+                }
+                return render(request, 'portfolioapp/update-portfolio.html', context)
         else:
-            context  = {
-            "form" : holding_form,
-            "ticker": asset.ticker,
-            "pp": pp,
-            "pq": pq
-            }
-            return render(request, 'portfolioapp/update-portfolio.html', context)
-       
-        # else:
-        #     return HttpResponseRedirect(reverse("portfolio-page"))
+            return HttpResponseRedirect(reverse("portfolio-page"))
 
     
