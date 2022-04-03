@@ -1,4 +1,4 @@
-tr {
+.asset-row {
     margin-bottom: 50px;
 }
 
@@ -86,11 +86,11 @@ thead, tbody, tfoot, tr, td, th{
     border: none;
 }
 
-tr{
+.asset-row{
     border-bottom: thin dotted;
 }
 
-tr > .cell {
+.asset-row > .cell {
     padding: 20px 12px;
 
 }

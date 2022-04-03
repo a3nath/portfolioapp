@@ -64,15 +64,14 @@
     <section class='holdings'>
         <div class="container">
             <h1 class='section-title'>Portfolio</h1>
-            <table class='holdings-table table'>
-                <tbody>
+            <div class='holdings-table'>
                     {% for holding in holdings %}
-                    <tr class='asset-row'>
-                            <td class='cell col-2'>
+                    <div class='asset-row row'>
+                            <div class='cell col-3'>
                                 <h3 class='holding-title'>{{holding.ticker}}</h3>
-                            </td>
+                            </div>
                             <!-- asset value -->
-                            <td class='cell holding-return col-6'>
+                            <div class='cell holding-return col-6'>
                                 <span class='holding-total'>
                                     <span class='holding-total-text hold-text'>Total value:</span>
                                     {{holding.tot_val|floatformat:"-3g"}}
@@ -87,9 +86,9 @@
                                     {% endif %}
                                     <span class='holding-net-val'>{{holding.net_val|floatformat:"-3g"}}</span>
                                 </div>
-                            </td>
+                            </div>
                             <!-- asset actions -->
-                            <td class='cell holding-buttons col-4'>
+                            <div class='cell holding-buttons col-3'>
                                 <!-- edit price quanity -->
                                 <button class='holding-btn'>
                                         <a href="{% url 'update-portfolio' holding.ticker %}">
@@ -104,11 +103,10 @@
                                             Delete
                                         </a>
                                 </button>
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
                 {% endfor %}
-                </tbody>
-            </table>
+            </div>
         </div>
     </section>
 

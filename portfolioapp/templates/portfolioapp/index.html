@@ -36,8 +36,8 @@
         <div class="container ticker-search">
             <h1 class='welcome-title'>Portfolio Tracker</h1>
             <h3 class='welcome-subtitle'>Search stocks, add to your portfolio and track dollas!</h3>
-            <h2 class='section-title'>Search</h2>
-            <h4 class='section-subtitle'>Type a stock ticker symbol to start</h4>
+            <h2 class='section-title search-title'>Search</h2>
+            <!-- <h4 class='section-subtitle'>Type a stock ticker symbol to start</h4> -->
             <!-- enter asset to search using yf API -->
             <form action="{% url 'starting-page' %}" method="post" class='search-form'>
                 {% csrf_token %}
