@@ -14,7 +14,7 @@
 
 {% block content %}
 
-<nav class="nav nav-pills nav-fill navbar navbar-expand-sm sticky-top">
+<nav class="nav nav-pills nav-fill navbar navbar-expand sticky-top">
     <div class="container">
         <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#home-nav'>
             <span class='navbar-togler-icon'>
@@ -45,7 +45,7 @@
                     {{ticker_form.as_ul}}
                 </ul>
                 <button type='submit' class='btn btn-primary search-btn' name='searchticker' value='Search'>
-                    {% fa5_icon 'search fas' class='holding-plus holding-button-icon' %}
+                    {% fa5_icon 'search fas' class='holding-plus home-icon' %}
                     Search
                 </button>
             </form>
@@ -68,14 +68,14 @@
                             <button class='btn btn-primary add-btn ticker-btn'>
                                 <!-- Modal form to add asset pp, pq -->
                                 <a href="{% url 'add-portfolio' asset_ticker %}">
-                                    {% fa5_icon 'plus fas' class='' %}
+                                    {% fa5_icon 'plus fas' class='home-icon' %}
                                     Add to Portfolio
                                 </a>
                             </button>
                         <!-- if asset exists in portfolio -->
                         {% else %}
                             <div class='btn btn-primary exist-btn ticker-btn'>
-                                    {% fa5_icon 'star fas' class='' %}
+                                    {% fa5_icon 'star fas' class='home-icon' %}
                                     In Portfolio
                             </div>
                         {% endif %}
