@@ -3,6 +3,24 @@
     top:20%
 }
 
+.modal-title{
+    width: 100%;
+    text-align: center;
+    font-size: 2.4rem;
+}
+
+.modal-body{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.6rem;
+    background: linen;
+    color: #585858
+}
+
+.modal-header{
+    background: #002b7c;
+    color: #fff;
+}
+
 li{
     margin: 8px 0;
 }
@@ -21,7 +39,6 @@ input{
     height: 30px
 }
 
-
 .cancel-btn{
     color: #fff
 }
@@ -32,12 +49,6 @@ a {
 
 a:hover{
     color: #fff;
-}
-
-.modal-title{
-    width: 100%;
-    text-align: center;
-    font-size: 2.4rem;
 }
 
 .btn{

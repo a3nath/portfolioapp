@@ -1,5 +1,5 @@
-.asset-row {
-    margin-bottom: 50px;
+.portfolio-return{
+    padding-top: 100px;
 }
 
 .value-return-container{
@@ -23,26 +23,10 @@
     align-items: center;
 }
 
-.return-icon{
-    font-size: 4rem;
-    margin-right: 8px;
-    width: 30px;
-}
-
-.portfolio-return{
-    padding-top: 100px;
-}
-
 .portfolio-num{
     font-size: 4rem;
     width: 65%;
     text-align: right;
-}
-
-
-
-.holding-button-icon{
-    font-size: 12px;
 }
 
 .holdings{
@@ -82,12 +66,13 @@
     padding:4px 0;
 }
 
-thead, tbody, tfoot, tr, td, th{
-    border: none;
+.holding-button-icon{
+    font-size: 12px;
 }
 
 .asset-row{
     border-bottom: thin dotted;
+    margin-bottom: 50px;
 }
 
 .asset-row > .cell {
@@ -104,6 +89,12 @@ thead, tbody, tfoot, tr, td, th{
 
 .hold-text{
     margin-right: 5px;
+}
+
+.return-icon{
+    font-size: 4rem;
+    margin-right: 8px;
+    width: 30px;
 }
 
 .fas{
@@ -175,5 +166,4 @@ a:hover{
         justify-content: space-evenly;
         margin: 50px 10px;
     }
-
 }

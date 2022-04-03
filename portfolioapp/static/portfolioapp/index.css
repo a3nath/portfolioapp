@@ -1,3 +1,29 @@
+.welcome-info-container{
+    min-height: calc(100vh - 130px);
+    padding: 100px 0
+}
+
+.welcome{
+    max-height: 400px;
+}
+
+.welcome-title{
+    text-align: center;
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 6.4rem;
+    color: tomato;
+}
+
+.welcome-subtitle{
+    text-align: center;
+    font-size: 2.4rem;
+    margin-top: 25px;
+}
+
+.search-title{
+    margin-top:80px
+}
+
 .ticker-search, .ticker-add{
     padding:  20px 0 0 0  ;
 }
@@ -30,11 +56,6 @@
     height: 45px;
 }
 
-.welcome-info-container{
-    min-height: calc(100vh - 130px);
-    padding: 100px 0
-}
-
 .asset-details{
     display: flex;
 }
@@ -51,31 +72,21 @@
     top: 5px;
 }
 
-.welcome{
-    max-height: 400px;
-}
-
-.asset-article{
-    margin: 4px 0;
-}
-
 .mess{
     margin-left: 20%;
     margin-bottom: 15px;
 }
 
-
-.welcome-title{
-    text-align: center;
-    font-family: 'Chakra Petch', sans-serif;
-    font-size: 6.4rem;
-    color: tomato;
+.asset-name{
+    font-size: 2.8rem;
 }
 
-.welcome-subtitle{
-    text-align: center;
-    font-size: 2.4rem;
-    margin-top: 25px;
+.asset-ticker{
+    font-size: 1.8rem;
+}
+
+.asset-article{
+    margin: 4px 0;
 }
 
 .btn-primary{
@@ -90,26 +101,14 @@
     color: #002b7c;
 }
 
-.asset-name{
-    font-size: 2.8rem;
-}
-
-.asset-ticker{
-    font-size: 1.8rem;
-}
-
-.news-link{
-    margin-left: 5px;
-    color: salmon;
-}
-
 .asset-news{
     padding: 8px 0;
     border-bottom: thin dotted;
 }
 
-.search-title{
-    margin-top:80px
+.news-link{
+    margin-left: 5px;
+    color: salmon;
 }
 
 .home-icon{

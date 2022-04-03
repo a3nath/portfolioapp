@@ -20,34 +20,13 @@ ul{
     margin: 0;
 }
 
-nav{
-    height: 80px;
-    background: #002b7c;
-}
-
 .container-fluid{
     padding: 0;
 }
 
-.footer{
-    background-color: #002b7c;
-    height: 50px;
-    padding:15px;
-    text-align: center;
-    color: #fff;
-}
-
-.heart-icon{
-    color: tomato;
-}
-
-.heart-icon:hover{
-    color: maroon
-}
-
-.footer a {
-    color: tomato;
-    text-decoration: none;
+nav{
+    height: 80px;
+    background: #002b7c;
 }
 
 .nav-item .nav-link{
@@ -59,7 +38,6 @@ nav{
     background-color: tomato;
 }
 
-
 .section-title{
     margin-top: 40px;
     margin-bottom: 20px;
@@ -67,7 +45,6 @@ nav{
     font-size: 3.0rem;
     display: inline-block;
 }
-
 
 .section-title::after {
     content: " ";
@@ -87,8 +64,28 @@ nav{
     
 }
 
+.heart-icon{
+    color: tomato;
+}
+
+.heart-icon:hover{
+    color: maroon
+}
+
+.footer{
+    background-color: #002b7c;
+    height: 50px;
+    padding:15px;
+    text-align: center;
+    color: #fff;
+}
+
+.footer a {
+    color: tomato;
+    text-decoration: none;
+}
+
 a {
     text-decoration: none;
     color: inherit;
 }
-

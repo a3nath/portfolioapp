@@ -37,7 +37,6 @@
             <h1 class='welcome-title'>Portfolio Tracker</h1>
             <h3 class='welcome-subtitle'>Search stocks, add to your portfolio and track dollas!</h3>
             <h2 class='section-title search-title'>Search</h2>
-            <!-- <h4 class='section-subtitle'>Type a stock ticker symbol to start</h4> -->
             <!-- enter asset to search using yf API -->
             <form action="{% url 'starting-page' %}" method="post" class='search-form'>
                 {% csrf_token %}
@@ -63,7 +62,7 @@
                         <h3 class='asset-name'>{{asset_name}}</h3>
                         <h4 class='asset-ticker'>{{asset_ticker}}</h4>
                     </div>
-                        <!-- if asset doesnt exist in portfolio -->
+                        <!-- asset doesnt exist in portfolio -->
                         {% if btn_action == "add" %}
                             <button class='btn btn-primary add-btn ticker-btn'>
                                 <!-- Modal form to add asset pp, pq -->
@@ -72,7 +71,7 @@
                                     Add to Portfolio
                                 </a>
                             </button>
-                        <!-- if asset exists in portfolio -->
+                        <!-- asset exists in portfolio -->
                         {% else %}
                             <div class='btn btn-primary exist-btn ticker-btn'>
                                     {% fa5_icon 'star fas' class='home-icon' %}

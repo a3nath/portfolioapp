@@ -14,35 +14,11 @@ import locale
 
 
 import yfinance as yf
-# Create your views here.
-
-#figure out session_exists true false changing how Im using it
-# i need it for session storage
-# if a user has searched already
-# start,save session of validate form so its not blank?
-
-# if request get
-# access asset
-#session['ticker'] = ticker
-#within get I can check if it exists or not
-##if it does then asset = something otherwise something for context
-##Do I need context for post?
-##save session info at post and ask from there at get
 
 
 class StartingPageView(View):
     def get(self, request):
         ##searched already
-        # if request.session.get('error_exists'):
-        #     context ={
-        #         "errExists": True,
-        #         'message':  request.session.get('message'),
-        #         "ticker_form":TickerForm()
-        #     }
-        #     request.session['error_exists'] = False
-        #     request.session['message'] = ''
-        #     # render(request, 'portfolioapp/index.html', context)  
-        # else:
             if request.session.get('session_exists'): 
                 ticker_input = request.session.get('ticker_input')
                 ticker_asset = yf.Ticker(ticker_input)
@@ -196,11 +172,7 @@ def PortfolioAdd(request,ticker):
                     request.session['error_exists'] = False
                     # direct to portfolio
                     return HttpResponseRedirect(reverse("portfolio-page"))
-                # delete this - shouldn't be able to add duplicate
-                # except IntegrityError:
-                #     request.session['error_exists'] = True
-                #     return HttpResponseRedirect(reverse("starting-page"))
-            # if form is blank, back to same page
+            # form is blank, back to same page
             else:
                 context  = {
                 "form" : asset_form,
