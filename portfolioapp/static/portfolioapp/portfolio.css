@@ -24,7 +24,7 @@
 }
 
 .return-icon{
-    font-size: 40px;
+    font-size: 4rem;
     margin-right: 8px;
     width: 30px;
 }
@@ -130,4 +130,50 @@ a {
 
 a:hover{
     color:tomato;
+}
+
+@media screen and (max-width:990px){
+    .value-return-container{
+        width:100%;
+    }
+}
+
+@media screen and (max-width:768px){
+    .portfolio-num, .return-icon{
+        font-size:3rem;
+    }
+}
+
+@media screen and (max-width:575px){
+    .container{
+        width:90%;
+    }
+    .portfolio-val{
+        justify-content:space-around;
+        margin: 50px 0;
+    }
+}
+
+@media screen and (max-width:461px){
+    .holding-title-container{
+        margin: auto auto;
+    }
+    .holding-return{
+        margin: auto auto;
+    }
+    .holding-buttons{
+        align-items: center;
+    }
+    .holding-btn-link{
+        display: flex;
+        flex-direction: column;
+    }
+    .portfolio-num, .return-icon{
+        font-size:2.4rem;
+    }
+    .portfolio-val{
+        justify-content: space-evenly;
+        margin: 50px 10px;
+    }
+
 }

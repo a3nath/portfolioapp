@@ -67,7 +67,7 @@
             <div class='holdings-table'>
                     {% for holding in holdings %}
                     <div class='asset-row row'>
-                            <div class='cell col-3'>
+                            <div class='cell col-3 holding-title-container'>
                                 <h3 class='holding-title'>{{holding.ticker}}</h3>
                             </div>
                             <!-- asset value -->
@@ -78,27 +78,29 @@
                                 </span>
                                 <div class="holding-net">
                                     <span class='holding-net-text hold-text'>Net change:</span>
-                                        <!-- icon -->
-                                    {% if holding.net_val > 0 %} 
-                                        {% fa5_icon 'caret-up fas' class='return-up holding-return-icon' %}
-                                    {% elif 0 > holding.net_val   %}
-                                        {% fa5_icon 'caret-down fas' class='return-down holding-return-icon' %}
-                                    {% endif %}
-                                    <span class='holding-net-val'>{{holding.net_val|floatformat:"-3g"}}</span>
+                                    <!-- icon -->
+                                    <span class='holding-net-val'>
+                                            {% if holding.net_val > 0 %} 
+                                                {% fa5_icon 'caret-up fas' class='return-up holding-return-icon' %}
+                                            {% elif 0 > holding.net_val   %}
+                                                {% fa5_icon 'caret-down fas' class='return-down holding-return-icon' %}
+                                            {% endif %}
+                                            {{holding.net_val|floatformat:"-3g"}}
+                                    </span>
                                 </div>
                             </div>
                             <!-- asset actions -->
                             <div class='cell holding-buttons col-3'>
                                 <!-- edit price quanity -->
                                 <button class='holding-btn'>
-                                        <a href="{% url 'update-portfolio' holding.ticker %}">
+                                        <a class='holding-btn-link' href="{% url 'update-portfolio' holding.ticker %}">
                                             {% fa5_icon 'pen fas' class='holding-edit holding-button-icon' %}
                                             Edit
                                         </a>
                                 </button>
                                 <button class='holding-btn'>
                                     <!-- remove asset -->
-                                        <a class="close-icon" onclick="deleteTicker(this)" data-id="{{ holding.ticker }}">
+                                        <a class="close-icon holding-btn-link" onclick="deleteTicker(this)" data-id="{{ holding.ticker }}">
                                             {% fa5_icon 'trash fas' class='holding-trash holding-button-icon' %}
                                             Delete
                                         </a>
