@@ -16,6 +16,7 @@ numpy==1.22.2
 pandas==1.4.0
 pipenv==2022.1.8
 platformdirs==2.5.1
+psycopg2-binary==2.9.3
 pylint==2.12.2
 pylint-django==2.5.2
 pylint-plugin-utils==0.7
