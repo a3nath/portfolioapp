@@ -115,6 +115,10 @@
     margin: 0 5px;
 }
 
+.get-info{
+    margin-top: 50px;
+}
+
 @media screen and (max-width: 762px){
     .search-btn{
         width: 20%
