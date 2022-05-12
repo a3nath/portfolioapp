@@ -167,3 +167,12 @@ a:hover{
         margin: 50px 10px;
     }
 }
+
+@media screen and (max-width: 400px){
+    .val-container{
+        width: inherit
+    }
+    .asset-row > .cell{
+        padding: 5px;
+    }
+}

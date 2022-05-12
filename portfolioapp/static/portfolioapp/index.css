@@ -129,18 +129,25 @@
 }
 
 @media screen and (max-width: 576px){
+    .container{
+        max-width: 95%
+    }
     .welcome-info-container{
         padding: 100px 50px;
     }
+    .welcome{
+        max-height: 100%;
+    }
     .get-info{
-        margin: 50px 0;
+        padding: 25px;
+        margin: 0;
     }
     .search-btn{
         width: 30%
     }
-    .container{
-        max-width: 95%
-    }
+   .ticker-btn{
+       padding: 5px;
+   }
 }
 
 @media screen and (max-width: 446px){
@@ -155,7 +162,7 @@
         width: 40%;
         margin: 15px 0;
     }
-    .get-info{
-        margin-top: 150px;
+    .ticker-btn{
+        width: 40%;
     }
 }

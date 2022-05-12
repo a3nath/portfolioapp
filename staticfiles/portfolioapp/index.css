@@ -65,8 +65,8 @@
 }
 
 .ticker-btn{
-    padding: 8px;
-    height: 90%;
+    padding: 15px;
+    height: 50px;
     margin-left: 15px;
     position: relative;
     top: 5px;
@@ -113,6 +113,10 @@
 
 .home-icon{
     margin: 0 5px;
+}
+
+.get-info{
+    margin-top: 50px;
 }
 
 @media screen and (max-width: 762px){
