@@ -22,9 +22,8 @@ class StartingPageView(View):
             if request.session.get('session_exists'): 
                 ticker_input = request.session.get('ticker_input')
                 ticker_asset = yf.Ticker(ticker_input)
-                info = ticker_asset.info
             #invalid ticker
-                if info["regularMarketPrice"] == None:
+                if not ticker_asset.isin.isalnum():
                     # set valid ticker identifier False
                     ticker_valid = False
                     # error exists that ticker doesnt exist
@@ -54,7 +53,6 @@ class StartingPageView(View):
                     "ticker_form":TickerForm(),
                     "ticker_valid": ticker_valid,
                     "asset_ticker": request.session['ticker_name'],
-                    "asset_name": ticker_asset.info['shortName'],
                     "news": ticker_asset.news,
                     "message": request.session.get('message'),
                     "btn_action": btn_action

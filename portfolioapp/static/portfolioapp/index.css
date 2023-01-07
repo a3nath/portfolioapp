@@ -58,6 +58,7 @@
 
 .asset-details{
     display: flex;
+    padding: 10px;
 }
 
 .add-form{
@@ -67,14 +68,32 @@
 .ticker-btn{
     padding: 15px;
     height: 50px;
-    margin-left: 15px;
+    margin: auto 0 auto 15px;
     position: relative;
     top: 5px;
+    border-radius: 50px;
+    
 }
+
+.exist-btn{
+    padding: 15px;
+    height: 50px;
+    margin: auto 0 auto 15px;
+    position: relative;
+    top: 5px;
+    border-radius: 50px;
+    background-color: tomato ;
+    border-color: tomato;
+    color: #002b7c;
+}
+
 
 .mess{
     margin-left: 20%;
     margin-bottom: 15px;
+}
+.asset-name-info{
+    margin: auto 10px auto 0;
 }
 
 .asset-name{
