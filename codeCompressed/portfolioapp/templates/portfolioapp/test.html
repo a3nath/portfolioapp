@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+{% block title %}
+    Update
+{% endblock %}
+
+{% block css_files %}
+    <link rel='stylesheet' href="{% static 'portfolioapp/update-portfolio.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {% include "./includes/modal.html" with modal_title="Update Holding" portfolio_url='update-portfolio' slug=ticker input_name=update submit_btn_class='update-btn' submit_btn_value=Value cancel_url='portfolio-page' %}
+
+{% endblock %}

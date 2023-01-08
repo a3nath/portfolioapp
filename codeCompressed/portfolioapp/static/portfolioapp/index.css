@@ -1,0 +1,187 @@
+.welcome-info-container{
+    min-height: calc(100vh - 130px);
+    padding: 100px 0
+}
+
+.welcome{
+    max-height: 400px;
+}
+
+.welcome-title{
+    text-align: center;
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 6.4rem;
+    color: tomato;
+}
+
+.welcome-subtitle{
+    text-align: center;
+    font-size: 2.4rem;
+    margin-top: 25px;
+}
+
+.search-title{
+    margin-top:80px
+}
+
+.ticker-search, .ticker-add{
+    padding:  20px 0 0 0  ;
+}
+
+.search-form{
+    padding: 40px 0;
+    display: flex;
+}
+
+.search-form ul {
+    margin: 0;
+    width: 70%;
+    padding: 0;
+}
+
+.search-form label{
+    display: none;
+}
+
+.search-form input[type = "text"]{
+    width: 90%;
+    height: 45px;
+    margin-right: 0 10px;
+}
+
+.search-btn{
+    padding: 0 20px;
+    margin-left: 0 50px;
+    width: 15%;
+    height: 45px;
+}
+
+.asset-details{
+    display: flex;
+    padding: 10px;
+}
+
+.add-form{
+    margin-left: 20px;
+}
+
+.ticker-btn{
+    padding: 15px;
+    height: 50px;
+    margin: auto 0 auto 15px;
+    position: relative;
+    top: 5px;
+    border-radius: 50px;
+    
+}
+
+.exist-btn{
+    padding: 15px;
+    height: 50px;
+    margin: auto 0 auto 15px;
+    position: relative;
+    top: 5px;
+    border-radius: 50px;
+    background-color: tomato ;
+    border-color: tomato;
+    color: #002b7c;
+}
+
+
+.mess{
+    margin-left: 20%;
+    margin-bottom: 15px;
+}
+.asset-name-info{
+    margin: auto 10px auto 0;
+}
+
+.asset-name{
+    font-size: 2.8rem;
+}
+
+.asset-ticker{
+    font-size: 1.8rem;
+}
+
+.asset-article{
+    margin: 4px 0;
+}
+
+.btn-primary{
+    background-color: #002b7c;
+    border-color: #002b7c;
+    font-size: 1.2rem;
+}
+
+.btn-primary:hover{
+    background-color: tomato ;
+    border-color: tomato;
+    color: #002b7c;
+}
+
+.asset-news{
+    padding: 8px 0;
+    border-bottom: thin dotted;
+}
+
+.news-link{
+    margin-left: 5px;
+    color: salmon;
+}
+
+.home-icon{
+    margin: 0 5px;
+}
+
+.get-info{
+    margin-top: 50px;
+}
+
+@media screen and (max-width: 762px){
+    .search-btn{
+        width: 20%
+    }
+    .get-info{
+        padding: 50px 0;
+    }
+}
+
+@media screen and (max-width: 576px){
+    .container{
+        max-width: 95%
+    }
+    .welcome-info-container{
+        padding: 100px 50px;
+    }
+    .welcome{
+        max-height: 100%;
+    }
+    .get-info{
+        padding: 25px;
+        margin: 0;
+    }
+    .search-btn{
+        width: 30%
+    }
+   .ticker-btn{
+       padding: 5px;
+   }
+}
+
+@media screen and (max-width: 446px){
+    .search-form{
+        flex-direction: column;
+        align-items: center;
+    }
+    .search-form >ul{
+        width: 100%;
+    }
+    .search-btn{
+        width: 40%;
+        margin: 15px 0;
+    }
+    .ticker-btn{
+        width: 40%;
+    }
+}

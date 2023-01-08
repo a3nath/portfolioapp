@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+{% load fontawesome_5 %}
+
+{% block title %}
+    Portfolio Return
+{% endblock %}
+
+{% block css_files %}
+<link rel='stylesheet' href="{% static 'portfolioapp/index.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<nav class="nav nav-pills nav-fill navbar navbar-expand sticky-top">
+    <div class="container">
+        <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#home-nav'>
+            <span class='navbar-togler-icon'>
+            </span>
+        </button>
+        <div class='navbar-collapse collapse' id='home-nav'>
+            <ul class='navbar-nav'>
+                <li class='nav-item active'>
+                    <a class="nav-link nav-home active" href="{% url 'starting-page' %}">Home</a>
+                </li>
+                <li class='nav-item'>
+                    <a class="nav-link nav-portfolio" href="{% url 'portfolio-page' %}">Portfolio</a>
+                </li>
+    </div>
+</nav>
+
+<div class="welcome-info-container">
+    <section class='welcome'>
+        <div class="container ticker-search">
+            <h1 class='welcome-title'>Portfolio Tracker</h1>
+            <h2 class='welcome-subtitle'>Let's make some money!!</h2>
+            <h3 class='welcome-subtitle'>Search stock tickers, read news, add stocks to your portfolio and track dollas!</h3>
+            <h2 class='section-title search-title'>Search</h2>
+            <!-- enter asset to search using yf API -->
+            <form action="{% url 'starting-page' %}" method="post" class='search-form'>
+                {% csrf_token %}
+                <ul>
+                    {{ticker_form.as_ul}}
+                </ul>
+                <button type='submit' class='btn btn-primary search-btn' name='searchticker' value='Search'>
+                    {% fa5_icon 'search fas' class='holding-plus home-icon' %}
+                    Search
+                </button>
+            </form>
+            <div class='mess'>
+                {{message}}
+            </div>
+        </div>
+    </section>
+    <section class='get-info'>
+        <div class="container ticker-add">
+            {% if ticker_valid %}
+                <!-- Add Ticker button -->
+                <div class="asset-details">
+                    <div class="asset-name-info">
+                        <h3 class='asset-name'>{{asset_name}}</h3>
+                        <h4 class='asset-ticker'>{{asset_ticker}}</h4>
+                    </div>
+                        <!-- asset doesnt exist in portfolio -->
+                        {% if btn_action == "add" %}
+                            <button class='btn btn-primary add-btn ticker-btn'>
+                                <!-- Modal form to add asset pp, pq -->
+                                <a href="{% url 'add-portfolio' asset_ticker %}">
+                                    {% fa5_icon 'plus fas' class='home-icon' %}
+                                    Add to Portfolio
+                                </a>
+                            </button>
+                        <!-- asset exists in portfolio -->
+                        {% else %}
+                            <div class='exist-btn'>
+                                    {% fa5_icon 'star fas' class='home-icon' %}
+                                    In Portfolio
+                            </div>
+                        {% endif %}
+                </div>
+                <div class='news'>
+                    <h2 class='section-title'>News</h2>
+                    {% for item in news %}
+                            <div class='asset-news'>
+                                <article class='asset-article'> {{item.title}} </article>
+                                <span><span>{{item.publisher}}</span><a class='news-link' href='{{item.link}}'>Link</a></span>    
+                            </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </section>
+</div>
+
+<script type='text/javascript' src="{% static 'js/jquery-3.6.0.js' %}"></script>
+<script type='text/javascript' src="{% static 'js/popper.js' %}"></script>
+<script type='text/javascript' src="{% static 'js/bootstrap.js' %}"></script>
+
+{% endblock %}
